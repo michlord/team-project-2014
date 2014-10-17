@@ -6,7 +6,7 @@ class PhysicsManager {
         PhysicsManager();
         ~PhysicsManager();
 
-        void updatePhycics();
+        void updatePhysics();
 
     private:
 
