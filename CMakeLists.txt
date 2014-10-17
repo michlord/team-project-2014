@@ -91,8 +91,7 @@ target_link_libraries(game
 
 # Copy dlls to executable directory. Windows makes my life hard.
 if(WIN32)
-    get_filename_component(SFML_BIN_PATH ${SFML_INCLUDE_DIR} DIRECTORY)
-    set(SFML_BIN_PATH ${SFML_BIN_PATH}/bin)
+    set(SFML_BIN_PATH ${SFML_ROOT}/bin)
     add_custom_command(TARGET game POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${SFML_BIN_PATH}"
