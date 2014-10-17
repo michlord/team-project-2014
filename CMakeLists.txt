@@ -51,13 +51,26 @@ endif()
 
 set(RAGEMAGE_SRCS
     src/main.cpp
+    src/Game.cpp
+    src/InputManager.cpp
+    src/LibrariesManager.cpp
+    src/LogicManager.cpp
+    src/PhysicsManager.cpp
+    src/RenderingManager.cpp
+    src/Rendering/Window.cpp
 )
 
 # This is for project generation purposes so that your .h files appear
 # in your IDE's project browser.
 
 set(RAGEMAGE_H
-    include/test.h
+    src/Game.h
+    src/InputManager.h
+    src/LibrariesManager.h
+    src/LogicManager.h
+    src/PhysicsManager.h
+    src/RenderingManager.h
+    src/Rendering/Window.h
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
