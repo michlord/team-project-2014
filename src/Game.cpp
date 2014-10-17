@@ -5,9 +5,19 @@ Game::Game() {
     isEnd = false;
 
     window = new Rendering::Window();
+    librariesManager = new LibrariesManager();
+    inputManager = new InputManager();
+    logicManager = new LogicManager();
+    physicsManager = new PhysicsManager();
+    renderingManager = new RenderingManager();
 }
 
 Game::~Game() {
+    delete renderingManager;
+    delete physicsManager;
+    delete logicManager;
+    delete inputManager;
+    delete librariesManager;
     delete window;
 }
 

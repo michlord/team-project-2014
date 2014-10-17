@@ -11,7 +11,11 @@ LogicManager::~LogicManager() {
 void LogicManager::handleLogic() {
     computeFrameTime();
 
-    // Handle logic here
+    // switch(GAMESTATE) {
+    //    case GAMEPLAY: handleGameplayLogic(); break;
+    //    case MENU: handleMenuLogic(); break;
+    //    ...
+    // }
 }
 
 void LogicManager::computeFrameTime() {
