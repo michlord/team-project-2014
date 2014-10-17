@@ -27,7 +27,7 @@ void Game::start() {
     while(isEnd == false) {
         getInputManager().handleInput();
         getLogicManager().handleLogic();
-        getPhysicsManager().updatePhycics();
+        getPhysicsManager().updatePhysics();
         getRenderingManager().render();
     }
 }
