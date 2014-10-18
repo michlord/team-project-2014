@@ -15,7 +15,7 @@ PhysicsManager::~PhysicsManager() {
  * Do not change anything unless you know what you are doing.
  */
 void PhysicsManager::updatePhysics() {
-    sf::Int64 microsecFrameTime = Game::get().getLogicManager().frameTime.asMicroseconds();
+    sf::Int64 microsecFrameTime = Game::get().getLogicManager().getFrameTime().asMicroseconds();
     sf::Int64 microsecMaxDeltaTime = 10 * 1000; // 10ms
     sf::Int64 microsecCurrentInterval;
 

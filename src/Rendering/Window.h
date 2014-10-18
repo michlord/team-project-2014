@@ -15,17 +15,21 @@ namespace Rendering {
             void close();
             void clear();
             void display();
-            
-            bool isOpen();
-            sf::RenderWindow& getHandle();
 
             void setSize(int width_, int height_);
+            void setTitle(std::string title_);
 
+            int  getWidth();
+            int  getHeight();
+            bool isOpen();
+            std::string getTitle();
+            sf::RenderWindow& getHandle();
+
+        private:
             int width;
             int height;
             std::string title;
 
-        private:
             sf::RenderWindow* window;
     };
 

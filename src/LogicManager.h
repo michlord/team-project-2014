@@ -11,14 +11,14 @@ class LogicManager {
 
         void handleLogic();
 
-        // Variables
-        sf::Time  frameTime;
+        sf::Time getFrameTime();
 
     private:
         // Methods
         void computeFrameTime();
 
         // Variables
+        sf::Time  frameTime;
         sf::Clock frameTimeClock;
 };
 

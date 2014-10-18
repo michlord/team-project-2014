@@ -21,3 +21,7 @@ void LogicManager::handleLogic() {
 void LogicManager::computeFrameTime() {
     frameTime = frameTimeClock.restart();
 }
+
+sf::Time LogicManager::getFrameTime() {
+    return sf::Time(frameTime);
+}

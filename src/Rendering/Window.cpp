@@ -55,4 +55,23 @@ namespace Rendering {
             window->setSize(sf::Vector2u(width, height));
     }
 
+    void Window::setTitle(std::string title_) {
+        title = title_;
+
+        if(isOpen())
+            window->setTitle(title);
+    }
+
+    int Window::getWidth() {
+        return width;
+    }
+
+    int Window::getHeight() {
+        return height;
+    }
+
+    std::string Window::getTitle() {
+        return title;
+    }
+
 }
