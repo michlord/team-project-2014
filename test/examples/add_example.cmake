@@ -1,0 +1,15 @@
+macro (set_assets target)
+    set(ASSETS_${target} ${ARGN})
+endmacro()
+
+macro (set_sources target)
+    set(SRCS_${target} ${ARGN})
+endmacro()
+
+function (add_example target)
+    add_executable(${target} ${SRCS_${target}})
+    add_test(${target} ${target})
+    foreach(asset ${ASSETS_${target}})
+        file(COPY ${asset} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets)
+    endforeach(asset)
+endfunction()
