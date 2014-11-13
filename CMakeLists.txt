@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(ragemage CXX)
 
+cmake_policy(SET CMP0054 NEW)
+
 # Set compiler flags.
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -67,7 +69,7 @@ target_link_libraries(game
 )
 
 include(CopyDistDlls)
-copy_dist_dlls()
+copy_dist_dlls(game)
 
 enable_testing()
 add_subdirectory(test/examples)

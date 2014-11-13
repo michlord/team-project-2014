@@ -1,7 +1,5 @@
 include(add_example.cmake)
 
-copy_dist_dlls()
-
 # If you want to use sources from the main project tree, you
 # must either specify an appropriate path here or the
 # project modules should be built as libraries with add_library().
@@ -20,7 +18,8 @@ set_assets(example
     "assets/sansation.ttf"
 )
 
-
 add_example(example)
 
 target_link_libraries(example ${SFML_LIBRARIES})
+
+copy_dist_dlls(example)
