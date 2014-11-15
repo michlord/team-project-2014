@@ -75,11 +75,11 @@ const std::string& WindowContext::getTitle() const {
     return title;
 }
 
-const bool WindowContext::isOpened() const {
+bool WindowContext::isOpened() const {
     return window->isOpen();
 }
 
-const bool WindowContext::isVsyncEnabled() const {
+bool WindowContext::isVsyncEnabled() const {
     return isVsync;
 }
 

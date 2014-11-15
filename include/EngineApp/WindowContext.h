@@ -24,8 +24,8 @@ class WindowContext {
         unsigned int getWidth() const;
         unsigned int getHeight() const;
         const std::string& getTitle() const;
-        const bool isOpened() const;
-        const bool isVsyncEnabled() const;
+        bool isOpened() const;
+        bool isVsyncEnabled() const;
         const sf::Time& getFrameTime() const;
         sf::RenderWindow& getHandle();
 
