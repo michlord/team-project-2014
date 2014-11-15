@@ -53,6 +53,8 @@ endif()
 
 set(RAGEMAGE_SRCS
     src/main.cpp
+    src/EngineApp.cpp
+    src/WindowContext.cpp
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -60,6 +62,8 @@ set(RAGEMAGE_SRCS
 
 set(RAGEMAGE_H
     include/test.h
+    src/EngineApp.h
+    src/WindowContext.h
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
