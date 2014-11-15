@@ -1,4 +1,4 @@
-#include "EngineApp.h"
+#include <EngineApp/EngineApp.h>
 
 int main() {
     EngineApp app;

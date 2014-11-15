@@ -1,4 +1,4 @@
-#include "WindowContext.h"
+#include <EngineApp/WindowContext.h>
 
 WindowContext::WindowContext() {
     window = new sf::RenderWindow();

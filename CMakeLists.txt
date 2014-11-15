@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.1.0-rc1)
 project(ragemage CXX)
-
+MESSAGE( STATUS "CMAKE_SYSTEM_VERSION: " ${CMAKE_SYSTEM_VERSION} )
 cmake_policy(SET CMP0054 NEW)
 
 # Set compiler flags.
@@ -52,18 +52,17 @@ endif()
 # once we define better project structure.
 
 set(RAGEMAGE_SRCS
-    src/main.cpp
-    src/EngineApp.cpp
-    src/WindowContext.cpp
+    "src/EngineApp/main.cpp"
+    "src/EngineApp/EngineApp.cpp"
+    "src/EngineApp/WindowContext.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
 # in your IDE's project browser.
 
 set(RAGEMAGE_H
-    include/test.h
-    src/EngineApp.h
-    src/WindowContext.h
+    "include/EngineApp/EngineApp.h"
+    "include/EngineApp/WindowContext.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})

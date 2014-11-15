@@ -1,5 +1,5 @@
-#include "EngineApp.h"
-#include "WindowContext.h"
+#include <EngineApp/EngineApp.h>
+#include <EngineApp/WindowContext.h>
 
 EngineApp::EngineApp() {
     window = new WindowContext();
