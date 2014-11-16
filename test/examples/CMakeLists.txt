@@ -8,18 +8,23 @@ include(add_example.cmake)
 # #include <lib> because our cmake script has custom
 # include_directories preset.
 
-set_sources(example
-    "example/main.cpp"
-    "example/util.cpp"
-    "example/util.h"
+set_sources(input
+    "input/main.cpp"
+    
+    "../../src/EngineSystem/Input/Input.cpp"
+    "../../src/EngineSystem/Input/BinaryInput.cpp"
+    "../../src/EngineSystem/Input/AxisInput.cpp"
+    
+    "../../src/EngineSystem/Input/InputHandler.cpp"
+    "../../src/EngineSystem/Input/Context.cpp"
 )
 
-set_assets(example
+set_assets(input
     "assets/sansation.ttf"
 )
 
-add_example(example)
+add_example(input)
 
-target_link_libraries(example ${SFML_LIBRARIES})
+target_link_libraries(input ${SFML_LIBRARIES})
 
-copy_dist_dlls(example)
+copy_dist_dlls(input)

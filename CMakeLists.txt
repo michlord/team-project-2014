@@ -55,6 +55,13 @@ set(RAGEMAGE_SRCS
     "src/EngineApp/main.cpp"
     "src/EngineApp/EngineApp.cpp"
     "src/EngineApp/WindowContext.cpp"
+    
+    "src/EngineSystem/Input/Input.cpp"
+    "src/EngineSystem/Input/BinaryInput.cpp"
+    "src/EngineSystem/Input/AxisInput.cpp"
+    
+    "src/EngineSystem/Input/InputHandler.cpp"
+    "src/EngineSystem/Input/Context.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -63,6 +70,13 @@ set(RAGEMAGE_SRCS
 set(RAGEMAGE_H
     "include/EngineApp/EngineApp.h"
     "include/EngineApp/WindowContext.h"
+    
+    "include/EngineSystem/Input/Input.h"
+    "include/EngineSystem/Input/BinaryInput.h"
+    "include/EngineSystem/Input/AxisInput.h"
+    
+    "include/EngineSystem/Input/InputHandler.h"
+    "include/EngineSystem/Input/Context.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
