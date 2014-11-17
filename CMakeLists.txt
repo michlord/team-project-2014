@@ -46,6 +46,18 @@ else()
     message("-> Make sure the SFML libraries with the same configuration (Release/Debug, Static/Dynamic) exist.\n")
 endif()
 
+
+
+find_package(GLM)
+
+if(GLM_FOUND)
+    include_directories(${GLM_INCLUDE_DIRS})
+else()
+    set(GLM_ROOT_DIR "" CACHE PATH "The path to the glm library root folder.")
+    message("\n-> GLM library not found. Set GLM_ROOT_DIR to GLM top-level path.")
+endif()
+
+
 # The idea is to keep this CMakeLists.txt very simple. This is a global place where
 # the source and header should be specified. The paths should be relative to the
 # root folder of this project. This will be replaced with add_subdirectory() 
