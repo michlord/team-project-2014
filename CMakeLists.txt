@@ -75,7 +75,8 @@ set(RAGEMAGE_SRCS
     "src/EngineSystem/Input/InputHandler.cpp"
     "src/EngineSystem/Input/Context.cpp"
 	
-	"src/EngineSystem/Config/Config.cpp"
+    "src/EngineSystem/Config/Config.cpp"
+    "src/EngineSystem/Log/Log.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -92,7 +93,9 @@ set(RAGEMAGE_H
     "include/EngineSystem/Input/InputHandler.h"
     "include/EngineSystem/Input/Context.h"
 	
-	"include/EngineSystem/Config/Config.h"
+    "include/EngineSystem/Config/Config.h"
+    
+    "include/EngineSystem/Log/Log.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
