@@ -8,6 +8,10 @@ include(add_example.cmake)
 # #include <lib> because our cmake script has custom
 # include_directories preset.
 
+##############
+# INPUT TEST #
+##############
+
 set_sources(input
     "input/main.cpp"
     
@@ -28,3 +32,23 @@ add_example(input)
 target_link_libraries(input ${SFML_LIBRARIES})
 
 copy_dist_dlls(input)
+
+###############
+# SPRITE TEST #
+###############
+
+set_sources(sprite
+    "sprite/main.cpp"
+    
+    "../../src/EngineSystem/Video/Render/Sprite.cpp"
+)
+
+set_assets(sprite
+    "assets/sprite.png"
+)
+
+add_example(sprite)
+
+target_link_libraries(sprite ${SFML_LIBRARIES})
+
+copy_dist_dlls(sprite)
