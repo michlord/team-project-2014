@@ -11,7 +11,7 @@
 class Log
 {
 public:
-    static enum SYSTEM {
+    enum SYSTEM {
         ENGINE,
         ASSETS,
         GAME,
