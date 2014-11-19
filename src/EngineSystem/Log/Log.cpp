@@ -1,5 +1,9 @@
 #include <EngineSystem/Log/Log.h>
 
+const std::string Log::engineSystemLogFilePath = "engineSystemLog.txt";
+const std::string Log::assetsSystemLogFilePath = "assetsSystemLog.txt";
+const std::string Log::gameSystemLogFilePath = "gameSystemLog.txt";
+
 Log::Log() {
 
 }
