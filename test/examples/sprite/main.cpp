@@ -11,13 +11,15 @@ int main() {
     }
 
     Video::Render::Sprite sprite;
+    Video::Render::Sprite::Frame frame;
+
+    frame.setTextureSegment(sf::IntRect(0, 0, 150, 120));   // Ustawienie wycinka tekstury jako 'zrodla' dla segmentu klatki
+    
+    sprite.insertFrame(frame);                              // Dodanie klatki do sprite'a. Jako ze jest to Sprite, nie
+                                                            // AnimatedSprite, kazde dodanie klatki nadpisuje nastepne
 
     sprite.bindTexture(texture);                            // Precyzujemy z ktorej tekstury bedziemy rysowac
                                                             // Zmiana tekstury wymaga ponownej specyfikacji segmentu
-
-    sprite.setTextureSegment(sf::IntRect(0, 0, 150, 120));  // Ustawienie segmentu tekstury, ktory wybieramy z calej tekstury
-                                                            // Domyslnie jest to cala tekstura (ale mozemy wyswietlic tylko
-                                                            // jej kawalek.
 
     sprite.setPosition(sf::Vector2f(100.0f, 100.0f));       // Pozycja - mierzona w pikselach od lewego gornego rogu
     sprite.setSize(sf::Vector2u(50, 50));                   // Rozmiar - mierzony w pikselach

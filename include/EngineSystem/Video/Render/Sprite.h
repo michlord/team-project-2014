@@ -10,41 +10,72 @@ namespace Video {
 
         class Sprite {
             public:
+                class Frame {
+                    public:
+                        Frame();
+                        Frame(const sf::IntRect& textureSegment_, const sf::Time& duration_);
+
+                        const sf::Time& update(const sf::Time& timeElapsed_);
+                        
+                        void setDuration(const sf::Time& time_);
+                        void setTextureSegment(const sf::IntRect& textureSegment_);
+
+                        const sf::Time& getTimeLeft() const;
+                        const sf::Time& getDuration() const;
+                        const sf::IntRect& getTextureSegment() const;
+
+                    private:
+                        void setTimeLeft(const sf::Time& time);
+
+                        sf::Time timeLeft;
+                        sf::Time duration;
+                        sf::IntRect textureSegment;
+                };
+
+
+            public:
                 Sprite();
                 Sprite(sf::Texture& texture_);
-                Sprite(sf::Texture& texture_, const sf::IntRect& textureSegment);
+                Sprite(sf::Texture& texture_, const Sprite::Frame& frame_);
+                virtual ~Sprite();
 
-                void draw(sf::RenderWindow* windowHandle_);
+                virtual void update(const sf::Time& timeElapsed_);
+                virtual void draw(sf::RenderWindow* windowHandle_);
+                virtual void insertFrame(const Sprite::Frame& frame_);
                 void bindTexture(sf::Texture& texture_);
 
                 void setRotation(float angle_);
                 void setSize(const sf::Vector2u& size_);
-                void setPosition(const sf::Vector2f& position_);
-                void setTextureSegment(const sf::IntRect& segment_);
-                void setColorMask(const sf::Color& mask_);
-                void movePosition(const sf::Vector2f& moveVector_);
                 void setSize(unsigned int width_, unsigned int height_);
+                void setPosition(const sf::Vector2f& position_);
                 void setPosition(float positionX_, float positionY_);
-                void setTextureSegment(int left_, int top_, int width_, int height_);
+                void setColorMask(const sf::Color& mask_);
+
+                void movePosition(const sf::Vector2f& moveVector_);
                 void movePosition(float offsetX_, float offsetY_);
                 
                 float getRotation() const;
+                unsigned int getFrameCount() const;
                 unsigned int getWidth() const;
                 unsigned int getHeight() const;
                 const sf::Vector2u& getSize() const;
                 const sf::Vector2f& getPosition() const;
-                const sf::IntRect& getTextureSegment() const;
                 const sf::Color& getColorMask() const;
+                const Sprite::Frame* getFrames() const;
 
-            private:
+            protected:
+                unsigned int frameCount;
                 float rotation;
                 sf::Color colorMask;
                 sf::Vector2u size;
                 sf::Vector2f position;
 
                 sf::Sprite sprite;
-                sf::IntRect textureSegment;
                 sf::Texture* texturePtr;
+
+            private:
+                Sprite::Frame frame;    // private since in animated sprite there will be an array of frames
+
         };
 
     }
