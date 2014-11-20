@@ -79,6 +79,7 @@ set(RAGEMAGE_SRCS
     "src/EngineSystem/Log/Log.cpp"
 
     "src/EngineSystem/Video/Render/Sprite.cpp"
+    "src/EngineSystem/Video/Render/AnimatedSprite.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -100,6 +101,7 @@ set(RAGEMAGE_H
     "include/EngineSystem/Log/Log.h"
 
     "include/EngineSystem/Video/Render/Sprite.h"
+    "include/EngineSystem/Video/Render/AnimatedSprite.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})

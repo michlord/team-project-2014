@@ -15,6 +15,7 @@ namespace Video {
                         Frame();
                         Frame(const sf::IntRect& textureSegment_, const sf::Time& duration_);
 
+                        void reset();
                         const sf::Time& update(const sf::Time& timeElapsed_);
                         
                         void setDuration(const sf::Time& time_);
