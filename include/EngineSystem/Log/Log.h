@@ -11,7 +11,7 @@
 class Log
 {
 public:
-    static enum SYSTEM {
+    enum SYSTEM {
         ENGINE,
         ASSETS,
         GAME,
@@ -23,9 +23,9 @@ private:
     std::ofstream assetsSystemLogFile;
     std::ofstream gameSystemLogFile;
 
-    const std::string engineSystemLogFilePath = "engineSystemLog.txt";
-    const std::string assetsSystemLogFilePath = "assetsSystemLog.txt";
-    const std::string gameSystemLogFilePath = "gameSystemLog.txt";
+    static const std::string engineSystemLogFilePath;
+    static const std::string assetsSystemLogFilePath;
+    static const std::string gameSystemLogFilePath;
 
 public:
     static Log& getInstance();
