@@ -41,6 +41,7 @@ set_sources(sprite
     "sprite/main.cpp"
     
     "../../src/EngineSystem/Video/Render/Sprite.cpp"
+    "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
 )
 
 set_assets(sprite
