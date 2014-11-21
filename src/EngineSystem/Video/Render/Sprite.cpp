@@ -131,12 +131,10 @@ namespace Video {
          */
         Sprite::Frame::Frame() {
             setDuration(sf::seconds(1.0f));     // default frame duration = 1s
-            reset();
         }
 
         Sprite::Frame::Frame(const sf::IntRect& textureSegment_, const sf::Time& duration_) {
             setDuration(duration_);
-            reset();
             setTextureSegment(textureSegment_);
         }
 
@@ -151,6 +149,7 @@ namespace Video {
                         
         void Sprite::Frame::setDuration(const sf::Time& time) {
             duration = time;
+            reset();
         }
 
         void Sprite::Frame::setTextureSegment(const sf::IntRect& textureSegment_) {

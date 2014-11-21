@@ -6,11 +6,11 @@ namespace Video {
 
         
         AnimatedSprite::AnimatedSprite() : Sprite() {
-            currentFrame = frames.begin();
+            currentFrame = 0;
         }
 
         AnimatedSprite::AnimatedSprite(sf::Texture& texture_) : Sprite(texture_) {
-            currentFrame = frames.begin();
+            currentFrame = 0;
         }
 
         AnimatedSprite::~AnimatedSprite() {
@@ -43,17 +43,14 @@ namespace Video {
         }
 
         Sprite::Frame& AnimatedSprite::getCurrentFrame() {
-            if(currentFrame == frames.end())
-                currentFrame = frames.begin();
-
-            return *currentFrame;
+            return frames.at(currentFrame);
         }
 
         void AnimatedSprite::setNextFrame() {
             ++currentFrame;
 
-            if(currentFrame == frames.end())
-                currentFrame = frames.begin();
+            if(currentFrame == frames.size())
+                currentFrame = 0;
         }
 
     }

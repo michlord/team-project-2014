@@ -23,8 +23,8 @@ namespace Video {
             private:
                 Sprite::Frame& getCurrentFrame();
                 void setNextFrame();
-
-                std::vector<Sprite::Frame>::iterator currentFrame;
+                
+                unsigned int currentFrame;
                 std::vector<Sprite::Frame> frames;    // private since in animated sprite there will be an array of frames
 
         };
