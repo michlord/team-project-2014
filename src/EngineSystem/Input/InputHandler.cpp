@@ -5,7 +5,7 @@
 #include <SFML/Window.hpp>
 
 
-namespace INPUT {
+namespace Input {
 
 InputHandler::InputHandler(ContextVector contexts_)
     : contexts(contexts_)

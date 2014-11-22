@@ -8,7 +8,7 @@
 
 #include "Input.h"
 
-namespace INPUT {
+namespace Input {
 
 class Context {
     public:

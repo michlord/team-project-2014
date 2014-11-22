@@ -1,7 +1,7 @@
 #ifndef ENGINE_SYSTEM_INPUT_INPUT_H_INCLUDED
 #define ENGINE_SYSTEM_INPUT_INPUT_H_INCLUDED
 
-namespace INPUT {
+namespace Input {
 
 enum ID {
     Unknown = -1,       ///< Unhandled key

@@ -1,6 +1,6 @@
 #include <EngineSystem/Input/BinaryInput.h>
 
-namespace INPUT {
+namespace Input {
 
 bool BinaryInput::isPressed() const {
     return pressed;

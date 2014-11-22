@@ -1,6 +1,6 @@
 #include <EngineSystem/Input/Input.h>
 
-namespace INPUT {
+namespace Input {
 
 ID Input::getId() const {
     return id;

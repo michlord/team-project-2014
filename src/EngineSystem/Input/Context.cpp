@@ -5,7 +5,7 @@
 #include <utility>
 #include <cmath>
 
-namespace INPUT {
+namespace Input {
 
 Context::Context(bool active_)
     : active(active_)

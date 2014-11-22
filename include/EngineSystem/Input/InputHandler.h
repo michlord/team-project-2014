@@ -4,7 +4,7 @@
 #include <EngineSystem/Input/Context.h>
 #include <SFML/Window.hpp>
 
-namespace INPUT {
+namespace Input {
 
 class InputHandler {
     public:

@@ -3,7 +3,7 @@
 
 #include "Input.h"
 
-namespace INPUT {
+namespace Input {
 
 class BinaryInput : public Input {
     private:

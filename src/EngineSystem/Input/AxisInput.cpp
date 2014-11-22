@@ -1,6 +1,6 @@
 #include <EngineSystem/Input/AxisInput.h>
 
-namespace INPUT {
+namespace Input {
 
 float AxisInput::getOffset() const {
     return offset;

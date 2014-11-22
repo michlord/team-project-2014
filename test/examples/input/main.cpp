@@ -46,17 +46,17 @@ int main() {
     
     sf::Event event;
     
-    INPUT::Context context(true);
+    Input::Context context(true);
 
-    context.addBinding("right", INPUT::ID::Right);
-    context.addBinding("up", INPUT::ID::Up);
-    context.addBinding("run", INPUT::ID::R);
-    context.addBinding("right", INPUT::ID::GamepadDPadRight); //should be able to do this
-    context.addBinding("run", INPUT::ID::GamepadLeftX);
-    context.addBinding("up", INPUT::ID::GamepadLeftY);
+    context.addBinding("right", Input::ID::Right);
+    context.addBinding("up", Input::ID::Up);
+    context.addBinding("run", Input::ID::R);
+    context.addBinding("right", Input::ID::GamepadDPadRight); //should be able to do this
+    context.addBinding("run", Input::ID::GamepadLeftX);
+    context.addBinding("up", Input::ID::GamepadLeftY);
 
-    context.addBinding("slash", INPUT::ID::GamepadButtonX);
-    context.addBinding("slash", INPUT::ID::X);
+    context.addBinding("slash", Input::ID::GamepadButtonX);
+    context.addBinding("slash", Input::ID::X);
     
 
     context.addAction("right", std::bind(actionCallback,"right"));
@@ -66,10 +66,10 @@ int main() {
     
 
     
-    INPUT::InputHandler::ContextVector contextVector;
+    Input::InputHandler::ContextVector contextVector;
     contextVector.push_back(context);
     
-    INPUT::InputHandler inputHandler(contextVector);
+    Input::InputHandler inputHandler(contextVector);
     
     while (window.isOpen()) {        
         while (window.pollEvent(event)) {
@@ -80,7 +80,7 @@ int main() {
                 break;
             }
             
-            std::unique_ptr<INPUT::Input> input_p(INPUT::translateEvent(event));
+            std::unique_ptr<Input::Input> input_p(Input::translateEvent(event));
             if(input_p) {
                 inputHandler.handleInput(*input_p);
             }

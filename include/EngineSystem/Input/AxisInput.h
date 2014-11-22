@@ -3,7 +3,7 @@
 
 #include "Input.h"
 
-namespace INPUT {
+namespace Input {
 
 class AxisInput : public Input {
     private:
