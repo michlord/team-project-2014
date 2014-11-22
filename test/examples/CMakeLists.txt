@@ -53,3 +53,38 @@ add_example(sprite)
 target_link_libraries(sprite ${SFML_LIBRARIES})
 
 copy_dist_dlls(sprite)
+
+###############
+# ENTITY TEST #
+###############
+
+set_sources(entity
+    "entity/main.cpp"
+    "entity/animation.cpp"
+    "entity/PlayerEntity.cpp"
+    
+    "../../src/EngineSystem/Input/Input.cpp"
+    "../../src/EngineSystem/Input/BinaryInput.cpp"
+    "../../src/EngineSystem/Input/AxisInput.cpp"
+    
+    "../../src/EngineSystem/Input/InputHandler.cpp"
+    "../../src/EngineSystem/Input/Context.cpp"
+    
+    "../../src/EngineSystem/Video/Render/Sprite.cpp"
+    "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    
+    "../../src/EngineSystem/Entity/BaseEntity.cpp"
+    "../../src/EngineSystem/Entity/EntityManager.cpp"
+    "../../src/EngineSystem/Entity/Message.cpp"
+    "../../src/EngineSystem/Entity/MessageDispatcher.cpp"
+)
+
+set_assets(entity
+    "assets/elisa-spritesheet1.png"
+)
+
+add_example(entity)
+
+target_link_libraries(entity ${SFML_LIBRARIES})
+
+copy_dist_dlls(entity)

@@ -74,12 +74,17 @@ set(RAGEMAGE_SRCS
     
     "src/EngineSystem/Input/InputHandler.cpp"
     "src/EngineSystem/Input/Context.cpp"
-	
+
     "src/EngineSystem/Config/Config.cpp"
     "src/EngineSystem/Log/Log.cpp"
 
     "src/EngineSystem/Video/Render/Sprite.cpp"
     "src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    
+    "src/EngineSystem/Entity/BaseEntity.cpp"
+    "src/EngineSystem/Entity/EntityManager.cpp"
+    "src/EngineSystem/Entity/Message.cpp"
+    "src/EngineSystem/Entity/MessageDispatcher.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -95,13 +100,20 @@ set(RAGEMAGE_H
     
     "include/EngineSystem/Input/InputHandler.h"
     "include/EngineSystem/Input/Context.h"
-	
+
     "include/EngineSystem/Config/Config.h"
 
     "include/EngineSystem/Log/Log.h"
 
     "include/EngineSystem/Video/Render/Sprite.h"
     "include/EngineSystem/Video/Render/AnimatedSprite.h"
+    
+    "include/EngineSystem/Entity/BaseEntity.h"
+    "include/EngineSystem/Entity/StateMachine.h"
+    "include/EngineSystem/Entity/State.h"
+    "include/EngineSystem/Entity/EntityManager.h"
+    "include/EngineSystem/Entity/Message.h"
+    "include/EngineSystem/Entity/MessageDispatcher.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
