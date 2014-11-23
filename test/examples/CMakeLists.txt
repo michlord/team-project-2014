@@ -62,6 +62,7 @@ set_sources(entity
     "entity/main.cpp"
     "entity/animation.cpp"
     "entity/PlayerEntity.cpp"
+    "entity/PlayerStates.cpp"
     
     "../../src/EngineSystem/Input/Input.cpp"
     "../../src/EngineSystem/Input/BinaryInput.cpp"

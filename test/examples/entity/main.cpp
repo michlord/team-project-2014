@@ -1,4 +1,8 @@
+#define _VARIADIC_MAX 8 // Visual studio std::bind has a bug...
+
 #include <iostream>
+#include <functional>
+#include <memory>
 
 #include <SFML/Graphics.hpp>
 
@@ -7,6 +11,8 @@
 
 #include "Animation.h"
 
+#include <EngineSystem/Entity/EntityManager.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include "PlayerEntity.h"
 #include "PlayerStates.h"
 
@@ -50,6 +56,8 @@ Animation prepareAnimation() {
     return anim;
 }
 
+
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Example");
     window.setKeyRepeatEnabled(false);
@@ -65,8 +73,30 @@ int main() {
     anim.setPosition(50,50);
     anim.setSize(112,112);
 
-    PlayerEntity playerEntity(-1);
+    PlayerEntity playerEntity(5);
     playerEntity.animation = anim;
+    
+    Entity::EntityManager::getInstance().registerEntity(&playerEntity);
+
+
+    
+    std::function<void()> jumpCallback = std::bind(
+        &Entity::MessageDispatcher::registerMessage,
+        &(Entity::MessageDispatcher::getInstance()),
+        0,
+        5,
+        (int) PLAYER_MESSAGES::Jump,
+        0.0f,
+        nullptr
+    );
+    
+    Input::Context context(true);
+    context.addBinding("jump", Input::ID::Space);
+    context.addBinding("jump", Input::ID::GamepadButtonA);
+    context.addAction("jump", jumpCallback);
+    Input::InputHandler::ContextVector contextVector;
+    contextVector.push_back(context);
+    Input::InputHandler inputHandler(contextVector);
     
     sf::Event event;
     clock.restart();
@@ -79,10 +109,9 @@ int main() {
                 window.close();
                 break;
             }
-            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Space)) {
-                //Should be sending a message here
-                State<PlayerEntity>* old = playerEntity.getMovementSM()->changeState(new JumpState());
-                delete old;
+            std::unique_ptr<Input::Input> input_p(Input::translateEvent(event));
+            if(input_p) {
+                inputHandler.handleInput(*input_p);
             }
         }
         

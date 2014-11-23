@@ -6,6 +6,10 @@
 #include "PlayerEntity.h"
 #include <EngineSystem/Entity/State.h>
 
+enum PLAYER_MESSAGES {
+    Jump
+};
+
 extern sf::Time frameTime;
 
 class IdleState : public State<PlayerEntity> {
@@ -21,11 +25,7 @@ class IdleState : public State<PlayerEntity> {
         UNUSED(entity)
     }
     
-    virtual bool onMessage(PlayerEntity* entity, const Message &msg) {
-        UNUSED(entity)
-        UNUSED(msg)
-        return true;
-    }
+    virtual bool onMessage(PlayerEntity* entity, const Message &msg);
 };
 
 class JumpState : public State<PlayerEntity> {
@@ -56,6 +56,7 @@ class JumpState : public State<PlayerEntity> {
         return true;
     }
 };
+
 
 
 #endif // TEST_ENTITY_PLAYER_STATES_H_INCLUDED
