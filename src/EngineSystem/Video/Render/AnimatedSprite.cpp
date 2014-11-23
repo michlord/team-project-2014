@@ -26,16 +26,19 @@ namespace Video {
                     getCurrentFrame().reset();
                     setNextFrame();
                 }
+                sprite.setTextureRect(getCurrentFrame().getTextureSegment());
+                setSize(size);
             }
         }
 
-        void AnimatedSprite::draw(sf::RenderWindow* windowHandle_) {
-            if(frames.size() > 0) {
-                sprite.setTextureRect(getCurrentFrame().getTextureSegment());
-                setSize(size);
-
+        void AnimatedSprite::draw(sf::RenderWindow* windowHandle_) const {
+            if(frames.size() > 0)
                 windowHandle_->draw(sprite);
-            }
+        }
+
+        void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+            if(frames.size() > 0)
+                target.draw(sprite, states);
         }
 
         void AnimatedSprite::insertFrame(const Sprite::Frame& frame_) {

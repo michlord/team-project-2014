@@ -8,7 +8,7 @@ namespace Video {
 
     namespace Render {
 
-        class Sprite {
+        class Sprite : sf::Drawable {
             public:
                 class Frame {
                     public:
@@ -41,7 +41,8 @@ namespace Video {
                 virtual ~Sprite();
 
                 virtual void update(const sf::Time& timeElapsed_);
-                virtual void draw(sf::RenderWindow* windowHandle_);
+                virtual void draw(sf::RenderWindow* windowHandle_) const;
+                virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
                 virtual void insertFrame(const Sprite::Frame& frame_);
                 void bindTexture(sf::Texture& texture_);
 

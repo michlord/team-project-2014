@@ -17,7 +17,8 @@ namespace Video {
                 virtual ~AnimatedSprite();
 
                 virtual void update(const sf::Time& timeElapsed_);
-                virtual void draw(sf::RenderWindow* windowHandle_);
+                virtual void draw(sf::RenderWindow* windowHandle_) const;
+                virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
                 virtual void insertFrame(const Sprite::Frame& frame_);
 
             private:

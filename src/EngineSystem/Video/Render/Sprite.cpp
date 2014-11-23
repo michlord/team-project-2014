@@ -30,13 +30,17 @@ namespace Video {
 
         void Sprite::update(const sf::Time& timeElapsed_) {
             frame.update(timeElapsed_);
-        }
 
-        void Sprite::draw(sf::RenderWindow* windowHandle_) {
             sprite.setTextureRect(frame.getTextureSegment());
             setSize(size);
+        }
 
+        void Sprite::draw(sf::RenderWindow* windowHandle_) const {
             windowHandle_->draw(sprite);
+        }
+
+        void Sprite::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+            target.draw(sprite, states);
         }
 
         void Sprite::bindTexture(sf::Texture& texture_) {
