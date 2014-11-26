@@ -9,8 +9,8 @@ Log::Log() {
 }
 
 Log& Log::getInstance() {
-	static Log instance;
-	return instance;
+    static Log instance;
+    return instance;
 }
 
 void Log::init() {
@@ -37,7 +37,16 @@ void Log::close() {
     engineSystemLogFile.close();
     assetsSystemLogFile.close();
     gameSystemLogFile.close();
+}
 
+template <typename Duration>
+std::string getTime(tm t, Duration fraction) {
+    char buff[100];
+    sprintf_s(buff, 100, " [%04u-%02u-%02u %02u:%02u:%02u:%03u]", t.tm_year + 1900,
+        t.tm_mon + 1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec,
+        std::chrono::duration_cast<std::chrono::milliseconds>(fraction).count());
+    std::string time = buff;
+    return time;
 }
 
 void Log::write(SYSTEM arg, const char *msg, ...) {
@@ -46,23 +55,28 @@ void Log::write(SYSTEM arg, const char *msg, ...) {
     char szBuf[1024];
     vsprintf_s(szBuf, msg, args);
 
-    SYSTEMTIME time;
-    GetSystemTime(&time);
-    char currentTime[100];
-    sprintf_s(currentTime, 100, " [%d-%d-%d %d:%d:%d:%d]", time.wYear, time.wMonth, time.wDay,
-              time.wHour, time.wMinute, time.wSecond, time.wMilliseconds);
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    std::chrono::system_clock::duration tp = now.time_since_epoch();
+
+    tp -= std::chrono::duration_cast<std::chrono::seconds>(tp);
+
+    time_t tt = std::chrono::system_clock::to_time_t(now);
+    tm local_tm;
+    localtime_s(&local_tm, &tt);
+    std::string currentTime = getTime(local_tm, tp);
 
     switch (arg) {
     case SYSTEM::ENGINE:
-        engineSystemLogFile << szBuf << currentTime << std::endl;
+        engineSystemLogFile << szBuf << currentTime.c_str() << std::endl;
         break;
 
     case SYSTEM::ASSETS:
-        assetsSystemLogFile << szBuf << currentTime << std::endl;
+        assetsSystemLogFile << szBuf << currentTime.c_str() << std::endl;
         break;
 
     case SYSTEM::GAME:
-        gameSystemLogFile << szBuf << currentTime << std::endl;
+        gameSystemLogFile << szBuf << currentTime.c_str() << std::endl;
         break;
     }
 }
+

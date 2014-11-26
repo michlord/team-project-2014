@@ -1,41 +1,37 @@
-#ifndef LOG_H
-#define LOG_H
+#ifndef ENGINE_SYSTEM_LOG_LOG_H_INCLUDED
+#define ENGINE_SYSTEM_LOG_LOG_H_INCLUDED
 
 #include <iostream>
 #include <fstream>
 #include <stdarg.h>
 #include <iomanip>
 #include <ctime>
-#include <Windows.h>
+#include <chrono>
 
-class Log
-{
-public:
-    enum SYSTEM {
-        ENGINE,
-        ASSETS,
-        GAME,
-        // COUNT  = 3
-    };
+class Log {
+    public:
+        enum SYSTEM {
+            ENGINE,
+            ASSETS,
+            GAME,
+            // COUNT  = 3
+        };
 
-private:
-    std::ofstream engineSystemLogFile;
-    std::ofstream assetsSystemLogFile;
-    std::ofstream gameSystemLogFile;
+        static Log& getInstance();
+        void init();
+        void close();
+        void write(SYSTEM arg, const char *msg, ...);
 
-    static const std::string engineSystemLogFilePath;
-    static const std::string assetsSystemLogFilePath;
-    static const std::string gameSystemLogFilePath;
+    private:
+        std::ofstream engineSystemLogFile;
+        std::ofstream assetsSystemLogFile;
+        std::ofstream gameSystemLogFile;
 
-public:
-    static Log& getInstance();
-    void init();
-    void close();
-    void write(SYSTEM arg, const char *msg, ...);
+        static const std::string engineSystemLogFilePath;
+        static const std::string assetsSystemLogFilePath;
+        static const std::string gameSystemLogFilePath;
 
-private:
-    Log();
+        Log();
 };
-
 
 #endif
