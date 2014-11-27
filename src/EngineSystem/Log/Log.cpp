@@ -8,39 +8,42 @@ Log::Log() {
 
 }
 
-Log& Log::getInstance() {
+Log::~Log() {
+    close();
+}
+
+Log& Log::get() {
     static Log instance;
     return instance;
 }
 
 void Log::init() {
     engineSystemLogFile.open(engineSystemLogFilePath);
-    if (!engineSystemLogFile.is_open()) {
-        std::cout << "Unable to open engineSystemLogFile" << std::endl;
-        return;
-    }
+    if (!engineSystemLogFile.is_open())
+        std::cerr << "Unable to open engineSystemLogFile" << std::endl;
 
     assetsSystemLogFile.open(assetsSystemLogFilePath);
-    if (!assetsSystemLogFile.is_open()) {
-        std::cout << "Unable to open assetsSystemLogFile" << std::endl;
-        return;
-    }
+    if (!assetsSystemLogFile.is_open())
+        std::cerr << "Unable to open assetsSystemLogFile" << std::endl;
 
     gameSystemLogFile.open(gameSystemLogFilePath);
-    if (!gameSystemLogFile.is_open()) {
-        std::cout << "Unable to open gameSystemLogFile" << std::endl;
-        return;
-    }
+    if (!gameSystemLogFile.is_open())
+        std::cerr << "Unable to open gameSystemLogFile" << std::endl;
 }
 
 void Log::close() {
-    engineSystemLogFile.close();
-    assetsSystemLogFile.close();
-    gameSystemLogFile.close();
+    if(engineSystemLogFile.is_open())
+        engineSystemLogFile.close();
+
+    if(assetsSystemLogFile.is_open())
+        assetsSystemLogFile.close();
+
+    if(gameSystemLogFile.is_open())
+        gameSystemLogFile.close();
 }
 
 template <typename Duration>
-std::string getTime(tm t, Duration fraction) {
+std::string Log::getTime(tm t, Duration fraction) {
     char buff[100];
     sprintf_s(buff, 100, " [%04u-%02u-%02u %02u:%02u:%02u:%03u]", t.tm_year + 1900,
         t.tm_mon + 1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec,
@@ -49,7 +52,14 @@ std::string getTime(tm t, Duration fraction) {
     return time;
 }
 
-void Log::write(SYSTEM arg, const char *msg, ...) {
+void Log::write(System arg, const char *msg, ...) {
+    static bool initialized = false;
+    
+    if(initialized == false) {
+        init();
+        initialized = true;
+    }
+
     va_list args;
     va_start(args, msg);
     char szBuf[1024];
@@ -66,17 +76,20 @@ void Log::write(SYSTEM arg, const char *msg, ...) {
     std::string currentTime = getTime(local_tm, tp);
 
     switch (arg) {
-    case SYSTEM::ENGINE:
-        engineSystemLogFile << szBuf << currentTime.c_str() << std::endl;
-        break;
+        case System::Engine:
+            if(engineSystemLogFile.is_open())
+                engineSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            break;
 
-    case SYSTEM::ASSETS:
-        assetsSystemLogFile << szBuf << currentTime.c_str() << std::endl;
-        break;
+        case System::Assets:
+            if(assetsSystemLogFile.is_open())
+                assetsSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            break;
 
-    case SYSTEM::GAME:
-        gameSystemLogFile << szBuf << currentTime.c_str() << std::endl;
-        break;
+        case System::Game:
+            if(gameSystemLogFile.is_open())
+                gameSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            break;
     }
 }
 

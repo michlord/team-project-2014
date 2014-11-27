@@ -10,19 +10,27 @@
 
 class Log {
     public:
-        enum SYSTEM {
-            ENGINE,
-            ASSETS,
-            GAME,
-            // COUNT  = 3
+        enum class System {
+            Engine,
+            Assets,
+            Game,
+            // Count  = 3
         };
 
-        static Log& getInstance();
-        void init();
-        void close();
-        void write(SYSTEM arg, const char *msg, ...);
+        static Log& get();
+
+        void write(System arg, const char *msg, ...);
 
     private:
+        Log();
+        ~Log();
+
+        void init();
+        void close();
+
+        template <typename Duration>
+        std::string getTime(tm t, Duration fraction);
+
         std::ofstream engineSystemLogFile;
         std::ofstream assetsSystemLogFile;
         std::ofstream gameSystemLogFile;
@@ -31,7 +39,6 @@ class Log {
         static const std::string assetsSystemLogFilePath;
         static const std::string gameSystemLogFilePath;
 
-        Log();
 };
 
 #endif
