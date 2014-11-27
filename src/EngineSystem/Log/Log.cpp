@@ -2,7 +2,7 @@
 
 const std::string Log::engineSystemLogFilePath = "engineSystemLog.txt";
 const std::string Log::assetsSystemLogFilePath = "assetsSystemLog.txt";
-const std::string Log::gameSystemLogFilePath = "gameSystemLog.txt";
+const std::string Log::gameSystemLogFilePath   = "gameSystemLog.txt";
 
 Log::Log() {
 
@@ -79,16 +79,25 @@ void Log::write(System arg, const char *msg, ...) {
         case System::Engine:
             if(engineSystemLogFile.is_open())
                 engineSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            else
+                std::cerr << "[Engine] " << szBuf << currentTime.c_str() << std::endl;
+
             break;
 
         case System::Assets:
             if(assetsSystemLogFile.is_open())
                 assetsSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            else
+                std::cerr << "[Assets] " << szBuf << currentTime.c_str() << std::endl;
+
             break;
 
         case System::Game:
             if(gameSystemLogFile.is_open())
                 gameSystemLogFile << szBuf << currentTime.c_str() << std::endl;
+            else
+                std::cerr << "[Game] " << szBuf << currentTime.c_str() << std::endl;
+
             break;
     }
 }
