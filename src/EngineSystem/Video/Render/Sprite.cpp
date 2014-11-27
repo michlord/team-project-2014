@@ -11,13 +11,12 @@ namespace Video {
 
         Sprite::Sprite() {
             frameCount = 0;
-            texturePtr = nullptr;
             isTextureBinded = false;
             isTextureBindedWarningPrinted = false;
             isTextureBindedWarningPrinted = false;
         }
 
-        Sprite::Sprite(sf::Texture& texture_) {
+        Sprite::Sprite(const sf::Texture& texture_) {
             frameCount = 0;
             isTextureBinded = false;
             isTextureBindedWarningPrinted = false;
@@ -26,7 +25,7 @@ namespace Video {
             bindTexture(texture_);
         }
 
-        Sprite::Sprite(sf::Texture& texture_, const Sprite::Frame& frame_) {
+        Sprite::Sprite(const sf::Texture& texture_, const Sprite::Frame& frame_) {
             frameCount = 0;
             isTextureBinded = false;
             isTextureBindedWarningPrinted = false;
@@ -67,10 +66,9 @@ namespace Video {
             }
         }
 
-        void Sprite::bindTexture(sf::Texture& texture_) {
-            texturePtr = &texture_;
+        void Sprite::bindTexture(const sf::Texture& texture_) {
             isTextureBinded = true;
-            sprite.setTexture(*texturePtr, true);
+            sprite.setTexture(texture_, true);
         }
         
         void Sprite::insertFrame(const Sprite::Frame& frame_) {

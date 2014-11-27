@@ -13,7 +13,7 @@ namespace Video {
         class AnimatedSprite : public Sprite {
             public:
                 AnimatedSprite();
-                AnimatedSprite(sf::Texture& texture_);
+                AnimatedSprite(const sf::Texture& texture_);
                 virtual ~AnimatedSprite();
 
                 virtual void update(const sf::Time& timeElapsed_);

@@ -36,15 +36,15 @@ namespace Video {
 
             public:
                 Sprite();
-                Sprite(sf::Texture& texture_);
-                Sprite(sf::Texture& texture_, const Sprite::Frame& frame_);
+                Sprite(const sf::Texture& texture_);
+                Sprite(const sf::Texture& texture_, const Sprite::Frame& frame_);
                 virtual ~Sprite();
 
                 virtual void update(const sf::Time& timeElapsed_);
                 virtual void draw(sf::RenderWindow* windowHandle_) const;
                 virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
                 virtual void insertFrame(const Sprite::Frame& frame_);
-                void bindTexture(sf::Texture& texture_);
+                void bindTexture(const sf::Texture& texture_);
 
                 void setRotation(float angle_);
                 void setSize(const sf::Vector2u& size_);
@@ -77,7 +77,6 @@ namespace Video {
                 sf::Vector2f position;
 
                 sf::Sprite sprite;
-                sf::Texture* texturePtr;
 
             private:
                 Sprite::Frame frame;    // private since in animated sprite there will be an array of frames

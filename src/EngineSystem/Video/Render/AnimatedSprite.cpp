@@ -10,7 +10,7 @@ namespace Video {
             currentFrame = 0;
         }
 
-        AnimatedSprite::AnimatedSprite(sf::Texture& texture_) : Sprite(texture_) {
+        AnimatedSprite::AnimatedSprite(const sf::Texture& texture_) : Sprite(texture_) {
             currentFrame = 0;
         }
 
