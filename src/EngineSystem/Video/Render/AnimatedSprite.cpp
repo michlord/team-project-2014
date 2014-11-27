@@ -1,4 +1,5 @@
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
+#include <EngineSystem/Log/Log.h>
 
 namespace Video {
 
@@ -32,13 +33,29 @@ namespace Video {
         }
 
         void AnimatedSprite::draw(sf::RenderWindow* windowHandle_) const {
-            if(frames.size() > 0)
+            if(windowHandle_) {
                 windowHandle_->draw(sprite);
+
+            } else {
+                const_cast<AnimatedSprite*>(this)->isNullWindowWarningPrinted = true;
+                Log::get().write(Log::System::Engine, "[AnimatedSprite] Attempt to draw on 'null' window!");
+            }
         }
 
         void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-            if(frames.size() > 0)
-                target.draw(sprite, states);
+            if(frames.size() > 0) {
+                if(isTextureBinded) {
+                    target.draw(sprite, states);
+
+                } else if(isTextureBindedWarningPrinted == false) {
+                    const_cast<AnimatedSprite*>(this)->isTextureBindedWarningPrinted = true;
+                    Log::get().write(Log::System::Engine, "[AnimatedSprite] Attempt to draw without binded texture");
+                }
+
+            } else if(isEmptyFramesWarningPrinted == false) {
+                const_cast<AnimatedSprite*>(this)->isEmptyFramesWarningPrinted = true;
+                Log::get().write(Log::System::Engine, "[AnimatedSprite] Attempt to draw sprite without frames!");
+            }
         }
 
         void AnimatedSprite::insertFrame(const Sprite::Frame& frame_) {
@@ -46,7 +63,15 @@ namespace Video {
         }
 
         Sprite::Frame& AnimatedSprite::getCurrentFrame() {
-            return frames.at(currentFrame);
+            if(currentFrame >= frames.size() || currentFrame < 0)
+                Log::get().write(
+                    Log::System::Engine, 
+                    "[AnimatedSprite] Requested acces to %d frame, only %d frames inserted!", 
+                    currentFrame - 1, 
+                    frames.size()
+                );
+            
+            return frames[currentFrame];
         }
 
         void AnimatedSprite::setNextFrame() {

@@ -1,4 +1,5 @@
 #include "EngineSystem/Video/Render/Sprite.h"
+#include "EngineSystem/Log/Log.h"
 
 namespace Video {
 
@@ -11,15 +12,26 @@ namespace Video {
         Sprite::Sprite() {
             frameCount = 0;
             texturePtr = nullptr;
+            isTextureBinded = false;
+            isTextureBindedWarningPrinted = false;
+            isTextureBindedWarningPrinted = false;
         }
 
         Sprite::Sprite(sf::Texture& texture_) {
             frameCount = 0;
+            isTextureBinded = false;
+            isTextureBindedWarningPrinted = false;
+            isTextureBindedWarningPrinted = false;
+
             bindTexture(texture_);
         }
 
         Sprite::Sprite(sf::Texture& texture_, const Sprite::Frame& frame_) {
             frameCount = 0;
+            isTextureBinded = false;
+            isTextureBindedWarningPrinted = false;
+            isTextureBindedWarningPrinted = false;
+
             bindTexture(texture_);
             insertFrame(frame_);
         }
@@ -36,15 +48,28 @@ namespace Video {
         }
 
         void Sprite::draw(sf::RenderWindow* windowHandle_) const {
-            windowHandle_->draw(sprite);
+            if(windowHandle_) {
+                draw(*windowHandle_);
+
+            } else if(isNullWindowWarningPrinted == false) {
+                const_cast<Sprite*>(this)->isNullWindowWarningPrinted = true;
+                Log::get().write(Log::System::Engine, "[Sprite] Attempt to draw on 'null' window");
+            }
         }
 
         void Sprite::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-            target.draw(sprite, states);
+            if(isTextureBinded) {
+                target.draw(sprite, states);
+
+            } else if(isTextureBindedWarningPrinted == false) {
+                const_cast<Sprite*>(this)->isTextureBindedWarningPrinted = true;
+                Log::get().write(Log::System::Engine, "[Sprite] Attempt to draw without binded texture");
+            }
         }
 
         void Sprite::bindTexture(sf::Texture& texture_) {
             texturePtr = &texture_;
+            isTextureBinded = true;
             sprite.setTexture(*texturePtr, true);
         }
         

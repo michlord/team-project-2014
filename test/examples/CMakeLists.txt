@@ -42,6 +42,7 @@ set_sources(sprite
     
     "../../src/EngineSystem/Video/Render/Sprite.cpp"
     "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    "../../src/EngineSystem/Log/Log.cpp"
 )
 
 set_assets(sprite
@@ -70,6 +71,8 @@ set_sources(entity
     
     "../../src/EngineSystem/Input/InputHandler.cpp"
     "../../src/EngineSystem/Input/Context.cpp"
+
+    "../../src/EngineSystem/Log/Log.cpp"
     
     "../../src/EngineSystem/Video/Render/Sprite.cpp"
     "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"

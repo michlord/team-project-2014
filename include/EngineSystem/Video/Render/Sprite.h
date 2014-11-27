@@ -66,6 +66,10 @@ namespace Video {
                 const Sprite::Frame* getFrames() const;
 
             protected:
+                bool isTextureBinded;
+                bool isTextureBindedWarningPrinted;
+                bool isNullWindowWarningPrinted;
+
                 unsigned int frameCount;
                 float rotation;
                 sf::Color colorMask;
