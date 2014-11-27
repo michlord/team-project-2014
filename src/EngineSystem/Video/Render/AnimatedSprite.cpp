@@ -63,7 +63,7 @@ namespace Video {
         }
 
         Sprite::Frame& AnimatedSprite::getCurrentFrame() {
-            if(currentFrame >= frames.size() || currentFrame < 0)
+            if(currentFrame >= frames.size())
                 Log::get().write(
                     Log::System::Engine, 
                     "[AnimatedSprite] Requested acces to %d frame, only %d frames inserted!", 
