@@ -80,6 +80,7 @@ set(RAGEMAGE_SRCS
 
     "src/EngineSystem/Video/Render/Sprite.cpp"
     "src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    "src/EngineSystem/Video/Render/Animation.cpp"
     
     "src/EngineSystem/Entity/BaseEntity.cpp"
     "src/EngineSystem/Entity/EntityManager.cpp"
@@ -107,6 +108,7 @@ set(RAGEMAGE_H
 
     "include/EngineSystem/Video/Render/Sprite.h"
     "include/EngineSystem/Video/Render/AnimatedSprite.h"
+    "include/EngineSystem/Video/Render/Animation.h"
     
     "include/EngineSystem/Entity/BaseEntity.h"
     "include/EngineSystem/Entity/StateMachine.h"

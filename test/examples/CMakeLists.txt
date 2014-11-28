@@ -42,6 +42,8 @@ set_sources(sprite
     
     "../../src/EngineSystem/Video/Render/Sprite.cpp"
     "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    "../../src/EngineSystem/Video/Render/Animation.cpp"
+
     "../../src/EngineSystem/Log/Log.cpp"
 )
 
@@ -76,6 +78,7 @@ set_sources(entity
     
     "../../src/EngineSystem/Video/Render/Sprite.cpp"
     "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
+    "../../src/EngineSystem/Video/Render/Animation.cpp"
     
     "../../src/EngineSystem/Entity/BaseEntity.cpp"
     "../../src/EngineSystem/Entity/EntityManager.cpp"

@@ -34,6 +34,21 @@ namespace Video {
             bindTexture(texture_);
             insertFrame(frame_);
         }
+
+        Sprite::Sprite(const Sprite& sprite_) {
+            isTextureBinded = sprite_.isTextureBinded;
+            isTextureBindedWarningPrinted = sprite_.isTextureBindedWarningPrinted;
+            isNullWindowWarningPrinted = sprite_.isNullWindowWarningPrinted;
+
+            frameCount = sprite_.frameCount;
+            rotation = sprite_.rotation;
+            colorMask = sprite_.colorMask;
+            size = sprite_.size;
+            position = sprite_.position;
+
+            sprite = sprite_.sprite;
+            frame = sprite_.frame;
+        }
         
         Sprite::~Sprite() {
 
@@ -74,6 +89,10 @@ namespace Video {
         void Sprite::insertFrame(const Sprite::Frame& frame_) {
             frameCount = 1;
             frame = frame_;
+        }
+        
+        void Sprite::resetCurrentFrame() {
+            
         }
 
         void Sprite::setRotation(float angle_) {
@@ -163,6 +182,12 @@ namespace Video {
         Sprite::Frame::Frame(const sf::IntRect& textureSegment_, const sf::Time& duration_) {
             setDuration(duration_);
             setTextureSegment(textureSegment_);
+        }
+
+        Sprite::Frame::Frame(const Sprite::Frame& frame_) {
+            timeLeft = frame_.timeLeft;
+            duration = frame_.duration;
+            textureSegment = frame_.textureSegment;
         }
 
         void Sprite::Frame::reset() {

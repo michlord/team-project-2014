@@ -1,6 +1,7 @@
 #include <iostream>
 #include <EngineSystem/Video/Render/Sprite.h>
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
+#include <EngineSystem/Video/Render/Animation.h>
 
 void przygotujSprite(Video::Render::Sprite* sprite, sf::Texture& tekstura) {
     Video::Render::Sprite::Frame frame;
@@ -27,9 +28,44 @@ void przygotujAnimowanySprite(Video::Render::Sprite* sprite, sf::Texture& tekstu
     }
 
     sprite->bindTexture(tekstura);                                  // ustawienie tekstury
-    sprite->setPosition(sf::Vector2f(300.0f, 300.0f));              // ustawienie pozycji na ekranie
+    sprite->setPosition(sf::Vector2f(200.0f, 200.0f));              // ustawienie pozycji na ekranie
     sprite->setSize(sf::Vector2u(100, 100));                        // ustawienie rozmiaru na ekranie
 
+}
+
+void przygotujAnimacje(Video::Render::Animation* animation, sf::Texture& tekstura) {
+    Video::Render::AnimatedSprite sequence[2];
+    Video::Render::Sprite::Frame frames[6];
+
+    frames[0].setTextureSegment(sf::IntRect(0, 0, 150, 120));       // przypisanie segmentu klatki #1 sekwencji #1
+    frames[1].setTextureSegment(sf::IntRect(100, 0, 250, 120));     // przypisanie segmentu klatki #2 sekwencji #1
+    frames[2].setTextureSegment(sf::IntRect(0, 150, 150, 256));     // przypisanie segmentu klatki #3 sekwencji #1
+
+    frames[3].setTextureSegment(sf::IntRect(0, 0, 150, 120));       // przypisanie segmentu klatki #1 sekwencji #2
+    frames[4].setTextureSegment(sf::IntRect(100, 0, 250, 120));     // przypisanie segmentu klatki #2 sekwencji #2
+    frames[5].setTextureSegment(sf::IntRect(0, 150, 150, 256));     // przypisanie segmentu klatki #3 sekwnecji #2
+
+    for(int i = 0; i < 6; ++i) {
+        frames[i].setDuration(sf::seconds(0.5f));                   // ustawienie czasu trwania klatki na 0.5s
+
+        if(i < 3)
+            sequence[0].insertFrame(frames[i]);                     // klatki 0-2 dodane sa do pierwszej sekwencji
+        else
+            sequence[1].insertFrame(frames[i]);                     // klatki 0-3 dodane sa do drugiej sekwencji
+    }
+
+    sequence[0].bindTexture(tekstura);                              // ustawienie tekstury
+    sequence[0].setPosition(sf::Vector2f(400.0f, 200.0f));          // ustawienie pozycji na ekranie
+    sequence[0].setSize(sf::Vector2u(100, 100));                    // ustawienie rozmiaru na ekranie
+    sequence[0].setColorMask(sf::Color(0, 255, 0, 255));            // ustawienie maski koloru dla sekwencji #2
+
+    sequence[1].bindTexture(tekstura);                              // ustawienie tekstury
+    sequence[1].setPosition(sf::Vector2f(400.0f, 200.0f));          // ustawienie pozycji na ekranie
+    sequence[1].setSize(sf::Vector2u(100, 100));                    // ustawienie rozmiaru na ekranie
+    sequence[1].setColorMask(sf::Color(255, 0, 0, 255));            // ustawienie maski koloru dla sekwencji #2
+
+    animation->addSequence("sekwencja1", sequence[0], "sekwencja2");// dodanie sekwnecji #1, ustawienie nastepnej sekwencji na #2
+    animation->addSequence("sekwencja2", sequence[1], "sekwencja1");// dodanie sekwencji #2, ustawienie nastepnej sekwencji na #1
 }
 
 int main() {
@@ -43,7 +79,11 @@ int main() {
         return 0;
     }
 
+    /**
+     * Sprite i AnimatedSprite
+     */
     Video::Render::Sprite* sprites[2];
+
 
     sprites[0] = new Video::Render::Sprite();
     sprites[1] = new Video::Render::AnimatedSprite();
@@ -51,6 +91,17 @@ int main() {
     przygotujSprite(sprites[0], texture);
     przygotujAnimowanySprite(sprites[1], texture);
 
+
+    /**
+     * Animacja
+     */
+    Video::Render::Animation animation;                                 // Tworzymy animacje
+    przygotujAnimacje(&animation, texture);                             // Ustawiamy animacje dodajac do niej sekwencje
+    animation.setCurrentSequence("sekwencja2");                         // Wybieramy ktora sekwencja jest aktualna
+
+    /**
+     * Petla aplikacji
+     */
     zegar.restart();
     while (window.isOpen()) {
         czasKlatki = zegar.restart();
@@ -68,8 +119,14 @@ int main() {
             sprite->draw(&window);                              // Rysujemy nasz sprite na danym oknie
         }
 
+        animation.update(czasKlatki);                           // Aktualizujemy aktualna sekwencje animacji
+        animation.draw(&window);                                // Rysujemy aktualna sekwencje animacji
+
         window.display();
     }
+
+    delete sprites[0];
+    delete sprites[1];
 
     return 0;
 }

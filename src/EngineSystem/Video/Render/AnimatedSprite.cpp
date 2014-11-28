@@ -8,10 +8,22 @@ namespace Video {
         
         AnimatedSprite::AnimatedSprite() : Sprite() {
             currentFrame = 0;
+            resetFinished();
+            setRepeat(true);
         }
 
         AnimatedSprite::AnimatedSprite(const sf::Texture& texture_) : Sprite(texture_) {
             currentFrame = 0;
+            resetFinished();
+            setRepeat(true);
+        }
+
+        AnimatedSprite::AnimatedSprite(const AnimatedSprite& animatedSprite_) : Sprite(animatedSprite_) {
+            isEmptyFramesWarningPrinted = animatedSprite_.isEmptyFramesWarningPrinted;
+            currentFrame = animatedSprite_.currentFrame;
+            frames = animatedSprite_.frames;
+            resetFinished();
+            setRepeat(true);
         }
 
         AnimatedSprite::~AnimatedSprite() {
@@ -62,6 +74,22 @@ namespace Video {
             frames.push_back(frame_);
         }
 
+        void AnimatedSprite::resetCurrentFrame() {
+            currentFrame = 0;
+        }
+
+        void AnimatedSprite::resetFinished() {
+            finished = false;
+        }
+                
+        void AnimatedSprite::setRepeat(bool flag) {
+            repeat = flag;
+        }
+
+        bool AnimatedSprite::isFinished() const {
+            return finished;
+        }
+
         Sprite::Frame& AnimatedSprite::getCurrentFrame() {
             if(currentFrame >= frames.size())
                 Log::get().write(
@@ -77,8 +105,15 @@ namespace Video {
         void AnimatedSprite::setNextFrame() {
             ++currentFrame;
 
-            if(currentFrame == frames.size())
-                currentFrame = 0;
+            if(currentFrame == frames.size()) {
+                finished = true;
+
+                if(repeat) {
+                    resetCurrentFrame();
+                } else {
+                    --currentFrame;
+                }
+            }
         }
 
     }

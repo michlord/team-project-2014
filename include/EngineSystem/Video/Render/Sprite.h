@@ -14,6 +14,7 @@ namespace Video {
                     public:
                         Frame();
                         Frame(const sf::IntRect& textureSegment_, const sf::Time& duration_);
+                        Frame(const Frame& frame_);
 
                         void reset();
                         const sf::Time& update(const sf::Time& timeElapsed_);
@@ -38,12 +39,14 @@ namespace Video {
                 Sprite();
                 Sprite(const sf::Texture& texture_);
                 Sprite(const sf::Texture& texture_, const Sprite::Frame& frame_);
+                Sprite(const Sprite& sprite_);
                 virtual ~Sprite();
 
                 virtual void update(const sf::Time& timeElapsed_);
                 virtual void draw(sf::RenderWindow* windowHandle_) const;
                 virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
                 virtual void insertFrame(const Sprite::Frame& frame_);
+                virtual void resetCurrentFrame();
                 void bindTexture(const sf::Texture& texture_);
 
                 void setRotation(float angle_);
