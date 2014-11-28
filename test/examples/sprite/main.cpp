@@ -1,4 +1,6 @@
 #include <iostream>
+#include <functional>
+
 #include <EngineSystem/Video/Render/Sprite.h>
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
 #include <EngineSystem/Video/Render/Animation.h>
@@ -64,8 +66,17 @@ void przygotujAnimacje(Video::Render::Animation* animation, sf::Texture& tekstur
     sequence[1].setSize(sf::Vector2u(100, 100));                    // ustawienie rozmiaru na ekranie
     sequence[1].setColorMask(sf::Color(255, 0, 0, 255));            // ustawienie maski koloru dla sekwencji #2
 
+    auto function = [animation]() {                                 // funkcja lambda, ktora zachowuje wskaznik na animacje
+        animation->setCurrentSequence("sekwencja1");                // i przy wykonaniu ustawia aktualna sekwnecje na #1
+        std::cout << "Sequence #2 is finished!" << std::endl;       // 
+    };
+
     animation->addSequence("sekwencja1", sequence[0], "sekwencja2");// dodanie sekwnecji #1, ustawienie nastepnej sekwencji na #2
-    animation->addSequence("sekwencja2", sequence[1], "sekwencja1");// dodanie sekwencji #2, ustawienie nastepnej sekwencji na #1
+
+
+    animation->addSequence("sekwencja2", sequence[1], function);    // dodanie sekwencji #2, ustawienie funkcji, ktora
+                                                                    // zostanie wykonana po zakonczeniu sekwencji #2 i 
+                                                                    // zmieni sekwencje na #1
 }
 
 int main() {

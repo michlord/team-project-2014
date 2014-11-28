@@ -29,6 +29,8 @@ namespace Video {
                         currentSequence = sequenceControl[currentSequence].nextSequence;
 
                     } else if(sequenceControl[currentSequence].onDone) {
+                        getSequence(currentSequence)->resetCurrentFrame();
+                        getSequence(currentSequence)->resetFinished();
                         sequenceControl[currentSequence].onDone();
                     }
                 }
