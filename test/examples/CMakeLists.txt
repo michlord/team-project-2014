@@ -95,3 +95,28 @@ add_example(entity)
 target_link_libraries(entity ${SFML_LIBRARIES})
 
 copy_dist_dlls(entity)
+
+
+#######################
+# ASSETS MANAGER TEST #
+#######################
+
+set_sources(assetsManager
+    "assetsManager/main.cpp"
+    
+	"../../src/EngineSystem/Log/Log.cpp"
+	"../../src/EngineSystem/Video/Render/Sprite.cpp"
+    "../../src/EngineSystem/Assets/AssetsManager.cpp"
+)
+
+set_assets(assetsManager
+    "assets/sprite.png"
+	"assets/placeholder.png"
+	"assets/sansation.ttf"
+)
+
+add_example(assetsManager)
+
+target_link_libraries(assetsManager ${SFML_LIBRARIES})
+
+copy_dist_dlls(assetsManager)

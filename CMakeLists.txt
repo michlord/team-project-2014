@@ -86,6 +86,8 @@ set(RAGEMAGE_SRCS
     "src/EngineSystem/Entity/EntityManager.cpp"
     "src/EngineSystem/Entity/Message.cpp"
     "src/EngineSystem/Entity/MessageDispatcher.cpp"
+	
+	"src/EngineSystem/Assets/AssetsManager.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -116,6 +118,8 @@ set(RAGEMAGE_H
     "include/EngineSystem/Entity/EntityManager.h"
     "include/EngineSystem/Entity/Message.h"
     "include/EngineSystem/Entity/MessageDispatcher.h"
+	
+	"include/EngineSystem/Assets/AssetsManager.h"
 )
 
 add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
