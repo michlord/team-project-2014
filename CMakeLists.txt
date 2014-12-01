@@ -64,7 +64,9 @@ endif()
 # once we define better project structure.
 
 set(RAGEMAGE_SRCS
-    "src/EngineApp/main.cpp"
+    "src/Game/main.cpp"
+    "src/Game/Scene/Intro.cpp"
+    
     "src/EngineApp/EngineApp.cpp"
     "src/EngineApp/WindowContext.cpp"
     "src/EngineApp/FrameContext.cpp"
@@ -97,6 +99,8 @@ set(RAGEMAGE_SRCS
 # in your IDE's project browser.
 
 set(RAGEMAGE_H
+    "include/Game/Scene/Intro.h"
+
     "include/EngineApp/EngineApp.h"
     "include/EngineApp/WindowContext.h"
     "include/EngineApp/FrameContext.h"
