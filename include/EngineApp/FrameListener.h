@@ -18,9 +18,8 @@ class FrameListener {
     public:
         FrameListener(SceneStack* sceneStack_);
         virtual ~FrameListener();
-        virtual void render()      = 0;
-        virtual void fixedUpdate() = 0;
-        virtual bool isExclusive();
+        virtual bool render()      = 0;
+        virtual bool fixedUpdate() = 0;
         virtual Input::InputHandler *getInputHandler();
 };
 

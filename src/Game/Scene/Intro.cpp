@@ -9,15 +9,11 @@ Intro::Intro(SceneStack* sceneStack_)
 {
 }
 
-void Intro::render() {
-
+bool Intro::render() {
+    return true;
 }
 
-void Intro::fixedUpdate() {
-
-}
-
-bool Intro::isExclusive() {
+bool Intro::fixedUpdate() {
     return true;
 }
 

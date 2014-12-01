@@ -51,14 +51,14 @@ bool SceneStack::isEmpty() {
 
 namespace {
     void affect(std::vector< std::unique_ptr<FrameListener> > &stack, 
-                std::function<void(FrameListener*)> fun)
+                std::function<bool(FrameListener*)> fun)
     {
         auto it = stack.rbegin();
         auto end = stack.rend();
         while(it != end) {
             FrameListener* scene = it->get();
-            fun(scene);
-            if(scene->isExclusive()) {
+            
+            if(fun(scene)) {
                 return;
             }
             ++it;
@@ -67,11 +67,11 @@ namespace {
 }
 
 void SceneStack::render() {
-    affect(stack, [](FrameListener* scene){scene->render();});
+    affect(stack, [](FrameListener* scene){return scene->render();});
 }
 
 void SceneStack::fixedUpdate() {
-    affect(stack, [](FrameListener* scene){scene->fixedUpdate();});
+    affect(stack, [](FrameListener* scene){return scene->fixedUpdate();});
 }
 
 void SceneStack::handleEvent(const sf::Event &event) {

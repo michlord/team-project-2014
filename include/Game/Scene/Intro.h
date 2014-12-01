@@ -14,9 +14,8 @@ class Intro : public FrameListener {
     
     public:
         Intro(SceneStack* sceneStack_);
-        void render();
-        void fixedUpdate();
-        bool isExclusive();
+        bool render();
+        bool fixedUpdate();
 };
 
 }

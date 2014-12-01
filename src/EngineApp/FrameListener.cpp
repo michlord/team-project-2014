@@ -24,10 +24,6 @@ FrameListener::~FrameListener() {
 
 }
 
-bool FrameListener::isExclusive() {
-    return false;
-}
-
 Input::InputHandler *FrameListener::getInputHandler() {
     return nullptr;
 }
