@@ -40,7 +40,9 @@ void SceneStack::applyPendingChanges() {
         default:
             break;
         }
+        ++it;
     }
+    pendingChanges.clear();
 }
 
 bool SceneStack::isEmpty() {

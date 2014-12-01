@@ -1,5 +1,9 @@
 #include <EngineApp/EngineApp.h>
 #include <EngineApp/WindowContext.h>
+#include <EngineApp/FrameContext.h>
+#include <EngineApp/FrameListener.h>
+#include <EngineApp/SceneStack.h>
+#include <EngineSystem/Log/Log.h>
 
 namespace Core {
 
@@ -23,27 +27,40 @@ void EngineApp::init() {
     getWindow().open();
 }
 
+void EngineApp::pushInitialScene(FrameListener* scene) {
+    frameContext.sceneStack->pushScene(scene);
+    frameContext.sceneStack->applyPendingChanges();
+}
+
 void EngineApp::run() {
     sf::Event event;
     sf::Time frameTime;
     sf::Time timeAccumulator;
     sf::Time deltaTime = sf::seconds(1.0f / 120.0f); // 120Hz update rate
+    
+    frameContext.window = &getWindow().getHandle();
+    frameContext.deltaTime = deltaTime.asSeconds();
 
     while(getWindow().isOpened()) {
+        if(frameContext.sceneStack->isEmpty()) {
+            Log::get().write(Log::System::Engine, "[Game loop] Scene stack is empty");
+            return;
+        }
         getWindow().update();
 
         while(getWindow().getHandle().pollEvent(event))
             dispatchEvent(event);
         
         frameTime = getWindow().getFrameTime();
+        frameContext.frameTime = frameTime.asSeconds();
         timeAccumulator += frameTime;
         while (timeAccumulator >= deltaTime) {
-            // updateSomething(deltaTime);
-
+            frameContext.sceneStack->fixedUpdate();
             timeAccumulator -= deltaTime;
         }
-
-        // renderSomething(getWindow().getHandle());
+        getWindow().clear();
+        frameContext.sceneStack->render();
+        frameContext.sceneStack->applyPendingChanges();
     }
 }
 
@@ -59,6 +76,7 @@ void EngineApp::dispatchEvent(const sf::Event& event) {
     // Temporary function to be replaced by state machine
     if(event.type == sf::Event::Closed)
         getWindow().close();
+    frameContext.sceneStack->handleEvent(event);
 }
 
 }

@@ -5,6 +5,8 @@
 
 namespace Core {
 
+class FrameListener;
+
 class EngineApp {
     public:
         EngineApp();
@@ -12,6 +14,7 @@ class EngineApp {
 
         void load();
         void init();
+        void pushInitialScene(FrameListener* scene);
         void run();
         void cleanup();
 
@@ -21,6 +24,7 @@ class EngineApp {
         void dispatchEvent(const sf::Event& event);
 
         WindowContext* window;
+        
     
 };
 

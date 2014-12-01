@@ -7,14 +7,18 @@
 
 namespace Core {
 
-struct FrameContext {
-    sf::RenderWindow* window;
-    float frameTime;
-    float deltaTime;
-    std::unique_ptr<SceneStack> sceneStack;
+class FrameContext {
+    private:
+        FrameContext();
+    public:
+        static FrameContext &getInstance();
+        sf::RenderWindow* window;
+        float frameTime;
+        float deltaTime;
+        std::unique_ptr<SceneStack> sceneStack;
 };
 
-extern FrameContext frameContext;
+extern FrameContext &frameContext;
 
 }
 
