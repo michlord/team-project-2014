@@ -5,6 +5,8 @@
 #include <SFML/Window.hpp>
 #include <string>
 
+namespace Core {
+
 class WindowContext {
     public:
         WindowContext();
@@ -46,5 +48,7 @@ class WindowContext {
         sf::RenderWindow* window;
 
 };
+
+}
 
 #endif

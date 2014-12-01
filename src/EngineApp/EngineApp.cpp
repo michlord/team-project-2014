@@ -1,6 +1,8 @@
 #include <EngineApp/EngineApp.h>
 #include <EngineApp/WindowContext.h>
 
+namespace Core {
+
 EngineApp::EngineApp() {
     window = new WindowContext();
 }
@@ -57,4 +59,6 @@ void EngineApp::dispatchEvent(const sf::Event& event) {
     // Temporary function to be replaced by state machine
     if(event.type == sf::Event::Closed)
         getWindow().close();
+}
+
 }

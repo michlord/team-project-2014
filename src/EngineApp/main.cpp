@@ -1,7 +1,7 @@
 #include <EngineApp/EngineApp.h>
 
 int main() {
-    EngineApp app;
+    Core::EngineApp app;
 
     app.load();
     app.init();

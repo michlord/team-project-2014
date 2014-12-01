@@ -1,5 +1,7 @@
 #include <EngineApp/WindowContext.h>
 
+namespace Core {
+
 WindowContext::WindowContext() {
     window = new sf::RenderWindow();
 
@@ -121,4 +123,6 @@ void WindowContext::setVsync(bool flag) {
 
     if(isOpened())
         window->setVerticalSyncEnabled(isVsyncEnabled());
+}
+
 }

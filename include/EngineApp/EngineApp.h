@@ -3,6 +3,8 @@
 
 #include "WindowContext.h"
 
+namespace Core {
+
 class EngineApp {
     public:
         EngineApp();
@@ -21,5 +23,7 @@ class EngineApp {
         WindowContext* window;
     
 };
+
+}
 
 #endif
