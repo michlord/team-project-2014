@@ -37,8 +37,27 @@ namespace Video {
 
                 void setCurrentSequence(const std::string& name_);
 
+                void setRotation(float angle_);
+                void setPosition(const sf::Vector2f& position_);
+                void setSize(const sf::Vector2u& size_);
+                void setColorMask(const sf::Color& mask_);
+
+                void rotate(float angle_);
+                void move(const sf::Vector2f& offset_);
+                void scale(const sf::Vector2f& scale_);
+
                 AnimatedSprite* getSequence(const std::string& name_);
                 const AnimatedSprite* getSequence(const std::string& name_) const;
+                
+                float getRotation() const;
+                const sf::Vector2f& getPosition() const;
+                const sf::Vector2u& getSize() const;
+                const sf::Color& getColorMask() const;
+
+                void repositionAll();
+                void resizeAll();
+                void rerotateAll();
+                void recolorAll();
 
             private:
                 bool isNullWindowWarningPrinted;
@@ -46,6 +65,11 @@ namespace Video {
 
                 bool isCurrentSet;
                 std::string currentSequence;
+
+                float rotation;
+                sf::Color colorMask;
+                sf::Vector2u size;
+                sf::Vector2f position;
 
                 std::unordered_map<std::string, AnimatedSprite> spriteSequences;
                 std::unordered_map<std::string, Control> sequenceControl;
