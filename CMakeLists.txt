@@ -80,6 +80,8 @@ set(RAGEMAGE_SRCS
     "src/EngineSystem/Input/InputHandler.cpp"
     "src/EngineSystem/Input/Context.cpp"
 
+    "src/EngineSystem/Sound/SoundManager.cpp"
+
     "src/EngineSystem/Config/Config.cpp"
     "src/EngineSystem/Log/Log.cpp"
 
@@ -113,6 +115,8 @@ set(RAGEMAGE_H
     
     "include/EngineSystem/Input/InputHandler.h"
     "include/EngineSystem/Input/Context.h"
+
+    "include/EngineSystem/Sound/SoundManager.h"
 
     "include/EngineSystem/Config/Config.h"
 
