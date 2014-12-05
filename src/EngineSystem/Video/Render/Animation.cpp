@@ -100,6 +100,42 @@ namespace Video {
             }
         }
 
+        void Animation::setRotation(float angle_) {
+            rotation = angle_;
+            rerotateAll();
+        }
+
+        void Animation::setPosition(const sf::Vector2f& position_) {
+            position = position_;
+            repositionAll();
+        }
+
+        void Animation::setSize(const sf::Vector2u& size_) {
+            size = size_;
+            resizeAll();
+        }
+
+        void Animation::setColorMask(const sf::Color& mask_) {
+            colorMask = mask_;
+            recolorAll();
+        }
+
+        void Animation::rotate(float angle) {
+            rotation += angle;
+            rerotateAll();
+        }
+
+        void Animation::move(const sf::Vector2f& offset_) {
+            position += offset_;
+            repositionAll();
+        }
+
+        void Animation::scale(const sf::Vector2f& scale_) {
+            size.x = static_cast<unsigned>(static_cast<float>(size.x) * scale_.x);
+            size.y = static_cast<unsigned>(static_cast<float>(size.y) * scale_.y);
+            resizeAll();
+        }
+
         AnimatedSprite* Animation::getSequence(const std::string& name_) {
             AnimatedSprite* result = nullptr;
 
@@ -126,6 +162,43 @@ namespace Video {
                 return nullptr;
             }
         }
+                
+        float Animation::getRotation() const {
+            return rotation;
+        }
+
+        const sf::Vector2f& Animation::getPosition() const {
+            return position;
+        }
+
+        const sf::Vector2u& Animation::getSize() const {
+            return size;
+        }
+
+        const sf::Color& Animation::getColorMask() const {
+            return colorMask;
+        }
+
+        void Animation::repositionAll() {
+            for(auto& mapElement : spriteSequences)
+                mapElement.second.setPosition(position);
+        }
+
+        void Animation::resizeAll() {
+            for(auto& mapElement : spriteSequences)
+                mapElement.second.setSize(size);
+        }
+
+        void Animation::rerotateAll() {
+            for(auto& mapElement : spriteSequences)
+                mapElement.second.setRotation(rotation);
+        }
+
+        void Animation::recolorAll() {
+            for(auto& mapElement : spriteSequences)
+                mapElement.second.setColorMask(colorMask);
+        }
+
 
     }
 
