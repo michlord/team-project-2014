@@ -63,10 +63,7 @@ endif()
 # root folder of this project. This will be replaced with add_subdirectory() 
 # once we define better project structure.
 
-set(RAGEMAGE_SRCS
-    "src/Game/main.cpp"
-    "src/Game/Scene/Intro.cpp"
-    
+set(GAMELIB_SRC
     "src/EngineApp/EngineApp.cpp"
     "src/EngineApp/WindowContext.cpp"
     "src/EngineApp/FrameContext.cpp"
@@ -98,9 +95,7 @@ set(RAGEMAGE_SRCS
 # This is for project generation purposes so that your .h files appear
 # in your IDE's project browser.
 
-set(RAGEMAGE_H
-    "include/Game/Scene/Intro.h"
-
+set(GAMELIB_H
     "include/EngineApp/EngineApp.h"
     "include/EngineApp/WindowContext.h"
     "include/EngineApp/FrameContext.h"
@@ -132,10 +127,25 @@ set(RAGEMAGE_H
     "include/EngineSystem/Assets/AssetsManager.h"
 )
 
-add_executable(game ${RAGEMAGE_SRCS} ${RAGEMAGE_H})
+set(GAME_SRC
+    "src/Game/main.cpp"
+    "src/Game/Scene/Intro.cpp"
+)
+
+SET(GAME_H
+    "include/Game/Scene/Intro.h"
+)
+
+add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})
+
+target_link_libraries(gamelib
+    ${SFML_LIBRARIES}
+)
+
+add_executable(game ${GAME_SRC} ${GAME_H})
 
 target_link_libraries(game
-    ${SFML_LIBRARIES}
+    gamelib
 )
 
 include(CopyDistDlls)

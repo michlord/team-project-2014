@@ -14,13 +14,6 @@ include(add_example.cmake)
 
 set_sources(input
     "input/main.cpp"
-    
-    "../../src/EngineSystem/Input/Input.cpp"
-    "../../src/EngineSystem/Input/BinaryInput.cpp"
-    "../../src/EngineSystem/Input/AxisInput.cpp"
-    
-    "../../src/EngineSystem/Input/InputHandler.cpp"
-    "../../src/EngineSystem/Input/Context.cpp"
 )
 
 set_assets(input
@@ -29,7 +22,7 @@ set_assets(input
 
 add_example(input)
 
-target_link_libraries(input ${SFML_LIBRARIES})
+target_link_libraries(input gamelib)
 
 copy_dist_dlls(input)
 
@@ -39,12 +32,6 @@ copy_dist_dlls(input)
 
 set_sources(sprite
     "sprite/main.cpp"
-    
-    "../../src/EngineSystem/Video/Render/Sprite.cpp"
-    "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
-    "../../src/EngineSystem/Video/Render/Animation.cpp"
-
-    "../../src/EngineSystem/Log/Log.cpp"
 )
 
 set_assets(sprite
@@ -53,7 +40,7 @@ set_assets(sprite
 
 add_example(sprite)
 
-target_link_libraries(sprite ${SFML_LIBRARIES})
+target_link_libraries(sprite gamelib)
 
 copy_dist_dlls(sprite)
 
@@ -66,24 +53,6 @@ set_sources(entity
     "entity/animation.cpp"
     "entity/PlayerEntity.cpp"
     "entity/PlayerStates.cpp"
-    
-    "../../src/EngineSystem/Input/Input.cpp"
-    "../../src/EngineSystem/Input/BinaryInput.cpp"
-    "../../src/EngineSystem/Input/AxisInput.cpp"
-    
-    "../../src/EngineSystem/Input/InputHandler.cpp"
-    "../../src/EngineSystem/Input/Context.cpp"
-
-    "../../src/EngineSystem/Log/Log.cpp"
-    
-    "../../src/EngineSystem/Video/Render/Sprite.cpp"
-    "../../src/EngineSystem/Video/Render/AnimatedSprite.cpp"
-    "../../src/EngineSystem/Video/Render/Animation.cpp"
-    
-    "../../src/EngineSystem/Entity/BaseEntity.cpp"
-    "../../src/EngineSystem/Entity/EntityManager.cpp"
-    "../../src/EngineSystem/Entity/Message.cpp"
-    "../../src/EngineSystem/Entity/MessageDispatcher.cpp"
 )
 
 set_assets(entity
@@ -92,7 +61,7 @@ set_assets(entity
 
 add_example(entity)
 
-target_link_libraries(entity ${SFML_LIBRARIES})
+target_link_libraries(entity gamelib)
 
 copy_dist_dlls(entity)
 
@@ -103,20 +72,37 @@ copy_dist_dlls(entity)
 
 set_sources(assetsManager
     "assetsManager/main.cpp"
-    
-	"../../src/EngineSystem/Log/Log.cpp"
-	"../../src/EngineSystem/Video/Render/Sprite.cpp"
-    "../../src/EngineSystem/Assets/AssetsManager.cpp"
 )
 
 set_assets(assetsManager
     "assets/sprite.png"
-	"assets/placeholder.png"
-	"assets/sansation.ttf"
+    "assets/placeholder.png"
+    "assets/sansation.ttf"
 )
 
 add_example(assetsManager)
 
-target_link_libraries(assetsManager ${SFML_LIBRARIES})
+target_link_libraries(assetsManager gamelib)
 
 copy_dist_dlls(assetsManager)
+
+
+######################
+# PLAYER ENTITY TEST #
+######################
+
+set_sources(playerEntity
+    "playerEntity/main.cpp"
+    "playerEntity/GameplayScene.cpp"
+)
+
+set_assets(playerEntity
+    "assets/dummy_player_spritesheet.png"
+)
+
+add_example(playerEntity)
+
+target_link_libraries(playerEntity gamelib)
+
+copy_dist_dlls(assetsManager)
+
