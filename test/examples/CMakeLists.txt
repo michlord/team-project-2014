@@ -94,6 +94,7 @@ copy_dist_dlls(assetsManager)
 set_sources(playerEntity
     "playerEntity/main.cpp"
     "playerEntity/GameplayScene.cpp"
+    "playerEntity/PlayerEntity.cpp"
 )
 
 set_assets(playerEntity
