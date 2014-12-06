@@ -11,7 +11,7 @@ PlayerEntity::PlayerEntity(int id)
 }
 
 PlayerEntity::~PlayerEntity() {
-    delete movementSM->getCurrentState();
+    //delete movementSM->getCurrentState();
     delete movementSM;
 }
 

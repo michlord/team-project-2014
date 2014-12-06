@@ -1,42 +1,52 @@
 #ifndef ENGINE_SYSTEM_ENTITY_STATE_MACHNIE_H_INCLUDED
 #define ENGINE_SYSTEM_ENTITY_STATE_MACHNIE_H_INCLUDED
 
+#include <EngineSystem/Log/Log.h>
+
 #include "State.h"
 #include "Message.h"
+
+#include <memory>
 
 namespace Entity {
 
 template <typename entityT>
 class StateMachine {
+    public:
+        typedef std::shared_ptr< State<entityT> > StatePtr;
     private:
         entityT*        owner;
-        State<entityT>* currentState;
+        StatePtr currentState;
+        StatePtr globalState;
     public:
-        StateMachine(entityT* owner_)
-         : owner(owner_), currentState(nullptr)
+        StateMachine(entityT* owner_, State<entityT>* globalState_ = nullptr)
+         : owner(owner_), currentState(nullptr), globalState(globalState_)
         {
         }
-    
+
         void update() {
+            if(globalState) {
+                globalState->onUpdate(owner);
+            }
             if(currentState) {
                 currentState->onUpdate(owner);
             }
         }
         
-        State<entityT>* changeState(State<entityT>* newState) {
-            State<entityT>* oldState = currentState;
-            // Log an attempt to use nullptr for the newState. (When the logs are ready)
+        StatePtr changeState(State<entityT>* newState) {
+            StatePtr oldState(currentState);
+            Log::get().write(Log::System::Engine, "[State machine] Tried to use nullptr for the newState");
             if(newState) {
                 if(oldState) {
                     oldState->onExit(owner);
                 }
-                currentState = newState;
+                currentState.reset(newState);
                 newState->onEnter(owner);
             }
             return oldState;
         }
         
-        State<entityT>* getCurrentState() {
+        StatePtr getCurrentState() {
             return currentState;
         }
         

@@ -1,4 +1,5 @@
 #include "PlayerStates.h"
+#include <memory>
 
 
 bool IdleState::onMessage(PlayerEntity* entity, const Message &msg) {
@@ -6,8 +7,8 @@ bool IdleState::onMessage(PlayerEntity* entity, const Message &msg) {
     //UNUSED(msg)
     
     if(msg.msg == PLAYER_MESSAGES::Jump) {
-        State<PlayerEntity> *old = entity->getMovementSM()->changeState(new JumpState());
-        delete old;
+        //State<PlayerEntity>::StatePtr old = 
+        entity->getMovementSM()->changeState(new JumpState());
         return true;
     }
     

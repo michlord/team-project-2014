@@ -39,8 +39,7 @@ class JumpState : public State<PlayerEntity> {
     virtual void onUpdate(PlayerEntity *entity) {
         duration -= frameTime.asSeconds();
         if(duration <= 0.0f) {
-            State<PlayerEntity>* old = entity->getMovementSM()->changeState(new IdleState());
-            delete old;
+            entity->getMovementSM()->changeState(new IdleState());
         }
         
         entity->animation.update(frameTime.asSeconds());
