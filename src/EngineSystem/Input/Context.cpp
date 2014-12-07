@@ -30,11 +30,16 @@ void Context::handleAction(const Input &input, const ActionCallback &callback) {
     }
 }
 
-void Context::handleState(const Input &input, const StateCallback &callback) {
+void Context::handleState(const Input &input, const char *name) {
     if(const BinaryInput *p = dynamic_cast<const BinaryInput*>(&input)) {
-        callback(p->isPressed());
+        activeStates[name] = p->isPressed();
+        //callback(p->isPressed());
+        // add callback on a list for the given name
+        
     } else if (const AxisInput *p = dynamic_cast<const AxisInput*>(&input)) {
-        callback(fabs(p->getOffset()) > 0.3);
+        activeStates[name] = fabs(p->getOffset()) > 0.3;
+        //callback(fabs(p->getOffset()) > 0.3);
+        //
     }
 }
 
@@ -66,6 +71,9 @@ bool Context::handleInput(const Input &input) {
             return true;
         }
         if (b != states.end()) {
+            handleState(input, name.c_str());
+            return true;
+        /*
             for(auto it = b->second.begin();
                 it != b->second.end();
                 ++it) 
@@ -73,6 +81,7 @@ bool Context::handleInput(const Input &input) {
                 handleState(input, *it);
             }
             return true;
+        */
         }
         if (c != ranges.end()) {
             for(auto it = c->second.begin();
@@ -85,6 +94,27 @@ bool Context::handleInput(const Input &input) {
         }
     }
     return false;
+}
+
+bool Context::update() {
+    auto it = activeStates.begin();
+    auto end = activeStates.end();
+    while(it != end) {
+        std::string name = it->first;
+        bool active = it->second;
+        {
+            auto handlers = states.find(name);
+            for(auto handlerIt = handlers->second.begin();
+                handlerIt != handlers->second.end();
+                ++handlerIt) 
+            {
+                (*handlerIt)(active);
+            }
+        }
+        
+        ++it;
+    }
+    return true;
 }
 
 bool Context::addBinding(const char *name, ID inputId) {

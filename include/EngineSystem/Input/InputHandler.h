@@ -14,6 +14,7 @@ class InputHandler {
     public:
         InputHandler(ContextVector contexts_);
         void handleInput(const Input& input);
+        void update();
 };
 
 Input *translateEvent(const sf::Event& e);

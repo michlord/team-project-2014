@@ -23,6 +23,17 @@ void InputHandler::handleInput(const Input& input) {
     }
 }
 
+void InputHandler::update() {
+    for(auto it = contexts.begin(); it != contexts.end(); ++it) {
+        if(it->isActive()) {
+            bool res = it->update();
+            if(res == true) {
+                break;
+            }
+        }
+    }
+}
+
 namespace {
     ID mapSFMLJoystickButtonToID(unsigned int button) {
         static ID map[] = {

@@ -28,10 +28,12 @@ class Context {
         StateHandlerBinding  states;
         RangeHandlerBinding  ranges;
         
+        std::map<std::string, bool> activeStates;
+        
         bool active;
         
         void handleAction(const Input &input, const ActionCallback &callback);
-        void handleState(const Input &input, const StateCallback &callback);
+        void handleState(const Input &input, const char *name);
         void handleRange(const Input &input, const RangeCallback &callback);
         
     public:
@@ -41,6 +43,7 @@ class Context {
         void setActive(bool active_);
     
         bool handleInput(const Input &input);
+        bool update();
         bool addBinding(const char *name, ID inputId);
         void addAction(const char *name, ActionCallback handler);
         void addState(const char *name, StateCallback handler);

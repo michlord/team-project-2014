@@ -71,6 +71,11 @@ void SceneStack::render() {
 }
 
 void SceneStack::fixedUpdate() {
+    Input::InputHandler *inputHandler = stack.back()->getInputHandler();
+    if(inputHandler) {
+        inputHandler->update();
+    }
+
     affect(stack, [](FrameListener* scene){return scene->fixedUpdate();});
 }
 
