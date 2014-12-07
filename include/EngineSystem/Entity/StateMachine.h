@@ -18,6 +18,7 @@ class StateMachine {
         entityT*        owner;
         StatePtr currentState;
         StatePtr globalState;
+        StatePtr oldState;
     public:
         StateMachine(entityT* owner_, State<entityT>* globalState_ = nullptr)
          : owner(owner_), currentState(nullptr), globalState(globalState_)
@@ -34,16 +35,18 @@ class StateMachine {
         }
         
         StatePtr changeState(State<entityT>* newState) {
-            StatePtr oldState(currentState);
-            Log::get().write(Log::System::Engine, "[State machine] Tried to use nullptr for the newState");
-            if(newState) {
+            if(newState == nullptr) {
+                Log::get().write(Log::System::Engine, "[State machine] Tried to use nullptr for the newState");
+                return StatePtr();
+            } else {
+                oldState = currentState;
+                currentState.reset(newState);
                 if(oldState) {
                     oldState->onExit(owner);
                 }
-                currentState.reset(newState);
-                newState->onEnter(owner);
+                currentState->onEnter(owner);
+                return oldState;
             }
-            return oldState;
         }
         
         StatePtr getCurrentState() {
