@@ -1,6 +1,8 @@
 #include "Idle.h"
 
 #include "Run.h"
+#include "InAir.h"
+#include "Jump.h"
 
 void Idle::onEnter(PlayerEntity *entity) {
     entity->animation.setCurrentSequence("idle");
@@ -17,11 +19,13 @@ void Idle::onExit(PlayerEntity *entity) {
 bool Idle::onMessage(PlayerEntity* entity, const Message &msg) {
     (void) entity;
     if(msg.msg == PlayerEntity::InputMessage::RightPressed) {
-        entity->movementSM->changeState(new Run(Run::Direction::Right));
+        entity->movementSM->changeState(new Run());
         return true;
     }
-    if(msg.msg == PlayerEntity::InputMessage::LeftPressed) {
-        entity->movementSM->changeState(new Run(Run::Direction::Left));
+    
+    if(msg.msg == PlayerEntity::InputMessage::Jump) {
+        entity->globalSM->changeState(new InAir());
+        entity->movementSM->changeState(new Jump());
         return true;
     }
     

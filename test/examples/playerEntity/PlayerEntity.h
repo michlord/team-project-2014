@@ -14,7 +14,8 @@
 using namespace Entity;
 
 enum Msg {
-    TouchingGround
+    TouchingGround,
+    EndJump
 };
 
 class PlayerEntity : public BaseEntity {

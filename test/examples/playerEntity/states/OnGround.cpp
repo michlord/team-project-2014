@@ -2,6 +2,8 @@
 
 #include "InAir.h"
 #include "Fall.h"
+#include "Idle.h"
+#include "Run.h"
 
 void OnGround::onEnter(PlayerEntity *entity) {
     (void) entity; 
@@ -27,5 +29,10 @@ bool OnGround::onMessage(PlayerEntity* entity, const Message &msg) {
     if(msg.msg == Msg::TouchingGround) {
         onGround = true;
     }
+    
+    
+    
+    
+    
     return true;
 }

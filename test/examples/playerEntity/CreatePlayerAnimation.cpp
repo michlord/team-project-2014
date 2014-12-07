@@ -62,7 +62,8 @@ Video::Render::Animation createPlayerAnimation() {
         frameBuffer[i].setDuration(sf::seconds(1.0f/15.0f));
     }
     
-    int famt[] = {4, 1, 2, 4, 3, 2, 1, 4};
+    // last one should be actually four but for now lets skip this frame
+    int famt[] = {4, 1, 2, 4, 3, 2, 1, 3};
     Video::Render::AnimatedSprite *seq[] = {&idleSequence, &fallSequence, &slashSequence,
         &castSequence, &runSequence, &airSlashSequence, &hurtSequence, &jumpSequence};
         

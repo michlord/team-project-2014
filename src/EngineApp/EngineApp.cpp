@@ -4,6 +4,7 @@
 #include <EngineApp/FrameListener.h>
 #include <EngineApp/SceneStack.h>
 #include <EngineSystem/Log/Log.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 
 namespace Core {
 
@@ -49,12 +50,15 @@ void EngineApp::run() {
         }
         getWindow().update();
 
-        while(getWindow().getHandle().pollEvent(event))
-            dispatchEvent(event);
-        
         frameTime = getWindow().getFrameTime();
         frameContext.frameTime = frameTime.asSeconds();
         timeAccumulator += frameTime;
+        
+        while(getWindow().getHandle().pollEvent(event))
+            dispatchEvent(event);
+        
+        Entity::MessageDispatcher::getInstance().dispatchMessages();
+        
         while (timeAccumulator >= deltaTime) {
             frameContext.sceneStack->fixedUpdate();
             timeAccumulator -= deltaTime;

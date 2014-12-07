@@ -7,14 +7,6 @@
 
 class Run : public State<PlayerEntity> {
     public:
-        enum Direction {
-            Right,
-            Left
-        };
-    private:
-        Direction direction;
-    public:
-        Run(Direction direction_);
         void onEnter(PlayerEntity *entity);
         void onUpdate(PlayerEntity *entity);
         void onExit(PlayerEntity *entity);

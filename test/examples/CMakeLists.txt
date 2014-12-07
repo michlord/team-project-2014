@@ -103,7 +103,7 @@ set_sources(playerEntity
     # "playerEntity/states/Hurt.cpp"
     "playerEntity/states/Idle.cpp"
     "playerEntity/states/InAir.cpp"
-    # "playerEntity/states/Jump.cpp"
+    "playerEntity/states/Jump.cpp"
     "playerEntity/states/OnGround.cpp"
     # "playerEntity/states/PlayerGlobal.cpp"
     "playerEntity/states/Run.cpp"
