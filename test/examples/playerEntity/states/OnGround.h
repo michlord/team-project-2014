@@ -4,26 +4,20 @@
 
 #include "../PlayerEntity.h"
 #include <EngineSystem/Entity/State.h>
+#include <EngineApp/FrameContext.h>
 
 
 class OnGround : public State<PlayerEntity> {
     private:
-    public:
-        enum Msg {
-            NotTouchingGround
-        };
-    
-        void onEnter(PlayerEntity *entity) {(void) entity;}
-        void onUpdate(PlayerEntity *entity) {(void) entity;}
-        void onExit(PlayerEntity *entity) {(void) entity;}
-        bool onMessage(PlayerEntity* entity, const Message &msg) {
-            (void) msg;
-            if(msg.msg == Msg::NotTouchingGround) {
-                entity->globalSM->changeState(new InAir());
-                entity->movementSM->changeState(new Fall());
-            }
-            return true;
-        }
+        bool onGround;
+    public:    
+        void onEnter(PlayerEntity *entity);
+        void onUpdate(PlayerEntity *entity);
+        void onExit(PlayerEntity *entity);
+        bool onMessage(PlayerEntity* entity, const Message &msg);
 };
+
+
+
 
 #endif // PLAYERENTITY_STATES_ONGROUND_H_INCLUDED

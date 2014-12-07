@@ -13,6 +13,10 @@
 
 using namespace Entity;
 
+enum Msg {
+    TouchingGround
+};
+
 class PlayerEntity : public BaseEntity {
     private:
         //Input::InputHandler *inputHandler;

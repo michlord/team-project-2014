@@ -7,28 +7,11 @@
 
 class Fall : public State<PlayerEntity> {
     private:
-    public:
-        enum Msg {
-            TouchedGround
-        };
-        
-        void onEnter(PlayerEntity *entity) {
-            entity->animation.setCurrentSequence("fall");
-        }
-        
-        void onUpdate(PlayerEntity *entity) {
-            entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
-        }
-        
-        void onExit(PlayerEntity *entity) {
-            (void) entity;
-        }
-        
-        bool onMessage(PlayerEntity* entity, const Message &msg) {
-            (void) entity;
-            (void) msg;
-            return true;
-        }
+    public:        
+        void onEnter(PlayerEntity *entity);
+        void onUpdate(PlayerEntity *entity);
+        void onExit(PlayerEntity *entity);
+        bool onMessage(PlayerEntity* entity, const Message &msg);
 };
 
 

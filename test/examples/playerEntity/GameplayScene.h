@@ -25,6 +25,7 @@ class Gameplay : public FrameListener {
         
         std::unique_ptr<PlayerEntity> player;
         
+        void updatePlayerCollision();
     
     public:
         Gameplay(SceneStack* sceneStack_);

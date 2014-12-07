@@ -59,7 +59,7 @@ Video::Render::Animation createPlayerAnimation() {
     frameBuffer[20].setTextureSegment(sf::IntRect(344, 280, 62, 75));
     
     for(int i = 0; i < 21; ++i) {
-        frameBuffer[i].setDuration(sf::seconds(1.0f/30.0f));
+        frameBuffer[i].setDuration(sf::seconds(1.0f/15.0f));
     }
     
     int famt[] = {4, 1, 2, 4, 3, 2, 1, 4};

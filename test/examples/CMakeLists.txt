@@ -99,14 +99,14 @@ set_sources(playerEntity
     
     # "playerEntity/states/AirSlash.cpp"
     # "playerEntity/states/Cast.cpp"
-    # "playerEntity/states/Fall.cpp"
+    "playerEntity/states/Fall.cpp"
     # "playerEntity/states/Hurt.cpp"
-    # "playerEntity/states/Idle.cpp"
-    # "playerEntity/states/InAir.cpp"
+    "playerEntity/states/Idle.cpp"
+    "playerEntity/states/InAir.cpp"
     # "playerEntity/states/Jump.cpp"
-    # "playerEntity/states/OnGround.cpp"
+    "playerEntity/states/OnGround.cpp"
     # "playerEntity/states/PlayerGlobal.cpp"
-    # "playerEntity/states/Run.cpp"
+    "playerEntity/states/Run.cpp"
     # "playerEntity/states/Slash.cpp"
 )
 

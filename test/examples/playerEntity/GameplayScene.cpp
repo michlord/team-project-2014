@@ -58,6 +58,29 @@ void Gameplay::initGround() {
     
 }
 
+void Gameplay::updatePlayerCollision() {
+    sf::FloatRect playerRect = sf::FloatRect(
+        (float)player->position.x,
+        (float)player->position.y,
+        (float)player->animation.getSize().x,
+        (float)player->animation.getSize().y
+    );
+
+    auto it = ground.begin();
+    auto end = ground.end();
+    while(it != end) {
+        sf::Shape& part = **it;
+        
+        sf::FloatRect groundRect = part.getGlobalBounds();
+        
+        if(playerRect.intersects(groundRect)) {
+            Entity::MessageDispatcher::getInstance().registerMessage(0, 5, Msg::TouchingGround);
+        }
+        
+        ++it;
+    }
+}
+
 Gameplay::Gameplay(SceneStack* sceneStack_)
  : FrameListener(sceneStack_)
 {
@@ -66,7 +89,7 @@ Gameplay::Gameplay(SceneStack* sceneStack_)
     
     player->position = sf::Vector2f(200.0f, 100.0f);
     
-    Entity::MessageDispatcher::getInstance().registerMessage(0, 5, OnGround::NotTouchingGround);
+    //Entity::MessageDispatcher::getInstance().registerMessage(0, 5, OnGround::NotTouchingGround);
     
     //player->animation.setPosition(sf::Vector2f(10.0f, 10.0f));
     
@@ -92,6 +115,7 @@ bool Gameplay::render() {
 }
 
 bool Gameplay::fixedUpdate() {
+    updatePlayerCollision();
     player->update();
     //player->animation.update(sf::seconds(Core::frameContext.deltaTime));
     return true;

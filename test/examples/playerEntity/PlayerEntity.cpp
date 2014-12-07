@@ -13,6 +13,7 @@ PlayerEntity::PlayerEntity(int id)
     globalSM.reset(new StateMachine<PlayerEntity>(this));
     movementSM.reset(new StateMachine<PlayerEntity>(this));
     
+    movementSM->changeState(new Idle());
     globalSM->changeState(new OnGround());
 }
 

@@ -24,6 +24,7 @@ void EngineApp::init() {
     getWindow().setPosition(100, 100);
     getWindow().setSize(800, 600);
     getWindow().setVsync(true); // override by graphic's drivers possible!
+    getWindow().getHandle().setKeyRepeatEnabled(false);
     getWindow().open();
 }
 
