@@ -51,6 +51,9 @@ class StateMachine {
         }
         
         bool handleMessage(const Message &msg) {
+            if(globalState && globalState->onMessage(owner, msg)) {
+                return true;
+            }
             if(currentState && currentState->onMessage(owner, msg)) {
                 return true;
             }

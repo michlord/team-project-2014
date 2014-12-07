@@ -2,6 +2,9 @@
 #include <EngineSystem/Input/Context.h>
 #include <EngineSystem/Input/InputHandler.h>
 #include <EngineApp/FrameContext.h>
+#include "States.h"
+#include <EngineSystem/Entity/EntityManager.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 
 #include <memory>
 #include <vector>
@@ -21,6 +24,13 @@ void Gameplay::initInputHandler() {
     context.addBinding("crouch", Input::ID::GamepadDPadDown);
     context.addBinding("slash", Input::ID::GamepadButtonX);
     context.addBinding("cast", Input::ID::GamepadButtonY);
+    
+    context.addState("right", std::bind(&PlayerEntity::right, player.get(), std::placeholders::_1));
+    context.addState("left", std::bind(&PlayerEntity::left, player.get(), std::placeholders::_1));
+    context.addState("down", std::bind(&PlayerEntity::down, player.get(), std::placeholders::_1));
+    context.addAction("jump", std::bind(&PlayerEntity::jump, player.get()));
+    context.addAction("slash", std::bind(&PlayerEntity::slash, player.get()));
+    context.addAction("cast", std::bind(&PlayerEntity::cast, player.get()));
     
     Input::InputHandler::ContextVector contextVector;
     contextVector.push_back(context);
@@ -51,6 +61,15 @@ void Gameplay::initGround() {
 Gameplay::Gameplay(SceneStack* sceneStack_)
  : FrameListener(sceneStack_)
 {
+    player.reset(new PlayerEntity(5));
+    Entity::EntityManager::getInstance().registerEntity(player.get());
+    
+    player->position = sf::Vector2f(200.0f, 100.0f);
+    
+    Entity::MessageDispatcher::getInstance().registerMessage(0, 5, OnGround::NotTouchingGround);
+    
+    //player->animation.setPosition(sf::Vector2f(10.0f, 10.0f));
+    
     initInputHandler();
     initGround();
 }
@@ -66,12 +85,15 @@ bool Gameplay::render() {
         ++it;
     }
     
-    
+    //frameContext.window->draw(player->animation);
+    player->getAnimation().draw(frameContext.window);
     
     return true;
 }
 
 bool Gameplay::fixedUpdate() {
+    player->update();
+    //player->animation.update(sf::seconds(Core::frameContext.deltaTime));
     return true;
 }
 

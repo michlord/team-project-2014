@@ -11,6 +11,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "PlayerEntity.h"
+
 using namespace Core;
 
 class Gameplay : public FrameListener {
@@ -20,6 +22,9 @@ class Gameplay : public FrameListener {
         std::unique_ptr<Input::InputHandler> inputHandler;
         void initInputHandler();
         void initGround();
+        
+        std::unique_ptr<PlayerEntity> player;
+        
     
     public:
         Gameplay(SceneStack* sceneStack_);
