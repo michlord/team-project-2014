@@ -92,6 +92,8 @@ set(GAMELIB_SRC
     "src/EngineSystem/Entity/MessageDispatcher.cpp"
 
     "src/EngineSystem/Assets/AssetsManager.cpp"
+    
+    "src/EngineSystem/Physics/Physics.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -129,6 +131,8 @@ set(GAMELIB_H
     "include/EngineSystem/Entity/MessageDispatcher.h"
 
     "include/EngineSystem/Assets/AssetsManager.h"
+    
+    "include/EngineSystem/Physics/Physics.h"
 )
 
 set(GAME_SRC
