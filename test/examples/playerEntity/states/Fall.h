@@ -7,7 +7,9 @@
 
 class Fall : public State<PlayerEntity> {
     private:
+        bool move;
     public:        
+        Fall();
         void onEnter(PlayerEntity *entity);
         void onUpdate(PlayerEntity *entity);
         void onExit(PlayerEntity *entity);

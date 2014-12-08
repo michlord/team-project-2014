@@ -97,8 +97,8 @@ set_sources(playerEntity
     "playerEntity/PlayerEntity.cpp"
     "playerEntity/CreatePlayerAnimation.cpp"
     
-    # "playerEntity/states/AirSlash.cpp"
-    # "playerEntity/states/Cast.cpp"
+    "playerEntity/states/AirSlash.cpp"
+    "playerEntity/states/Cast.cpp"
     "playerEntity/states/Fall.cpp"
     # "playerEntity/states/Hurt.cpp"
     "playerEntity/states/Idle.cpp"
@@ -107,7 +107,7 @@ set_sources(playerEntity
     "playerEntity/states/OnGround.cpp"
     # "playerEntity/states/PlayerGlobal.cpp"
     "playerEntity/states/Run.cpp"
-    # "playerEntity/states/Slash.cpp"
+    "playerEntity/states/Slash.cpp"
 )
 
 set_assets(playerEntity

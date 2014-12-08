@@ -6,6 +6,9 @@ Video::Render::Animation createPlayerAnimation();
 PlayerEntity::PlayerEntity(int id)
  : BaseEntity(id)//, inputHandler(nullptr)
 {
+    flipped = true;
+    canDoubleJump = true;
+
     animation = createPlayerAnimation();
     animation.setCurrentSequence("idle");
     animation.setSize(sf::Vector2u(50,50));

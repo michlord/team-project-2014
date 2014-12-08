@@ -109,7 +109,15 @@ bool Gameplay::render() {
     }
     
     //frameContext.window->draw(player->animation);
-    player->getAnimation().draw(frameContext.window);
+    if(!player->flipped) {
+        frameContext.window->draw(player->getAnimation());
+    } else {
+        sf::Vector2u size = player->getAnimation().getSize();
+        sf::Transform scale;
+        scale.scale(-1.0f, 1.0f, player->position.x + size.x/2.0f , player->position.y);
+        sf::RenderStates state(scale);
+        frameContext.window->draw(player->getAnimation(), state);
+    }
     
     return true;
 }

@@ -4,7 +4,11 @@
 #include "InAir.h"
 #include "Jump.h"
 
+#include "Slash.h"
+#include "Cast.h"
+
 void Idle::onEnter(PlayerEntity *entity) {
+    entity->canDoubleJump = true;
     entity->animation.setCurrentSequence("idle");
 }
 
@@ -22,11 +26,22 @@ bool Idle::onMessage(PlayerEntity* entity, const Message &msg) {
         entity->movementSM->changeState(new Run());
         return true;
     }
+    if(msg.msg == PlayerEntity::InputMessage::LeftPressed) {
+        entity->movementSM->changeState(new Run());
+        return true;
+    }
     
     if(msg.msg == PlayerEntity::InputMessage::Jump) {
         entity->globalSM->changeState(new InAir());
         entity->movementSM->changeState(new Jump());
         return true;
+    }
+    
+    if(msg.msg == PlayerEntity::InputMessage::Slash) {
+        entity->movementSM->changeState(new Slash());
+    }
+    if(msg.msg == PlayerEntity::InputMessage::Cast) {
+        entity->movementSM->changeState(new Cast());
     }
     
     return false;

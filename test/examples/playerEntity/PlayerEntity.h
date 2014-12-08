@@ -23,7 +23,8 @@ class PlayerEntity : public BaseEntity {
         //Input::InputHandler *inputHandler;
         
     public:
-    
+        
+        
         enum InputMessage {
             UpPressed, UpDepressed,
             DownPressed, DownDepressed,
@@ -57,6 +58,10 @@ class PlayerEntity : public BaseEntity {
         
         std::unique_ptr< StateMachine<PlayerEntity> > globalSM;
         std::unique_ptr< StateMachine<PlayerEntity> > movementSM;
+        
+        bool flipped;
+        bool canDoubleJump;
+        bool slashedInAir;
 };
 
 #endif // TEST_ENTITY_PLAYER_ENTITY_H_INCLUDED

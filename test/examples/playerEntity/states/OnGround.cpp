@@ -8,6 +8,7 @@
 void OnGround::onEnter(PlayerEntity *entity) {
     (void) entity; 
     onGround = true;
+    entity->slashedInAir = false;
 }
 
 void OnGround::onUpdate(PlayerEntity *entity) {
@@ -30,7 +31,14 @@ bool OnGround::onMessage(PlayerEntity* entity, const Message &msg) {
         onGround = true;
     }
     
-    
+    if(msg.msg == PlayerEntity::InputMessage::RightPressed) {
+        entity->flipped = false;
+        return true;
+    }
+    if(msg.msg == PlayerEntity::InputMessage::LeftPressed) {
+        entity->flipped = true;
+        return true;
+    }
     
     
     
