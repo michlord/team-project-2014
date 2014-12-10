@@ -101,4 +101,14 @@ namespace Physics
         return resultVector;
     }
     
+    bool checkCollision(Circle& A, Circle& B)
+    {
+        if (pointPointDistance(A.getCenter(), B.getCenter()) < A.getRadius() + B.getRadius())
+            return true;
+
+        return false;
+    }
+
+
+
 }

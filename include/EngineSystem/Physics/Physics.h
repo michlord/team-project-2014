@@ -16,6 +16,7 @@ namespace Physics
     float pointPointDistance(Point& A, Point& B);
     Point getClosestIntersectionPoint(LinearFunction& f, LinearFunction& g1, LinearFunction& g2, Point& P);
     glm::vec2 checkCollision(Rectangle& A, glm::vec2 velocity, Rectangle& B);
+    bool checkCollision(Circle& A, Circle& B);
 }
 
 #endif
