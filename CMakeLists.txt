@@ -94,6 +94,10 @@ set(GAMELIB_SRC
     "src/EngineSystem/Assets/AssetsManager.cpp"
     
     "src/EngineSystem/Physics/Physics.cpp"
+    "src/EngineSystem/Physics/Rectangle.cpp"
+    "src/EngineSystem/Physics/Point.cpp"
+    "src/EngineSystem/Physics/Circle.cpp"
+    "src/EngineSystem/Physics/LinearFunction.cpp"
 )
 
 # This is for project generation purposes so that your .h files appear
@@ -133,6 +137,10 @@ set(GAMELIB_H
     "include/EngineSystem/Assets/AssetsManager.h"
     
     "include/EngineSystem/Physics/Physics.h"
+    "include/EngineSystem/Physics/Rectangle.h"
+    "include/EngineSystem/Physics/Point.h"
+    "include/EngineSystem/Physics/Circle.h"
+    "include/EngineSystem/Physics/LinearFunction.h"
 )
 
 set(GAME_SRC
