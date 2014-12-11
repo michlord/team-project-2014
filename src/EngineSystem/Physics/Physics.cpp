@@ -22,7 +22,7 @@ namespace Physics
         return std::make_pair(Point(x, y), true);
     }
 
-    float pointPointDistance(Point& A, Point& B) {
+    float pointPointDistance(const Point& A, const Point& B) {
         return sqrt((B.getX() - A.getX()) * (B.getX() - A.getX()) + (B.getY() - A.getY()) * (B.getY() - A.getY()));
     }
 

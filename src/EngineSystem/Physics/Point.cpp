@@ -12,11 +12,11 @@ namespace Physics
         y = y_;
     }
 
-    float Point::getX() {
+    float Point::getX() const {
         return x;
     }
 
-    float Point::getY() {
+    float Point::getY() const {
         return y;
     }
 

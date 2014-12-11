@@ -10,8 +10,8 @@ namespace Physics
     public:
         Circle();
         Circle(Point center_, float radius_);
-        Point getCenter();
-        float getRadius();
+        Point getCenter() const;
+        float getRadius() const;
 
     private:
         Point center;

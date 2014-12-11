@@ -11,8 +11,12 @@ namespace Physics
         radius = radius_;
     }
 
-    Point Circle::getCenter() {
+    Point Circle::getCenter() const {
         return center;
+    }
+    
+    float Circle::getRadius() const {
+        return radius;
     }
 
 }

@@ -33,13 +33,8 @@ void Context::handleAction(const Input &input, const ActionCallback &callback) {
 void Context::handleState(const Input &input, const char *name) {
     if(const BinaryInput *p = dynamic_cast<const BinaryInput*>(&input)) {
         activeStates[name] = p->isPressed();
-        //callback(p->isPressed());
-        // add callback on a list for the given name
-        
     } else if (const AxisInput *p = dynamic_cast<const AxisInput*>(&input)) {
         activeStates[name] = fabs(p->getOffset()) > 0.3;
-        //callback(fabs(p->getOffset()) > 0.3);
-        //
     }
 }
 
@@ -73,15 +68,6 @@ bool Context::handleInput(const Input &input) {
         if (b != states.end()) {
             handleState(input, name.c_str());
             return true;
-        /*
-            for(auto it = b->second.begin();
-                it != b->second.end();
-                ++it) 
-            {
-                handleState(input, *it);
-            }
-            return true;
-        */
         }
         if (c != ranges.end()) {
             for(auto it = c->second.begin();
@@ -111,7 +97,6 @@ bool Context::update() {
                 (*handlerIt)(active);
             }
         }
-        
         ++it;
     }
     return true;

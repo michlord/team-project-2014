@@ -8,15 +8,15 @@ namespace Physics
         c = c_;
     }
 
-    float LinearFunction::getA() {
+    float LinearFunction::getA() const {
         return a;
     }
 
-    float LinearFunction::getB() {
+    float LinearFunction::getB() const {
         return b;
     }
 
-    float LinearFunction::getC() {
+    float LinearFunction::getC() const {
         return c;
     }
 

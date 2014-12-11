@@ -9,8 +9,8 @@ namespace Physics
         Point();
         Point(float x_, float y_);
 
-        float getX();
-        float getY();
+        float getX() const;
+        float getY() const;
 
     private:
         float x;

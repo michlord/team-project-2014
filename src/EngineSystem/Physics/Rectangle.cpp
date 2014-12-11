@@ -19,19 +19,19 @@ namespace Physics
         Y2 = y2_;
     }
 
-    float Rectangle::getX1() {
+    float Rectangle::getX1() const {
         return X1;
     }
 
-    float Rectangle::getX2() {
+    float Rectangle::getX2() const {
         return X2;
     }
 
-    float Rectangle::getY1() {
+    float Rectangle::getY1() const {
         return Y1;
     }
 
-    float Rectangle::getY2() {
+    float Rectangle::getY2() const {
         return Y2;
     }
 

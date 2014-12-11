@@ -8,9 +8,9 @@ namespace Physics
     public:
         LinearFunction(float a_, float b_, float c_);
 
-        float getA();
-        float getB();
-        float getC();
+        float getA() const;
+        float getB() const;
+        float getC() const;
 
     private:
         // ax + by + c = 0
