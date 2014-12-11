@@ -84,11 +84,6 @@ void EngineApp::dispatchEvent(const sf::Event& event) {
     if(event.type == sf::Event::Closed)
         getWindow().close();
     
-    static int counter = 0;
-    if(event.type == sf::Event::KeyPressed) {
-        counter += 1;
-    }
-    
     frameContext.sceneStack->handleEvent(event);
 }
 
