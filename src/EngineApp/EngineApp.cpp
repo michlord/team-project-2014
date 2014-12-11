@@ -48,14 +48,16 @@ void EngineApp::run() {
             Log::get().write(Log::System::Engine, "[Game loop] Scene stack is empty");
             return;
         }
+        
         getWindow().update();
 
         frameTime = getWindow().getFrameTime();
         frameContext.frameTime = frameTime.asSeconds();
         timeAccumulator += frameTime;
         
-        while(getWindow().getHandle().pollEvent(event))
+        while(getWindow().getHandle().pollEvent(event)) {
             dispatchEvent(event);
+        }
         
         Entity::MessageDispatcher::getInstance().dispatchMessages();
         
@@ -81,6 +83,12 @@ void EngineApp::dispatchEvent(const sf::Event& event) {
     // Temporary function to be replaced by state machine
     if(event.type == sf::Event::Closed)
         getWindow().close();
+    
+    static int counter = 0;
+    if(event.type == sf::Event::KeyPressed) {
+        counter += 1;
+    }
+    
     frameContext.sceneStack->handleEvent(event);
 }
 

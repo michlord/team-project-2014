@@ -3,7 +3,7 @@
 #include <EngineSystem/Input/BinaryInput.h>
 #include <EngineSystem/Input/InputHandler.h>
 #include <SFML/Window.hpp>
-
+#include <array>
 
 namespace Input {
 
@@ -55,11 +55,25 @@ namespace {
     }
 }
 
+namespace {
+    std::array<bool, sf::Keyboard::KeyCount> keyState;
+    bool initKeyState() {
+        keyState.fill(false);
+        return true;
+    }
+    bool b = initKeyState();
+}
+
+
+
 Input *translateEvent(const sf::Event& e) {
     Input *input   = nullptr;
     ID     inputId = ID::Unknown;
-
-    if(e.type == sf::Event::KeyPressed) {
+    if(e.type == sf::Event::KeyReleased) {
+        keyState[e.key.code] = false;
+    }
+    if(e.type == sf::Event::KeyPressed && !keyState[e.key.code]) {
+        keyState[e.key.code] = true;
         inputId = (ID) e.key.code;
         input = new BinaryInput(inputId, true);
     } else if (e.type == sf::Event::KeyReleased) {
