@@ -1,5 +1,6 @@
 #include <EngineSystem/Sound/SoundManager.h>
 #include <algorithm>
+#include <stdexcept>
 
 SoundManager::SoundManager() {
     id_gen_base = 1;
