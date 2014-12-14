@@ -120,3 +120,30 @@ target_link_libraries(playerEntity gamelib)
 
 copy_dist_dlls(assetsManager)
 
+#######################
+# PARALAX CLOUDS TEST #
+#######################
+
+set_sources(paralaxClouds
+    "paralaxClouds/main.cpp"
+    "paralaxClouds/Scene.cpp"
+)
+
+set_assets(paralaxClouds
+    "assets/clouds/cumulus-big1.png"
+    "assets/clouds/cumulus-big2.png"
+    "assets/clouds/cumulus-big3.png"
+    "assets/clouds/cumulus-huge.png"
+    "assets/clouds/cumulus-small1.png"
+    "assets/clouds/cumulus-small2.png"
+    "assets/clouds/cumulus-small3.png"
+)
+
+add_example(paralaxClouds)
+
+target_link_libraries(paralaxClouds gamelib)
+
+copy_dist_dlls(paralaxClouds)
+
+
+
