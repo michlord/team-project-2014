@@ -97,7 +97,11 @@ bool Context::update() {
                 (*handlerIt)(active);
             }
         }
-        ++it;
+        if(active == false) {
+            it = activeStates.erase(it);
+        } else {
+            ++it;
+        }
     }
     return true;
 }
