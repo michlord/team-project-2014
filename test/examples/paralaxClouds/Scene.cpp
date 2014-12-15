@@ -25,8 +25,11 @@ void Scene::initLayers() {
     
     sprite.setPosition(19.0f, 30.0f);
     layers[1].push_back(sprite);
-    
-    layersScales = {1.0f, 1.5f, 3.0f};
+
+    //layersScales = { 1.0f, 1.5f, 3.0f }; // support initializer lists are not supported in VS2012 :(
+    layersScales[0] = 1.0f; 
+    layersScales[1] = 1.5f;
+    layersScales[2] = 3.0f; 
 }
 
 void Scene::initInputHandler() {
