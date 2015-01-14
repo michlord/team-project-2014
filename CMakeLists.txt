@@ -170,6 +170,18 @@ copy_dist_dlls(game)
 enable_testing()
 add_subdirectory(test/examples)
 
+
+file(GLOB_RECURSE ASSETS_DIRECTORY RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/assets/*)
+message("${ASSETS_DIRECTORY}")
+foreach(asset ${ASSETS_DIRECTORY})
+    add_custom_command(TARGET game POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_CURRENT_SOURCE_DIR}/"${asset}"
+        ${CMAKE_CURRENT_BINARY_DIR}/"${asset}")
+endforeach(asset)
+
+
+
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 # set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 # set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
