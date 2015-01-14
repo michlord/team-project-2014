@@ -1,6 +1,7 @@
 #include "PlayerEntity.h"
 #include "States.h"
 
+std::map<std::string, sf::IntRect> makeGuardAnimation(Video::Render::Animation &animation);
 Video::Render::Animation createPlayerAnimation();
 
 PlayerEntity::PlayerEntity(int id)
@@ -9,7 +10,7 @@ PlayerEntity::PlayerEntity(int id)
     flipped = true;
     canDoubleJump = true;
 
-    animation = createPlayerAnimation();
+    makeGuardAnimation(animation);
     animation.setCurrentSequence("idle");
     animation.setSize(sf::Vector2u(50,50));
     

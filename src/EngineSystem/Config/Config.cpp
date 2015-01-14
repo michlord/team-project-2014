@@ -23,7 +23,7 @@ void Config::load(std::string fileName) {
     std::string key, value;
 
     while (getline(configFile, line)) {
-        int index = line.find("=");
+        size_t index = line.find("=");
 
         if (size_t(index) == std::string::npos) {
             section = line.substr(1, line.size() - 2);
@@ -51,7 +51,7 @@ void Config::save(std::string fileName) {
     std::string prevSection = "", currentSection, key, value;
 
     for (auto it = settings.begin(); it != settings.end(); it++) {
-        int index = it->first.find(":");
+        size_t index = it->first.find(":");
         currentSection = it->first.substr(0, index);
         key = it->first.substr(index + 1, it->first.size() - 1);
         value = it->second;

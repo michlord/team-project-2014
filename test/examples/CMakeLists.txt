@@ -95,6 +95,7 @@ set_sources(playerEntity
     "playerEntity/main.cpp"
     "playerEntity/GameplayScene.cpp"
     "playerEntity/PlayerEntity.cpp"
+    "playerEntity/CreateAnimation.cpp"
     "playerEntity/CreatePlayerAnimation.cpp"
     
     "playerEntity/states/AirSlash.cpp"
@@ -112,6 +113,7 @@ set_sources(playerEntity
 
 set_assets(playerEntity
     "assets/dummy_player_spritesheet.png"
+    "assets/dummy_guard_spritesheet.png"
 )
 
 add_example(playerEntity)
