@@ -1,5 +1,5 @@
-#ifndef GAME_SYSTEM_LEVEL_LEVEL_H_INCLUDED
-#define GAME_SYSTEM_LEVEL_LEVEL_H_INCLUDED
+#ifndef GAME_LEVEL_LEVEL_H_INCLUDED
+#define GAME_LEVEL_LEVEL_H_INCLUDED
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
