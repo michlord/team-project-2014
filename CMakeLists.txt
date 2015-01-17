@@ -149,6 +149,10 @@ set(GAME_SRC
     "src/Game/Scene/MainMenu.cpp"
     "src/Game/Menu/List.cpp"
     "src/Game/Menu/ListItem.cpp"
+    "src/Game/Level/Decoration.cpp"
+    "src/Game/Level/Level.cpp"
+    "src/Game/Level/LevelManager.cpp"
+    "src/Game/Level/Tile.cpp"
 )
 
 SET(GAME_H
@@ -156,6 +160,10 @@ SET(GAME_H
     "include/Game/Scene/MainMenu.h"
     "include/Game/Menu/List.h"
     "include/Game/Menu/ListItem.h"
+    "include/Game/Level/Decoration.h"
+    "include/Game/Level/Level.h"
+    "include/Game/Level/LevelManager.h"
+    "include/Game/Level/Tile.h"
 )
 
 add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})

@@ -1,4 +1,4 @@
-#include <GameSystem/Level/Decoration.h>
+#include <Game/Level/Decoration.h>
 
 namespace Level {
 

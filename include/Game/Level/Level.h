@@ -3,8 +3,8 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <GameSystem/Level/Tile.h>
-#include <GameSystem/Level/Decoration.h>
+#include <Game/Level/Tile.h>
+#include <Game/Level/Decoration.h>
 
 #include <list>
 #include <vector>

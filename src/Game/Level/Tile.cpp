@@ -1,4 +1,4 @@
-#include <GameSystem/Level/Tile.h>
+#include <Game/Level/Tile.h>
 
 namespace Level {
 
@@ -7,7 +7,7 @@ namespace Level {
     }
 
     Tile::Tile(Tile::Type type_) {
-        setType(type);
+        setType(type_);
     }
 
     Tile::~Tile() {

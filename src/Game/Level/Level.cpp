@@ -1,4 +1,4 @@
-#include <GameSystem/Level/Level.h>
+#include <Game/Level/Level.h>
 
 namespace Level {
 
@@ -15,6 +15,9 @@ namespace Level {
     }
  
     void Level::loadFromFile(unsigned int id, const std::string& path) {
+        path;
+        id;
+
         //TODO: implement level loader
         //TODO: work-out level tile's layout
     }
