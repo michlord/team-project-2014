@@ -10,6 +10,8 @@
 
 #include <EngineSystem/Input/InputHandler.h>
 
+
+
 using namespace Core;
 
 namespace Scene {
@@ -28,5 +30,7 @@ class Intro : public FrameListener {
 };
 
 }
+
+#include <Game/Scene/MainMenu.h>
 
 #endif // GAME_SCENE_INTRO_INCLUDED_H

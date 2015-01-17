@@ -27,6 +27,7 @@ class ListItem;
             void handleInput(const Input::Input &in);
             const sf::Font& getFont();
             void addListItem(const ListItem& item);
+            std::vector<ListItem>& getStore();
     };
 
 }

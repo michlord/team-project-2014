@@ -12,7 +12,10 @@
 #include <Game/Menu/List.h>
 #include <Game/Menu/ListItem.h>
 
+
 using namespace Core;
+
+namespace Scene {
 
 class MainMenu : public FrameListener {
     private:
@@ -31,5 +34,10 @@ class MainMenu : public FrameListener {
         Input::InputHandler *getInputHandler();
         void handleListInputs(const Input::Input &in);
 };
+
+}
+
+#include <Game/Scene/Intro.h>
+
 
 #endif // GAME_SCENE_MAINMENU_INCLUDED_H

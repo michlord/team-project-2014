@@ -80,4 +80,8 @@ void List::addListItem(const ListItem& item) {
     store.push_back(item);
 }
 
+std::vector<ListItem>& List::getStore() {
+    return store;
+}
+
 }
