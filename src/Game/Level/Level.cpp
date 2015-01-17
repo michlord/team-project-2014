@@ -15,8 +15,8 @@ namespace Level {
     }
  
     void Level::loadFromFile(unsigned int id, const std::string& path) {
-        path;
-        id;
+        (void) path;
+        (void) id;
 
         //TODO: implement level loader
         //TODO: work-out level tile's layout
