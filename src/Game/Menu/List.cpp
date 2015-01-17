@@ -29,12 +29,33 @@ void List::handleInput(const Input::Input &in) {
         if(store.empty() || !p->isPressed()) {
             return;
         }
+        if(p->getId() == Input::ID::Escape) {
+            if(curIdx >= 0) {
+                store[curIdx].setSelected(false);
+            }
+            return;
+        }
+        if(curIdx >= 0 && store[curIdx].isSelected()) {
+            store[curIdx].handleInput(in);
+            return;
+        }
+        if(p->getId() == Input::ID::Return) {
+            if(curIdx >= 0) {
+                if(store[curIdx].isSelectable()) {
+                    store[curIdx].setSelected(true);
+                } else {
+                    store[curIdx].handleInput(in);
+                }
+            }
+            return;
+        }
         if(p->getId() == Input::ID::Down) {
             if(curIdx >= 0) {
                 store[curIdx].setFocused(false);
             }
             curIdx = (curIdx + 1) % store.size();
             store[curIdx].setFocused(true);
+            return;
         }
         if(p->getId() == Input::ID::Up) {
             if(curIdx >= 0) {
@@ -46,6 +67,7 @@ void List::handleInput(const Input::Input &in) {
                 curIdx -= 1;
             }
             store[curIdx].setFocused(true);
+            return;
         }
     }
 }

@@ -18,12 +18,18 @@ class MainMenu : public FrameListener {
     private:
         Assets::AssetsManager                assets;
         std::unique_ptr<Input::InputHandler> inputHandler;
-        std::unique_ptr<Menu::List>          menuList;
+        
+        enum MenuType {
+            Menu, Options, LevelSelect, MenuTypeCount
+        };
+        MenuType                             curMenu;
+        std::unique_ptr<Menu::List>          menuList[MenuType::MenuTypeCount];
     public:
         MainMenu(SceneStack* sceneStack_);
         bool render();
         bool fixedUpdate();
         Input::InputHandler *getInputHandler();
+        void handleListInputs(const Input::Input &in);
 };
 
 #endif // GAME_SCENE_MAINMENU_INCLUDED_H

@@ -5,11 +5,12 @@ namespace Menu {
 
 ListItem::ListItem(List *_parent,
     const char *_label,
+    bool _selectable,
     std::function<int(const Input::Input&, int)> _valueUpdateFun,
     std::function<std::string(int)> _valueTranslateFun,
     float posx, float posy)
  : parent(_parent), position(posx, posy), selected(false), focused(false),
-   value(0), label(_label), valueUpdateFun(_valueUpdateFun), valueTranslateFun(_valueTranslateFun)
+   value(0), label(_label), selectable(_selectable), valueUpdateFun(_valueUpdateFun), valueTranslateFun(_valueTranslateFun)
 {
     if(!valueUpdateFun) {
         valueUpdateFun = [](const Input::Input &in, int val) {
@@ -62,6 +63,10 @@ bool ListItem::isFocused() {
 
 void ListItem::setFocused(bool _focused) {
     focused = _focused;
+}
+
+bool ListItem::isSelectable() {
+    return selectable;
 }
 
 }

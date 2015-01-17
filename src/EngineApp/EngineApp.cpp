@@ -40,6 +40,7 @@ void EngineApp::run() {
     sf::Time timeAccumulator;
     sf::Time deltaTime = sf::seconds(1.0f / 120.0f); // 120Hz update rate
     
+    frameContext.appWindow = &getWindow();
     frameContext.window = &getWindow().getHandle();
     frameContext.deltaTime = deltaTime.asSeconds();
 

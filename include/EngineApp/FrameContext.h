@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "SceneStack.h"
+#include "WindowContext.h"
 
 namespace Core {
 
@@ -13,6 +14,7 @@ class FrameContext {
     public:
         static FrameContext &getInstance();
         sf::RenderWindow* window;
+        WindowContext *appWindow;
         float frameTime;
         float deltaTime;
         std::unique_ptr<SceneStack> sceneStack;

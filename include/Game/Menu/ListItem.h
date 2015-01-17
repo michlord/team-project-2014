@@ -21,11 +21,13 @@ class ListItem : public sf::Drawable {
         bool         focused;
         int          value;
         std::string  label;
+        bool         selectable;
         std::function<int(const Input::Input&, int)>  valueUpdateFun;
         std::function<std::string(int)>               valueTranslateFun;
     public:
         ListItem(List *_parent,
             const char *_label,
+            bool _selectable = false,
             std::function<int(const Input::Input&, int)> _valueUpdateFun = nullptr,
             std::function<std::string(int)> _valueTranslateFun = nullptr,
             float posx = 0.0f, float posy = 0.0f);
@@ -37,6 +39,7 @@ class ListItem : public sf::Drawable {
         void setSelected(bool _selected);
         bool isFocused();
         void setFocused(bool _focused);
+        bool isSelectable();
 };
 
 }
