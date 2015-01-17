@@ -43,6 +43,9 @@ void ListItem::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if (focused) {
         text.setColor(sf::Color::Yellow);
     }
+    if (selected) {
+        text.setColor(sf::Color::Green);
+    }
     target.draw(text, states);
 }
 
