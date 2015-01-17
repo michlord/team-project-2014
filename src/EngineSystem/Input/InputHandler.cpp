@@ -12,6 +12,10 @@ InputHandler::InputHandler(ContextVector contexts_)
 {
 }
 
+void InputHandler::addInputForwardingTarget(std::function<void(const Input&)> target) {
+    inputForwardingTargets.push_back(target);
+}
+
 void InputHandler::handleInput(const Input& input) {
     for(auto it = contexts.begin(); it != contexts.end(); ++it) {
         if(it->isActive()) {
@@ -20,6 +24,9 @@ void InputHandler::handleInput(const Input& input) {
                 break;
             }
         }
+    }
+    for(auto it = inputForwardingTargets.begin(); it != inputForwardingTargets.end(); ++it) {
+        (*it)(input);
     }
 }
 

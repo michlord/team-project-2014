@@ -9,9 +9,8 @@ namespace Core {
 class SceneStack;
 
 class FrameListener {
-    private:
-        SceneStack* sceneStack;
     protected:
+        SceneStack* sceneStack;
         void pushScene(FrameListener* scene);
         void popScene();
         void clearScenes();

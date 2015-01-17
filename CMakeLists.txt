@@ -146,10 +146,16 @@ set(GAMELIB_H
 set(GAME_SRC
     "src/Game/main.cpp"
     "src/Game/Scene/Intro.cpp"
+    "src/Game/Scene/MainMenu.cpp"
+    "src/Game/Menu/List.cpp"
+    "src/Game/Menu/ListItem.cpp"
 )
 
 SET(GAME_H
     "include/Game/Scene/Intro.h"
+    "include/Game/Scene/MainMenu.h"
+    "include/Game/Menu/List.h"
+    "include/Game/Menu/ListItem.h"
 )
 
 add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})

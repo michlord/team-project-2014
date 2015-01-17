@@ -1,32 +1,29 @@
-#ifndef GAME_SCENE_INTRO_INCLUDED_H
-#define GAME_SCENE_INTRO_INCLUDED_H
+#ifndef GAME_SCENE_MAINMENU_INCLUDED_H
+#define GAME_SCENE_MAINMENU_INCLUDED_H
 
 #include <EngineApp/SceneStack.h>
 #include <EngineApp/FrameListener.h>
 #include <EngineApp/FrameContext.h>
 
 #include <EngineSystem/Assets/AssetsManager.h>
-#include <SFML/Graphics/Text.hpp>
 
 #include <EngineSystem/Input/InputHandler.h>
 
+#include <Game/Menu/List.h>
+#include <Game/Menu/ListItem.h>
+
 using namespace Core;
 
-namespace Scene {
-
-class Intro : public FrameListener {
+class MainMenu : public FrameListener {
     private:
-        Assets::AssetsManager assets;
-        sf::Text              headlineText;
-        
+        Assets::AssetsManager                assets;
         std::unique_ptr<Input::InputHandler> inputHandler;
+        std::unique_ptr<Menu::List>          menuList;
     public:
-        Intro(SceneStack* sceneStack_);
+        MainMenu(SceneStack* sceneStack_);
         bool render();
         bool fixedUpdate();
         Input::InputHandler *getInputHandler();
 };
 
-}
-
-#endif // GAME_SCENE_INTRO_INCLUDED_H
+#endif // GAME_SCENE_MAINMENU_INCLUDED_H
