@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <Game/Level/Tile.h>
 #include <Game/Level/Decoration.h>
+#include <EngineSystem/Entity/BaseEntity.h>
 
 #include <list>
 #include <vector>
@@ -20,13 +21,17 @@ namespace Level {
             void loadFromFile(unsigned int id, const std::string& path);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-            const std::list<Decoration>& getDecorations() const;
-            //const std::list<Entity> getEntities() const;
-            const std::vector<std::vector<Tile>>& getTiles() const;
+            std::list<Decoration>& getDecorations();
+            std::list<Entity::BaseEntity*>& getEntities();
+            std::vector<std::vector<Tile>>& getTiles();
  
         private:
+            Tile getTileFromColor(const sf::Color& color, int posX, int posY);
+            void loadDecorationsFromFile(const std::string& path);
+            void loadEntitiesFromFile(const std::string& path);
+
             std::list<Decoration> decorations;
-            //std::list<Entity> entities;
+            std::list<Entity::BaseEntity*> entities;
             std::vector<std::vector<Tile>> tiles;
     };
 
