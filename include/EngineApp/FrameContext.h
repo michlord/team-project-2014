@@ -5,6 +5,7 @@
 #include <memory>
 #include "SceneStack.h"
 #include "WindowContext.h"
+#include <EngineSystem/Assets/AssetsManager.h>
 
 namespace Core {
 
@@ -18,6 +19,7 @@ class FrameContext {
         float frameTime;
         float deltaTime;
         std::unique_ptr<SceneStack> sceneStack;
+        std::unique_ptr<Assets::AssetsManager> assetsManager;
 };
 
 extern FrameContext &frameContext;

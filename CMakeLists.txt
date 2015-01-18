@@ -60,7 +60,7 @@ endif()
 
 # The idea is to keep this CMakeLists.txt very simple. This is a global place where
 # the source and header should be specified. The paths should be relative to the
-# root folder of this project. This will be replaced with add_subdirectory() 
+# root folder of this project. This will be replaced with add_subdirectory()
 # once we define better project structure.
 
 set(GAMELIB_SRC
@@ -69,11 +69,11 @@ set(GAMELIB_SRC
     "src/EngineApp/FrameContext.cpp"
     "src/EngineApp/FrameListener.cpp"
     "src/EngineApp/SceneStack.cpp"
-    
+
     "src/EngineSystem/Input/Input.cpp"
     "src/EngineSystem/Input/BinaryInput.cpp"
     "src/EngineSystem/Input/AxisInput.cpp"
-    
+
     "src/EngineSystem/Input/InputHandler.cpp"
     "src/EngineSystem/Input/Context.cpp"
 
@@ -85,14 +85,14 @@ set(GAMELIB_SRC
     "src/EngineSystem/Video/Render/Sprite.cpp"
     "src/EngineSystem/Video/Render/AnimatedSprite.cpp"
     "src/EngineSystem/Video/Render/Animation.cpp"
-    
+
     "src/EngineSystem/Entity/BaseEntity.cpp"
     "src/EngineSystem/Entity/EntityManager.cpp"
     "src/EngineSystem/Entity/Message.cpp"
     "src/EngineSystem/Entity/MessageDispatcher.cpp"
 
     "src/EngineSystem/Assets/AssetsManager.cpp"
-    
+
     "src/EngineSystem/Physics/Physics.cpp"
     "src/EngineSystem/Physics/Rectangle.cpp"
     "src/EngineSystem/Physics/Point.cpp"
@@ -109,11 +109,11 @@ set(GAMELIB_H
     "include/EngineApp/FrameContext.h"
     "include/EngineApp/FrameListener.h"
     "include/EngineApp/SceneStack.h"
-    
+
     "include/EngineSystem/Input/Input.h"
     "include/EngineSystem/Input/BinaryInput.h"
     "include/EngineSystem/Input/AxisInput.h"
-    
+
     "include/EngineSystem/Input/InputHandler.h"
     "include/EngineSystem/Input/Context.h"
 
@@ -126,7 +126,7 @@ set(GAMELIB_H
     "include/EngineSystem/Video/Render/Sprite.h"
     "include/EngineSystem/Video/Render/AnimatedSprite.h"
     "include/EngineSystem/Video/Render/Animation.h"
-    
+
     "include/EngineSystem/Entity/BaseEntity.h"
     "include/EngineSystem/Entity/StateMachine.h"
     "include/EngineSystem/Entity/State.h"
@@ -135,7 +135,7 @@ set(GAMELIB_H
     "include/EngineSystem/Entity/MessageDispatcher.h"
 
     "include/EngineSystem/Assets/AssetsManager.h"
-    
+
     "include/EngineSystem/Physics/Physics.h"
     "include/EngineSystem/Physics/Rectangle.h"
     "include/EngineSystem/Physics/Point.h"
@@ -147,6 +147,7 @@ set(GAME_SRC
     "src/Game/main.cpp"
     "src/Game/Scene/Intro.cpp"
     "src/Game/Scene/MainMenu.cpp"
+    "src/Game/Scene/Gameplay.cpp"
     "src/Game/Menu/List.cpp"
     "src/Game/Menu/ListItem.cpp"
     "src/Game/Level/Decoration.cpp"
@@ -158,6 +159,7 @@ set(GAME_SRC
 SET(GAME_H
     "include/Game/Scene/Intro.h"
     "include/Game/Scene/MainMenu.h"
+    "include/Game/Scene/Gameplay.h"
     "include/Game/Menu/List.h"
     "include/Game/Menu/ListItem.h"
     "include/Game/Level/Decoration.h"
@@ -188,7 +190,7 @@ add_subdirectory(test/examples)
 file(GLOB_RECURSE ASSETS_DIRECTORY RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/assets/*)
 message("${ASSETS_DIRECTORY}")
 foreach(asset ${ASSETS_DIRECTORY})
-    STRING(REGEX REPLACE "/" "_" asset_idx ${asset}) 
+    STRING(REGEX REPLACE "/" "_" asset_idx ${asset})
     add_custom_target("copy_${asset_idx}" ALL
         COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_SOURCE_DIR}/"${asset}"

@@ -10,37 +10,37 @@ MainMenu::MainMenu(SceneStack* sceneStack_)
  : FrameListener(sceneStack_)
 {
     assets.loadFont("assets/fonts/Munro.ttf", "headline_font");
-    
+
     {
         menuList[MenuType::Menu].reset(new Menu::List(&assets.getFont("headline_font")));
-        
-        Menu::ListItem item1(menuList[MenuType::Menu].get(), "Start game", 0, false, 
+
+        Menu::ListItem item1(menuList[MenuType::Menu].get(), "Start game", 0, false,
             [this](const Input::Input& in, int val){
                 (void) in;
-                popScene(); 
-                pushScene(new Intro(sceneStack));
+                popScene();
+                pushScene(new Gameplay(sceneStack, 1));
                 return val;
             }
         );
         Menu::ListItem item2(menuList[MenuType::Menu].get(), "Options", 0, false, [this](const Input::Input& in, int val) { (void) in; curMenu = MenuType::Options; return val; });
         Menu::ListItem item3(menuList[MenuType::Menu].get(), "Exit", 0, false, [](const Input::Input& in, int val) { (void) in; Core::frameContext.appWindow->close(); return val; });
     }
-    
+
     {
         menuList[MenuType::Options].reset(new Menu::List(&assets.getFont("headline_font")));
-        
+
         auto setKeyFun = [](const Input::Input& in, int val) {
             (void) val;
             return (int) in.getId();
         };
-        
+
         auto dispKeyFun = [](int val) {
             return Input::to_string((Input::ID) val);
         };
-        
+
         Config &cfg = Config::Get();
         cfg.load("assets/config.ini");
-        
+
         Menu::ListItem item1(menuList[MenuType::Options].get(), "UP:", cfg.getInt("keys", "up", -1), true, setKeyFun, dispKeyFun);
         Menu::ListItem item2(menuList[MenuType::Options].get(), "LEFT:", cfg.getInt("keys", "left", -1), true, setKeyFun, dispKeyFun);
         Menu::ListItem item3(menuList[MenuType::Options].get(), "RIGHT:", cfg.getInt("keys", "right", -1), true, setKeyFun, dispKeyFun);
@@ -60,20 +60,20 @@ MainMenu::MainMenu(SceneStack* sceneStack_)
                 cfg.set("keys", "jump", std::to_string(vec[4].getValue()));
                 cfg.set("keys", "slash", std::to_string(vec[5].getValue()));
                 cfg.set("keys", "magic", std::to_string(vec[6].getValue()));
-                
+
                 cfg.save("assets/config.ini");
                 curMenu = MenuType::Menu;
-                return val; 
+                return val;
             }
         );
     }
-    
+
     {
         menuList[MenuType::LevelSelect].reset(new Menu::List(&assets.getFont("headline_font")));
     }
-    
+
     curMenu = MenuType::Menu;
-    
+
     Input::InputHandler::ContextVector contextVector;
     inputHandler.reset(new Input::InputHandler(contextVector));
     //inputHandler has to forward input to menu instance
@@ -90,7 +90,7 @@ bool MainMenu::render() {
 }
 
 bool MainMenu::fixedUpdate() {
-    
+
     return true;
 }
 

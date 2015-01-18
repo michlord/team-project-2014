@@ -21,7 +21,7 @@ class MainMenu : public FrameListener {
     private:
         Assets::AssetsManager                assets;
         std::unique_ptr<Input::InputHandler> inputHandler;
-        
+
         enum MenuType {
             Menu, Options, LevelSelect, MenuTypeCount
         };
@@ -38,6 +38,6 @@ class MainMenu : public FrameListener {
 }
 
 #include <Game/Scene/Intro.h>
-
+#include <Game/Scene/Gameplay.h>
 
 #endif // GAME_SCENE_MAINMENU_INCLUDED_H

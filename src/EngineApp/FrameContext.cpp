@@ -5,7 +5,7 @@ namespace Core {
 
 FrameContext::FrameContext()
  : window(nullptr), appWindow(nullptr), frameTime(0.0f), deltaTime(0.0f),
-   sceneStack(new SceneStack)
+   sceneStack(new SceneStack), assetsManager(new Assets::AssetsManager)
 {
 }
 
