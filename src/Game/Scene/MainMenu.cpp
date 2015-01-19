@@ -18,7 +18,7 @@ MainMenu::MainMenu(SceneStack* sceneStack_)
             [this](const Input::Input& in, int val){
                 (void) in;
                 popScene();
-                pushScene(new Gameplay(sceneStack, 1));
+                pushScene(new Gameplay(sceneStack, 0));
                 return val;
             }
         );

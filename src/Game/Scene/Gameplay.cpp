@@ -1,6 +1,6 @@
 #include <Game/Scene/Gameplay.h>
+#include <Game/Level/LevelManager.h>
 #include <EngineSystem/Config/Config.h>
-
 
 namespace Scene {
 
@@ -12,8 +12,8 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
 
+    initLevel(levelID);
     initInputHandler();
-
 }
 
 void Gameplay::initInputHandler() {
@@ -40,8 +40,8 @@ void Gameplay::initInputHandler() {
     inputHandler.reset(new Input::InputHandler(contextVector));
 }
 
-void Gameplay::initLevel() {
-
+void Gameplay::initLevel(unsigned int id) {
+    Level::levelManager.loadLevel(id);
 }
 
 bool Gameplay::render(){

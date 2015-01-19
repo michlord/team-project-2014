@@ -15,7 +15,7 @@ namespace Level {
         for(auto& entity : getEntities())
             delete entity;
     }
- 
+
     void Level::loadFromFile(unsigned int id, const std::string& path) {
         sf::Image tilesImg;
         sf::Color tileColor;
@@ -100,9 +100,9 @@ namespace Level {
             Log::get().write(Log::System::Game, "Could not open decorations file: %s", path.c_str());
             return;
         }
-        
+
         while(file.good()) {
-            
+
             file >> decX >> decY >> decID;
             try {
                 int posX = std::stoi(decX);
@@ -112,11 +112,11 @@ namespace Level {
                 decorations.push_back(Decoration(posX, posY, level, decID));
 
             } catch(const std::invalid_argument& exception) {
-                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s), L(%s) (%s)", 
+                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s), L(%s) (%s)",
                     decX.c_str(), decY.c_str(), decLevel.c_str(), exception.what());
-                
+
             } catch(const std::out_of_range& exception) {
-                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s), L(%s) (%s)", 
+                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s), L(%s) (%s)",
                     decX.c_str(), decY.c_str(), decLevel.c_str(), exception.what());
             }
         }
@@ -133,9 +133,9 @@ namespace Level {
             Log::get().write(Log::System::Game, "Could not open entities file: %s", path.c_str());
             return;
         }
-        
+
         while(file.good()) {
-            
+
             file >> entX >> entY >> entID;
             try {
                 int posX = std::stoi(entX);
@@ -147,11 +147,11 @@ namespace Level {
                 //TODO: something with loaded entity, i.e. add it to list or get object from some factory
 
             } catch(const std::invalid_argument& exception) {
-                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s) (%s)", 
+                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s) (%s)",
                     entX.c_str(), entY.c_str(), exception.what());
-                
+
             } catch(const std::out_of_range& exception) {
-                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s) (%s)", 
+                Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s) (%s)",
                     entX.c_str(), entY.c_str(), exception.what());
             }
         }

@@ -17,18 +17,22 @@ namespace Level {
 
             void addLevel(unsigned int levelID, const std::string& levelPath);
             void loadLevel(unsigned int levelID);
-            void resetLevel(); 
- 
+            void resetLevel();
+
             Level& getCurrentLevel();
             const Level& getCurrentLevel() const;
             const std::unordered_map<unsigned int, std::string>& getLevels() const;
- 
+
         private:
             unsigned int currentID;
             Level currentLevel;
             std::unordered_map<unsigned int, std::string> levels;
     };
 
+    extern LevelManager levelManager;
+
 }
+
+
 
 #endif

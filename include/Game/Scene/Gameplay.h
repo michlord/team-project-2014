@@ -19,7 +19,7 @@ namespace Scene {
         private:
             std::unique_ptr<Input::InputHandler> inputHandler;
             void initInputHandler();
-            void initLevel();
+            void initLevel(unsigned int id);
 
             sf::Vector2f cameraCenter;
         public:

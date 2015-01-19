@@ -2,6 +2,15 @@
 
 namespace Level {
 
+    LevelManager levelManager = [](){
+        LevelManager mgr;
+
+        //Preload level data here.
+        mgr.addLevel(0, "assets/levels/level0");
+
+        return mgr;
+    }();
+
     LevelManager::LevelManager() {
         currentID = 0;
     }
@@ -22,7 +31,7 @@ namespace Level {
     void LevelManager::resetLevel() {
         currentLevel.loadFromFile(currentID, levels[currentID]);
     }
- 
+
     Level& LevelManager::getCurrentLevel() {
         return currentLevel;
     }
@@ -34,5 +43,5 @@ namespace Level {
     const std::unordered_map<unsigned int, std::string>& LevelManager::getLevels() const {
         return levels;
     }
- 
+
 }
