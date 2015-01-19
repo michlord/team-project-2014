@@ -52,7 +52,7 @@ MainMenu::MainMenu(SceneStack* sceneStack_)
             [this](const Input::Input& in, int val) {
                 (void) in;
                 Config &cfg = Config::Get();
-                auto vec = menuList[MenuType::Options]->getStore();
+                auto& vec = menuList[MenuType::Options]->getStore();
                 cfg.set("keys", "up", std::to_string(vec[0].getValue()));
                 cfg.set("keys", "left", std::to_string(vec[1].getValue()));
                 cfg.set("keys", "right", std::to_string(vec[2].getValue()));

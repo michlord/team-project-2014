@@ -37,6 +37,7 @@ void List::handleInput(const Input::Input &in) {
         }
         if(curIdx >= 0 && store[curIdx].isSelected()) {
             store[curIdx].handleInput(in);
+            store[curIdx].setSelected(false);
             return;
         }
         if(p->getId() == Input::ID::Return) {
@@ -78,6 +79,11 @@ const sf::Font& List::getFont() {
 
 void List::addListItem(const ListItem& item) {
     store.push_back(item);
+
+    if(curIdx < 0) {
+        curIdx = 0;
+        store[curIdx].setFocused(true);
+    }
 }
 
 std::vector<ListItem>& List::getStore() {
