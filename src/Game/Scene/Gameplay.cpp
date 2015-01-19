@@ -1,5 +1,4 @@
 #include <Game/Scene/Gameplay.h>
-#include <Game/Level/LevelManager.h>
 #include <EngineSystem/Config/Config.h>
 
 namespace Scene {
@@ -42,6 +41,7 @@ void Gameplay::initInputHandler() {
 
 void Gameplay::initLevel(unsigned int id) {
     Level::levelManager.loadLevel(id);
+    level = &Level::levelManager.getCurrentLevel();
 }
 
 bool Gameplay::render(){
