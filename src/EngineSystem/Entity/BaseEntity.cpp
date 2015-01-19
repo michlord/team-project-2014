@@ -2,7 +2,7 @@
 
 namespace Entity {
     int BaseEntity::nextValidId = 0;
-    
+
     void BaseEntity::setId(int id_) {
         if (id_ >= nextValidId) {
             id = id_;
@@ -11,15 +11,20 @@ namespace Entity {
         }
         nextValidId = id + 1;
     }
-    
+
     BaseEntity::BaseEntity(int id_) {
         setId(id_);
     }
-    
+
     BaseEntity::~BaseEntity() {
     }
-    
+
     int BaseEntity::getId() const {
         return id;
+    }
+
+    void BaseEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+        (void) target;
+        (void) states;
     }
 }
