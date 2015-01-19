@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
+#include <memory>
 
 namespace Level {
 
@@ -29,7 +30,7 @@ namespace Level {
             const sf::Vector2f& getPosition() const;
  
         protected:
-            Video::Render::Sprite* sprite;
+            std::shared_ptr<Video::Render::Sprite> sprite;
  
         private:
             Type type;

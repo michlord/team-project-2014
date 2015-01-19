@@ -3,7 +3,6 @@
 namespace Level {
 
     Tile::Tile() {
-        sprite = nullptr;
     }
 
     Tile::Tile(Tile::Type type_) {
@@ -11,10 +10,7 @@ namespace Level {
     }
 
     Tile::~Tile() {
-        if(sprite != nullptr) {
-            delete sprite;
-            sprite = nullptr;
-        }
+
     }
 
     void Tile::update(const sf::Time& timeElapsed) {
@@ -37,7 +33,7 @@ namespace Level {
 
         if(sprite) {
             position = sprite->getPosition();
-            delete sprite;
+            sprite.reset();
         }
 
         
@@ -47,7 +43,7 @@ namespace Level {
 
         switch(type) {
             case Type::Empty: 
-                sprite = new Video::Render::Sprite();
+                sprite.reset(new Video::Render::Sprite());
                 sprite->bindTexture(text);
                 sprite->setPosition(position);
                 break;
