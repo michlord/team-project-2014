@@ -188,13 +188,13 @@ add_subdirectory(test/examples)
 
 
 file(GLOB_RECURSE ASSETS_DIRECTORY RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/assets/*)
-message("${ASSETS_DIRECTORY}")
 foreach(asset ${ASSETS_DIRECTORY})
     STRING(REGEX REPLACE "/" "_" asset_idx ${asset})
     add_custom_target("copy_${asset_idx}" ALL
         COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_SOURCE_DIR}/"${asset}"
-        ${CMAKE_CURRENT_BINARY_DIR}/"${asset}")
+        ${CMAKE_CURRENT_BINARY_DIR}/"${asset}"
+        DEPENDS "${asset}")
 endforeach(asset)
 
 
