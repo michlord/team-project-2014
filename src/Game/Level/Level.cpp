@@ -49,19 +49,18 @@ namespace Level {
         // Tiles
         for(auto& tileLine : tiles) {
             for(auto& tile : tileLine) {
-                tile.draw(target, states);
+                target.draw(tile, states);
             }
         }
 
         // Decorations
         for(auto& decoration : decorations) {
-            decoration.draw(target, states);
+            target.draw(decoration, states);
         }
 
         // Entities
         for(auto& entity : entities) {
-            (void)entity;
-            //TODO: add draw() for entities
+            target.draw(*entity, states);
         }
     }
 
