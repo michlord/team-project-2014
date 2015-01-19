@@ -1,4 +1,5 @@
 #include <Game/Level/Tile.h>
+#include <EngineApp/FrameContext.h>
 
 namespace Level {
 
@@ -22,7 +23,7 @@ namespace Level {
         if(sprite)
             sprite->draw(target, states);
     }
- 
+
     void Tile::setPosition(const sf::Vector2f& position) {
         if(sprite)
             sprite->setPosition(position);
@@ -36,13 +37,16 @@ namespace Level {
             sprite.reset();
         }
 
-        
-        static const sf::Texture text;
-        //TODO:
-        //static const sf::Texture& = assetManager.getTexture("id");
+        // There should probably be only one texture atlas for tiles.
+        // In the following switch statement the
+        // sprite should be assigned an appropriate texture rect.
+
+        // BTW As a code refactor the global instance of assetsManager might
+        // soon be moved out of the frameContext...
+        static const sf::Texture &text = Core::frameContext.assetsManager->getTexture("tiles_atlas");
 
         switch(type) {
-            case Type::Empty: 
+            case Type::Empty:
                 sprite.reset(new Video::Render::Sprite());
                 sprite->bindTexture(text);
                 sprite->setPosition(position);
