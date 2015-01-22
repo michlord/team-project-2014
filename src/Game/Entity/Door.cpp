@@ -19,15 +19,15 @@ namespace Entity {
     bool Door::handleMessage(const Message& msg) {
         if (msg.msg == Msg::NextLvl) {
             Core::frameContext.sceneStack->popScene();
-            Core::frameContext.sceneStack->pushScene(new Scene::Gameplay(frameContext.sceneStack.get(), 1));
-                                                     //levelManager.getCurrentID() + 1));
+            Core::frameContext.sceneStack->pushScene(new Scene::Gameplay(frameContext.sceneStack.get(),
+                                                     Level::levelManager.getCurrentID() + 1));
             return true;
         }
 
         return false;
     }
 
-    void Door::draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
+    void Door::draw(sf::RenderTarget& target, sf::RenderStates states)
     {
         if (sprite)
             sprite->draw(target, states);
