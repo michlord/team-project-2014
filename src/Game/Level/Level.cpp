@@ -36,7 +36,7 @@ namespace Level {
         // Decorations
         loadDecorationsFromFile(path + ".dec");
         decorations.sort([](const Decoration& a, const Decoration& b) {
-            return a.getLevel() < b.getLevel();
+            return a.getScale() < b.getScale();
         });
 
         // Entities
@@ -92,7 +92,7 @@ namespace Level {
 
     void Level::loadDecorationsFromFile(const std::string& path) {
         std::ifstream file;
-        std::string decX, decY, decLevel, decID;
+        std::string decX, decY, decScale, decID;
 
         file.open(path);
         if(file.is_open() == false) {
@@ -102,21 +102,21 @@ namespace Level {
 
         while(file.good()) {
 
-            file >> decX >> decY >> decID;
+            file >> decX >> decY >> decScale >> decID;
             try {
                 int posX = std::stoi(decX);
                 int posY = std::stoi(decY);
-                int level = std::stoi(decLevel);
+                int scale = std::stoi(decScale);
 
-                decorations.push_back(Decoration(posX, posY, level, decID));
+                decorations.push_back(Decoration(posX, posY, scale, decID));
 
             } catch(const std::invalid_argument& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s), L(%s) (%s)",
-                    decX.c_str(), decY.c_str(), decLevel.c_str(), exception.what());
+                    decX.c_str(), decY.c_str(), decScale.c_str(), exception.what());
 
             } catch(const std::out_of_range& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s), L(%s) (%s)",
-                    decX.c_str(), decY.c_str(), decLevel.c_str(), exception.what());
+                    decX.c_str(), decY.c_str(), decScale.c_str(), exception.what());
             }
         }
 

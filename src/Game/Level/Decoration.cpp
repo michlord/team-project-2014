@@ -6,10 +6,10 @@ namespace Level {
 
     }
 
-    Decoration::Decoration(int posX_, int posY_, int level_, const std::string& id_) {
+    Decoration::Decoration(int posX_, int posY_, int scale_, const std::string& id_) {
         posX = posX_;
         posY = posY_;
-        level = level_;
+        scale = scale_;
         id = id_;
     }
 
@@ -27,8 +27,8 @@ namespace Level {
             sprite->draw(target, states);
     }
 
-    int Decoration::getLevel() const {
-        return level;
+    int Decoration::getScale() const {
+        return scale;
     }
 
 }

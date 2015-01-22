@@ -16,12 +16,12 @@ namespace Level {
             void update(const sf::Time& timeElapsed);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-            int getLevel() const;
+            int getScale() const;
             
         private:
             int posX;
             int posY;
-            int level;
+            int scale;
             std::string id;
 
             Video::Render::Sprite* sprite;
