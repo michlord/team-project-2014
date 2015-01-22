@@ -21,15 +21,19 @@ namespace Level {
             void loadFromFile(unsigned int id, const std::string& path);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
+            unsigned int getID() const;
             std::list<Decoration>& getDecorations();
             std::list<Entity::BaseEntity*>& getEntities();
             std::vector<std::vector<Tile>>& getTiles();
+
+            void setID(unsigned int id_);
  
         private:
-            Tile getTileFromColor(const sf::Color& color, int posX, int posY);
+            void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
             void loadDecorationsFromFile(const std::string& path);
             void loadEntitiesFromFile(const std::string& path);
 
+            unsigned int id;
             std::list<Decoration> decorations;
             std::list<Entity::BaseEntity*> entities;
             std::vector<std::vector<Tile>> tiles;

@@ -8,6 +8,7 @@
 #include <EngineSystem/Input/InputHandler.h>
 #include <EngineSystem/Assets/AssetsManager.h>
 
+#include <Game/HUD/HUD.h>
 #include <Game/Level/LevelManager.h>
 #include <Game/Level/Level.h>
 
@@ -25,6 +26,7 @@ namespace Scene {
             void initLevel(unsigned int id);
 
             sf::Vector2f cameraCenter;
+            HUD::HUD hud;
             Level::Level *level;
         public:
             Gameplay(SceneStack* sceneStack_, unsigned int levelID);

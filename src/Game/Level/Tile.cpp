@@ -4,6 +4,7 @@
 namespace Level {
 
     Tile::Tile() {
+        setType(Tile::Type::Empty);
     }
 
     Tile::Tile(Tile::Type type_) {
@@ -30,30 +31,34 @@ namespace Level {
     }
 
     void Tile::setType(Type type) {
+        const sf::Texture& text = Core::frameContext.assetsManager->getTexture("tiles_atlas");
+        Video::Render::Sprite::Frame frame;
         sf::Vector2f position;
 
         if(sprite) {
             position = sprite->getPosition();
             sprite.reset();
         }
+        
+        (void) type;
 
-        // There should probably be only one texture atlas for tiles.
-        // In the following switch statement the
-        // sprite should be assigned an appropriate texture rect.
-
-        // BTW As a code refactor the global instance of assetsManager might
-        // soon be moved out of the frameContext...
-        static const sf::Texture &text = Core::frameContext.assetsManager->getTexture("tiles_atlas");
+        sprite.reset(new Video::Render::Sprite());
+        sprite->setPosition(position * 32.0f);
 
         switch(type) {
             case Type::Empty:
-                sprite.reset(new Video::Render::Sprite());
-                sprite->bindTexture(text);
-                sprite->setPosition(position);
+                frame.setTextureSegment(sf::IntRect(0, 0, 128, 128));
                 break;
 
-            // case Type::other:
+            case Type::Brick:
+                frame.setTextureSegment(sf::IntRect(128, 0, 128, 128));
+                break;
         }
+        
+        sprite->insertFrame(frame);
+        sprite->bindTexture(text);
+        sprite->setSize(32, 32);
+        sprite->update(sf::Time(sf::seconds(0.0f)));
     }
 
     Tile::Type Tile::getType() const {

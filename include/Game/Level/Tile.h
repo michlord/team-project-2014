@@ -12,7 +12,7 @@ namespace Level {
         public:
             enum class Type {
                 Empty,
-                // More types to go...
+                Brick,
             };
  
         public:
