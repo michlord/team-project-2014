@@ -8,7 +8,7 @@ namespace Video {
 
     namespace Render {
 
-        class Sprite : sf::Drawable {
+        class Sprite : public sf::Drawable {
             public:
                 class Frame {
                     public:

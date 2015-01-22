@@ -1,7 +1,10 @@
 #include <Game/Scene/Gameplay.h>
+#include <Game/Level/Tile.h>
 #include <EngineSystem/Config/Config.h>
 
 namespace Scene {
+
+sf::Vector2f Gameplay::cameraCenter;
 
 Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
  : FrameListener(sceneStack_)
@@ -34,7 +37,7 @@ void Gameplay::initInputHandler() {
     context.addState("left", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(-5.0f, 0.0f)));
     context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
     context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
-    context.addState("down", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));
+    context.addState("crouch", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));
 
     // context.addState("right", std::bind(&PlayerEntity::right, player.get(), std::placeholders::_1));
     // context.addState("left", std::bind(&PlayerEntity::left, player.get(), std::placeholders::_1));
@@ -67,12 +70,12 @@ bool Gameplay::render(){
 
 bool Gameplay::fixedUpdate(){
     hud.update();
+
     return true;
 }
 
 Input::InputHandler *Gameplay::getInputHandler(){
     return inputHandler.get();
 }
-
 
 }

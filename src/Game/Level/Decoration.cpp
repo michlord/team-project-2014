@@ -1,4 +1,5 @@
 #include <Game/Level/Decoration.h>
+#include <Game/Scene/Gameplay.h>
 #include <EngineApp/FrameContext.h>
 #include <EngineSystem/Log/Log.h>
 
@@ -51,8 +52,10 @@ namespace Level {
     }
 
     void Decoration::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if(sprite)
-            sprite->draw(target, states);
+        if(sprite) {
+            states.transform.translate(-Scene::Gameplay::cameraCenter * getScale());
+            target.draw(*sprite, states);
+        }
     }
 
     float Decoration::getScale() const {

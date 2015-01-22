@@ -26,7 +26,6 @@ namespace Scene {
             void initLevel(unsigned int id);
             void moveCamera(const sf::Vector2f& direction);
 
-            sf::Vector2f cameraCenter;
             HUD::HUD hud;
             Level::Level *level;
         public:
@@ -34,6 +33,8 @@ namespace Scene {
             bool render();
             bool fixedUpdate();
             Input::InputHandler *getInputHandler();
+            
+            static sf::Vector2f cameraCenter;
     };
 
 }

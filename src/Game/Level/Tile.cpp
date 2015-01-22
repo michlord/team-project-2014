@@ -1,4 +1,5 @@
 #include <Game/Level/Tile.h>
+#include <Game/Scene/Gameplay.h>
 #include <EngineApp/FrameContext.h>
 
 namespace Level {
@@ -21,8 +22,10 @@ namespace Level {
     }
 
     void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if(sprite && type != Tile::Type::Empty)
-            sprite->draw(target, states);
+        if(sprite && type != Tile::Type::Empty) {
+            states.transform.translate(-Scene::Gameplay::cameraCenter);
+            target.draw(*sprite, states);
+        }
     }
 
     void Tile::setPosition(const sf::Vector2f& position) {
