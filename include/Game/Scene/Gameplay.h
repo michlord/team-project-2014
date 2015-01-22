@@ -24,6 +24,7 @@ namespace Scene {
             std::unique_ptr<Input::InputHandler> inputHandler;
             void initInputHandler();
             void initLevel(unsigned int id);
+            void moveCamera(const sf::Vector2f& direction);
 
             sf::Vector2f cameraCenter;
             HUD::HUD hud;
