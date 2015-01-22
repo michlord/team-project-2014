@@ -10,7 +10,7 @@ namespace Level {
     class Decoration : public sf::Drawable {
         public:
             Decoration();
-            Decoration(int posX_, int posY_, int level_, const std::string& id_);
+            Decoration(int posX_, int posY_, int scale_, const std::string& id_);
             ~Decoration();
 
             void update(const sf::Time& timeElapsed);
