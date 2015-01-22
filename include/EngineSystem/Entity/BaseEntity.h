@@ -7,6 +7,13 @@ namespace Entity {
 
 struct Message;
 
+enum ENTITY_TYPE {
+    PLAYER,
+    DOOR, 
+    HUD,
+    SPECIAL_ID_COUNT
+};
+
 class BaseEntity : public sf::Drawable {
     private:
         int        id;
@@ -17,6 +24,7 @@ class BaseEntity : public sf::Drawable {
         BaseEntity(const BaseEntity &other);
         BaseEntity &operator=(const BaseEntity &other);
     public:
+        BaseEntity();
         BaseEntity(int id_);
         virtual ~BaseEntity();
 
