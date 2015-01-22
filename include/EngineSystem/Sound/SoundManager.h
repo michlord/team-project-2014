@@ -6,41 +6,47 @@
 #include <SFML/Audio/Music.hpp>
 #include <unordered_map>
 
-class SoundManager {
-    public:
-        SoundManager();
-        ~SoundManager();
+namespace Sound {
 
-        void clear();
+    class SoundManager {
+        public:
+            static SoundManager &getInstance();
+            ~SoundManager();
 
-        void setIdGenBase(int);
-        void setSoundsVolume(float);
-        void setMusicsVolume(float);
+            void clear();
 
-        void scaleSoundsVolume(float);
-        void scaleMusicsVolume(float);
+            void setIdGenBase(int);
+            void setSoundsVolume(float);
+            void setMusicsVolume(float);
 
-        std::size_t createBuffer(const std::string &);
-        std::size_t createSound(std::size_t);
-        std::size_t createMusic(const std::string &);
+            void scaleSoundsVolume(float);
+            void scaleMusicsVolume(float);
 
-        void deleteSound(std::size_t);
-        void deleteMusic(std::size_t);
+            std::size_t createBuffer(const std::string &);
+            std::size_t createSound(std::size_t);
+            std::size_t createMusic(const std::string &);
 
-        void stopSounds();
-        void stopMusics();
+            void deleteSound(std::size_t);
+            void deleteMusic(std::size_t);
 
-    private:
-        int id_gen_base;
-        float sounds_volume;
-        float musics_volume;
+            void stopSounds();
+            void stopMusics();
 
-        std::unordered_map<std::size_t, sf::SoundBuffer> sound_buffers;
-        std::unordered_map<std::size_t, sf::Sound> sounds;
-        std::unordered_map<std::size_t, sf::Music*> musics;
+        private:
+            SoundManager();
+            int id_gen_base;
+            float sounds_volume;
+            float musics_volume;
 
-        sf::Sound& getSound(std::size_t);
-        sf::Music& getMusic(std::size_t);
-};
+            std::unordered_map<std::size_t, sf::SoundBuffer> sound_buffers;
+            std::unordered_map<std::size_t, sf::Sound> sounds;
+            std::unordered_map<std::size_t, sf::Music*> musics;
 
+            sf::Sound& getSound(std::size_t);
+            sf::Music& getMusic(std::size_t);
+    };
+
+    extern SoundManager &soundManager;
+
+}
 #endif // !SOUNDMANAGER_H_INCLUDED

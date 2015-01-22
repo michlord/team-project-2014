@@ -6,6 +6,8 @@ namespace Menu {
 List::List(const sf::Font *_textFont, float posx, float posy)
  : curIdx(-1), position(posx, posy), textFont(_textFont)
 {
+    menuMoveSoundID = Sound::soundManager.createBuffer("assets/sound/menu_move.ogg");
+    menuSelectSoundID = Sound::soundManager.createBuffer("assets/sound/menu_select.ogg");
 }
 
 void List::setPosition(float x, float y) {
@@ -44,6 +46,7 @@ void List::handleInput(const Input::Input &in) {
             if(curIdx >= 0) {
                 if(store[curIdx].isSelectable()) {
                     store[curIdx].setSelected(true);
+                    wtf = Sound::soundManager.createSound(menuSelectSoundID);
                 } else {
                     store[curIdx].handleInput(in);
                 }
@@ -56,6 +59,7 @@ void List::handleInput(const Input::Input &in) {
             }
             curIdx = (curIdx + 1) % store.size();
             store[curIdx].setFocused(true);
+            wtf = Sound::soundManager.createSound(menuMoveSoundID);
             return;
         }
         if(p->getId() == Input::ID::Up) {
@@ -68,6 +72,7 @@ void List::handleInput(const Input::Input &in) {
                 curIdx -= 1;
             }
             store[curIdx].setFocused(true);
+            wtf = Sound::soundManager.createSound(menuMoveSoundID);
             return;
         }
     }
