@@ -5,26 +5,30 @@
 #include <SFML/Graphics.hpp>
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
 
+#include <memory>
+
 namespace Level {
 
     class Decoration : public sf::Drawable {
         public:
             Decoration();
-            Decoration(int posX_, int posY_, int scale_, const std::string& id_);
+            Decoration(float posX_, float posY_, float scale_, const std::string& id_);
             ~Decoration();
+
+            void setup();
 
             void update(const sf::Time& timeElapsed);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
-            int getScale() const;
+            float getScale() const;
             
         private:
-            int posX;
-            int posY;
-            int scale;
+            float posX;
+            float posY;
+            float scale;
             std::string id;
-
-            Video::Render::Sprite* sprite;
+            
+            std::shared_ptr<Video::Render::Sprite> sprite;
 
     };
 

@@ -23,6 +23,7 @@ namespace Level {
     
     void LevelManager::initTextures() {
         Core::frameContext.assetsManager->loadTexture("assets/images/tiles_atlas.png", "tiles_atlas");
+        Core::frameContext.assetsManager->loadTexture("assets/images/decorations_atlas.png", "decorations_atlas");
     }
 
     void LevelManager::addLevel(unsigned int levelID, const std::string& levelPath) {

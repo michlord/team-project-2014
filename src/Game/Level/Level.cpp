@@ -49,16 +49,16 @@ namespace Level {
     }
 
     void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        // Decorations
+        for(auto& decoration : decorations) {
+            target.draw(decoration, states);
+        }
+
         // Tiles
         for(auto& tileLine : tiles) {
             for(auto& tile : tileLine) {
                 target.draw(tile, states);
             }
-        }
-
-        // Decorations
-        for(auto& decoration : decorations) {
-            target.draw(decoration, states);
         }
 
         // Entities
@@ -115,9 +115,9 @@ namespace Level {
 
             file >> decX >> decY >> decScale >> decID;
             try {
-                int posX = std::stoi(decX);
-                int posY = std::stoi(decY);
-                int scale = std::stoi(decScale);
+                float posX  = std::stof(decX);
+                float posY  = std::stof(decY);
+                float scale = std::stof(decScale);
 
                 decorations.push_back(Decoration(posX, posY, scale, decID));
 

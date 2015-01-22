@@ -21,7 +21,7 @@ namespace Level {
     }
 
     void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        if(sprite)
+        if(sprite && type != Tile::Type::Empty)
             sprite->draw(target, states);
     }
 
@@ -39,15 +39,13 @@ namespace Level {
             position = sprite->getPosition();
             sprite.reset();
         }
-        
-        (void) type;
 
         sprite.reset(new Video::Render::Sprite());
         sprite->setPosition(position * 32.0f);
 
         switch(type) {
             case Type::Empty:
-                frame.setTextureSegment(sf::IntRect(0, 0, 128, 128));
+                // do not draw this
                 break;
 
             case Type::Brick:
