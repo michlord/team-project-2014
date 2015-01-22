@@ -14,24 +14,24 @@ namespace Level {
                 Empty,
                 Brick,
             };
- 
+
         public:
             Tile();
             Tile(Type type_);
             virtual ~Tile();
- 
+
             void update(const sf::Time& timeElapsed);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
- 
+
             void setPosition(const sf::Vector2f& position);
-            void setType(Type type);
+            void setType(Type type_);
 
             Type getType() const;
             const sf::Vector2f& getPosition() const;
- 
+
         protected:
             std::shared_ptr<Video::Render::Sprite> sprite;
- 
+
         private:
             Type type;
     };
