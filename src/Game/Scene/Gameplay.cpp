@@ -10,9 +10,12 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
 
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
+    
+    Level::levelManager.initTextures();
 
     initLevel(levelID);
     initInputHandler();
+
 }
 
 void Gameplay::initInputHandler() {
@@ -45,10 +48,14 @@ void Gameplay::initLevel(unsigned int id) {
 }
 
 bool Gameplay::render(){
+    frameContext.window->draw(*level);
+    frameContext.window->draw(hud);
+
     return true;
 }
 
 bool Gameplay::fixedUpdate(){
+    hud.update();
     return true;
 }
 
