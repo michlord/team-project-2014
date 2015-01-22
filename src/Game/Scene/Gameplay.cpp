@@ -29,6 +29,13 @@ void Gameplay::initInputHandler() {
     context.addBinding("slash",  (Input::ID) cfg.getInt("keys", "slash", Input::ID::F));
     context.addBinding("cast",   (Input::ID) cfg.getInt("keys", "magic", Input::ID::S));
 
+    // Temporary keyboard camera moving
+    context.addBinding("up", Input::ID::Up);
+    context.addState("left", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(-5.0f, 0.0f)));
+    context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
+    context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
+    context.addState("down", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));
+
     // context.addState("right", std::bind(&PlayerEntity::right, player.get(), std::placeholders::_1));
     // context.addState("left", std::bind(&PlayerEntity::left, player.get(), std::placeholders::_1));
     // context.addState("down", std::bind(&PlayerEntity::down, player.get(), std::placeholders::_1));
@@ -45,6 +52,10 @@ void Gameplay::initInputHandler() {
 void Gameplay::initLevel(unsigned int id) {
     Level::levelManager.loadLevel(id);
     level = &Level::levelManager.getCurrentLevel();
+}
+
+void Gameplay::moveCamera(const sf::Vector2f& direction) {
+    cameraCenter += direction;
 }
 
 bool Gameplay::render(){
