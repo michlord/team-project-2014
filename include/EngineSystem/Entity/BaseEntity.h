@@ -7,11 +7,11 @@ namespace Entity {
 
 struct Message;
 
-enum ENTITY_TYPE {
-    PLAYER,
-    DOOR, 
-    HUD,
-    SPECIAL_ID_COUNT
+enum EntityType {
+    Player,
+    Door, 
+    Hud,
+    SpecialIdCount
 };
 
 class BaseEntity : public sf::Drawable {

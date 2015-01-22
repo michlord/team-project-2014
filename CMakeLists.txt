@@ -154,6 +154,7 @@ set(GAME_SRC
     "src/Game/Level/Level.cpp"
     "src/Game/Level/LevelManager.cpp"
     "src/Game/Level/Tile.cpp"
+	"src/Game/HUD/HUD.cpp"
 )
 
 SET(GAME_H
@@ -166,6 +167,7 @@ SET(GAME_H
     "include/Game/Level/Level.h"
     "include/Game/Level/LevelManager.h"
     "include/Game/Level/Tile.h"
+	"include/Game/HUD/HUD.h"
 )
 
 add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})

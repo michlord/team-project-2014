@@ -49,11 +49,13 @@ void Gameplay::initLevel(unsigned int id) {
 
 bool Gameplay::render(){
     frameContext.window->draw(*level);
+    frameContext.window->draw(hud);
 
     return true;
 }
 
 bool Gameplay::fixedUpdate(){
+    hud.update();
     return true;
 }
 
