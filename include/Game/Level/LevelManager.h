@@ -15,15 +15,19 @@ namespace Level {
             LevelManager();
             ~LevelManager();
 
+            void initTextures();
+
             void addLevel(unsigned int levelID, const std::string& levelPath);
             void loadLevel(unsigned int levelID);
             void resetLevel();
 
             Level& getCurrentLevel();
+            unsigned int getCurrentID() const;
             const Level& getCurrentLevel() const;
             const std::unordered_map<unsigned int, std::string>& getLevels() const;
 
         private:
+
             unsigned int currentID;
             Level currentLevel;
             std::unordered_map<unsigned int, std::string> levels;

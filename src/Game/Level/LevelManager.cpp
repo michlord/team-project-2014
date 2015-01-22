@@ -1,4 +1,6 @@
 #include <Game/Level/LevelManager.h>
+#include <EngineApp/FrameContext.h>
+#include <EngineSystem/Assets/AssetsManager.h>
 
 namespace Level {
 
@@ -18,6 +20,10 @@ namespace Level {
     LevelManager::~LevelManager() {
 
     }
+    
+    void LevelManager::initTextures() {
+        Core::frameContext.assetsManager->loadTexture("assets/images/tiles_atlas.png", "tiles_atlas");
+    }
 
     void LevelManager::addLevel(unsigned int levelID, const std::string& levelPath) {
         levels[levelID] = levelPath;
@@ -34,6 +40,10 @@ namespace Level {
 
     Level& LevelManager::getCurrentLevel() {
         return currentLevel;
+    }
+
+    unsigned int LevelManager::getCurrentID() const {
+        return currentID;
     }
 
     const Level& LevelManager::getCurrentLevel() const {

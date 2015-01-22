@@ -1,14 +1,17 @@
 #include <EngineSystem/Log/Log.h>
 #include <Game/Level/Level.h>
 
+#include <iostream>
+
 namespace Level {
 
     Level::Level() {
-
+        setID(0);
     }
 
     Level::Level(unsigned int id, const std::string& path) {
         loadFromFile(id, path);
+        setID(id);
     }
 
     Level::~Level() {
@@ -29,7 +32,7 @@ namespace Level {
 
             for(unsigned int x = 0; x < tilesImg.getSize().x; ++x) {
                 tileColor = tilesImg.getPixel(x, y);
-                tiles[y][x] = getTileFromColor(tileColor, x, y);
+                setTile(tiles[y][x], tileColor, x, y);
             }
         }
 
@@ -64,6 +67,10 @@ namespace Level {
         }
     }
 
+    unsigned int Level::getID() const {
+        return id;
+    }
+
     std::list<Decoration>& Level::getDecorations(){
         return decorations;
     }
@@ -75,19 +82,23 @@ namespace Level {
     std::vector<std::vector<Tile>>& Level::getTiles() {
         return tiles;
     }
+    
+    void Level::setID(unsigned int id_) {
+        id = id_;
+    }
 
-    Tile Level::getTileFromColor(const sf::Color& color, int posX, int posY) {
-        Tile result(Tile::Type::Empty);
+    void Level::setTile(Tile& tile, const sf::Color& color, int posX, int posY) {
+        tile.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
 
         if(color == sf::Color::White) {
-            result.setType(Tile::Type::Empty);
-            result.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
+            tile.setType(Tile::Type::Empty);
+
+        } else if(color == sf::Color::Black) {
+            tile.setType(Tile::Type::Brick);
 
         } else {
             Log::get().write(Log::System::Game, "Unrecognized tile type (color): R(%u) G(%u) B(%u)", color.r, color.g, color.b);
         }
-
-        return result;
     }
 
     void Level::loadDecorationsFromFile(const std::string& path) {
