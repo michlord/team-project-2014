@@ -13,7 +13,7 @@ CharacterEntity::CharacterEntity(
    movementSpeed(3.0f), boundingRect(boundingRect_)
 {
     animation.setCurrentSequence("run");
-    animation.setSize(sf::Vector2u(boundingRect_.width,boundingRect_.height));
+    animation.setSize(sf::Vector2u((unsigned int)boundingRect_.width, (unsigned int)boundingRect_.height));
     animation.setPosition(sf::Vector2f(0.0f, 0.0f));
 
     statusSM.reset(new StateMachine<CharacterEntity>(this));

@@ -23,7 +23,7 @@ namespace Entity {
     bool Run::onMessage(CharacterEntity *entity, const Message &msg){
         if(msg.msg == CharacterEntity::MessageType::Input) {
             Input::ID id = (Input::ID) msg.arg1;
-            bool pressed = msg.arg2;
+            int pressed = msg.arg2;
 
             if(!pressed) {
                 if(entity->flipped && id == Input::ID::Left) {

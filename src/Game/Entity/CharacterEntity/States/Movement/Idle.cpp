@@ -18,7 +18,7 @@ void Idle::onExit(CharacterEntity *entity){
 bool Idle::onMessage(CharacterEntity *entity, const Message &msg){
     if(msg.msg == CharacterEntity::MessageType::Input) {
         Input::ID id = (Input::ID) msg.arg1;
-        bool pressed = msg.arg2;
+        int pressed = msg.arg2;
 
         if(pressed) {
             switch(id) {
