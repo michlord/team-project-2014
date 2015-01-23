@@ -12,7 +12,7 @@ CharacterEntity::CharacterEntity(
    jumpCount(0), healthPoints(100), animation(animation_), jumpHeight(200.0f),
    movementSpeed(3.0f), boundingRect(boundingRect_)
 {
-    animation.setCurrentSequence("slash");
+    animation.setCurrentSequence("run");
     animation.setSize(sf::Vector2u(boundingRect_.width,boundingRect_.height));
     animation.setPosition(sf::Vector2f(0.0f, 0.0f));
 
@@ -44,15 +44,11 @@ bool CharacterEntity::handleMessage(const Message& msg) {
 }
 
 void CharacterEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    (void) target; (void) states;
-
     sf::Vector2f position(boundingRect.left, boundingRect.top);
 
-
-
     if(flipped) {
-        sf::Vector2u size = animation.getSize();
-        states.transform.scale(-1.0f, 1.0f, position.x + size.x/2.0f , position.y);
+        sf::Vector2f origin = getFeetPosition();
+        states.transform.scale(-1.0f, 1.0f, origin.x , origin.y);
     }
 
     states.transform.translate(position);
@@ -60,7 +56,7 @@ void CharacterEntity::draw(sf::RenderTarget &target, sf::RenderStates states) co
     target.draw(animation, states);
 }
 
-sf::Vector2f CharacterEntity::getFeetPosition() {
+sf::Vector2f CharacterEntity::getFeetPosition() const {
     sf::FloatRect rect = getCurrentCollisionRect();
     sf::Vector2f feet;
     feet.x = rect.width/2 + rect.left;
@@ -68,8 +64,13 @@ sf::Vector2f CharacterEntity::getFeetPosition() {
     return feet;
 }
 
-sf::FloatRect CharacterEntity::getCurrentCollisionRect() {
-    sf::FloatRect rect = collisionRects[animation.getCurrentSequenceName()];
+sf::FloatRect CharacterEntity::getCurrentCollisionRect() const {
+    auto it = collisionRects.find(animation.getCurrentSequenceName());
+    if(it == collisionRects.end()) {
+        return sf::FloatRect();
+    }
+
+    sf::FloatRect rect = it->second;
 
     sf::Transform transform;
     const Video::Render::AnimatedSprite* sprite = animation.getSequence(animation.getCurrentSequenceName());
@@ -78,10 +79,6 @@ sf::FloatRect CharacterEntity::getCurrentCollisionRect() {
 
     sf::Transform transform2;
     sf::Vector2f position(boundingRect.left, boundingRect.top);
-    if(flipped) {
-        sf::Vector2u size = animation.getSize();
-        transform2.scale(-1.0f, 1.0f, position.x + size.x/2.0f , position.y);
-    }
     transform2.translate(position);
     rect = transform2.transformRect(rect);
 

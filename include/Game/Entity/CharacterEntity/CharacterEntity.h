@@ -44,8 +44,8 @@ public:
     std::unique_ptr< StateMachine<CharacterEntity> > collisionSM;
     std::unique_ptr< StateMachine<CharacterEntity> > movementSM;
 
-    sf::Vector2f getFeetPosition();
-    sf::FloatRect getCurrentCollisionRect();
+    sf::Vector2f getFeetPosition() const;
+    sf::FloatRect getCurrentCollisionRect() const;
 };
 
 }

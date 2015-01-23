@@ -71,7 +71,7 @@ void Gameplay::initLevel(unsigned int id) {
 }
 
 void Gameplay::moveCamera(const sf::Vector2f& direction) {
-    cameraCenter += direction;
+    //cameraCenter += direction;
     if(direction.x < 0) {
         player->flipped = true;
     } else {
