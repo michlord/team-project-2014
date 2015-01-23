@@ -2,7 +2,13 @@
 #include <Game/Level/Tile.h>
 #include <EngineSystem/Config/Config.h>
 
+
+
 namespace Scene {
+
+namespace Helpers {
+    std::map<std::string, sf::FloatRect> makePlayerAnimation(Video::Render::Animation &animation);
+}
 
 sf::Vector2f Gameplay::cameraCenter;
 
@@ -13,8 +19,15 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
 
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
-    
+
     Level::levelManager.initTextures();
+
+    Video::Render::Animation animation;
+    std::map<std::string, sf::FloatRect> collisionRects = Helpers::makePlayerAnimation(animation);
+
+    player.reset(new Entity::CharacterEntity(Entity::EntityType::Player, animation, sf::FloatRect(100.0f, 100.0f, 50.0f, 64.0f)));
+    player->collisionRects = collisionRects;
+    player->flipped = false;
 
     initLevel(levelID);
     initInputHandler();
@@ -59,10 +72,32 @@ void Gameplay::initLevel(unsigned int id) {
 
 void Gameplay::moveCamera(const sf::Vector2f& direction) {
     cameraCenter += direction;
+    if(direction.x < 0) {
+        player->flipped = true;
+    } else {
+        player->flipped = false;
+    }
 }
 
 bool Gameplay::render(){
     frameContext.window->draw(*level);
+    frameContext.window->draw(*player);
+    sf::RectangleShape rectangle;
+    sf::FloatRect r = player->getCurrentCollisionRect();
+
+    rectangle.setPosition(r.left, r.top);
+    rectangle.setSize(sf::Vector2f(r.width, r.height));
+    rectangle.setOutlineColor(sf::Color::Red);
+    rectangle.setFillColor(sf::Color(100,100,100,180));
+    frameContext.window->draw(rectangle);
+
+    sf::CircleShape feet(5);
+    feet.setPosition(player->getFeetPosition() - sf::Vector2f(5.0f, 5.0f));
+    feet.setFillColor(sf::Color(100,150,100,180));
+    frameContext.window->draw(feet);
+
+
+
     frameContext.window->draw(hud);
 
     return true;
@@ -70,7 +105,7 @@ bool Gameplay::render(){
 
 bool Gameplay::fixedUpdate(){
     hud.update();
-
+    player->update();
     return true;
 }
 

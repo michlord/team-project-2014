@@ -49,7 +49,7 @@ namespace Video {
             sprite = sprite_.sprite;
             frame = sprite_.frame;
         }
-        
+
         Sprite::~Sprite() {
 
         }
@@ -85,14 +85,14 @@ namespace Video {
             isTextureBinded = true;
             sprite.setTexture(texture_, true);
         }
-        
+
         void Sprite::insertFrame(const Sprite::Frame& frame_) {
             frameCount = 1;
             frame = frame_;
         }
-        
+
         void Sprite::resetCurrentFrame() {
-            
+
         }
 
         void Sprite::setRotation(float angle_) {
@@ -102,7 +102,6 @@ namespace Video {
 
         void Sprite::setSize(const sf::Vector2u& size_) {                   // to be fixed!
             sf::Vector2i segmentSize;
-            sf::Vector2f newScale;
 
             size = size_;
             segmentSize = sf::Vector2i(sprite.getTextureRect().width, sprite.getTextureRect().height);
@@ -139,11 +138,11 @@ namespace Video {
         void Sprite::movePosition(float offsetX_, float offsetY_) {
             movePosition(sf::Vector2f(offsetX_, offsetY_));
         }
-                
+
         float Sprite::getRotation() const {
             return rotation;
         }
-        
+
         unsigned int Sprite::getFrameCount() const {
             return frameCount;
         }
@@ -167,9 +166,13 @@ namespace Video {
         const sf::Color& Sprite::getColorMask() const {
             return colorMask;
         }
-        
+
         const Sprite::Frame* Sprite::getFrames() const {
             return &frame;
+        }
+
+        sf::Vector2f Sprite::getNewScale() const {
+            return newScale;
         }
 
         /**
@@ -198,7 +201,7 @@ namespace Video {
             setTimeLeft(getTimeLeft() - timeElapsed_);
             return getTimeLeft();
         }
-                        
+
         void Sprite::Frame::setDuration(const sf::Time& time) {
             duration = time;
             reset();

@@ -12,6 +12,8 @@
 #include <Game/Level/LevelManager.h>
 #include <Game/Level/Level.h>
 
+#include <Game/Entity/CharacterEntity/CharacterEntity.h>
+
 #include <memory>
 #include <vector>
 
@@ -28,12 +30,13 @@ namespace Scene {
 
             HUD::HUD hud;
             Level::Level *level;
+            std::shared_ptr<Entity::CharacterEntity> player;
         public:
             Gameplay(SceneStack* sceneStack_, unsigned int levelID);
             bool render();
             bool fixedUpdate();
             Input::InputHandler *getInputHandler();
-            
+
             static sf::Vector2f cameraCenter;
     };
 

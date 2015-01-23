@@ -18,7 +18,7 @@ namespace Video {
 
                         void reset();
                         const sf::Time& update(const sf::Time& timeElapsed_);
-                        
+
                         void setDuration(const sf::Time& time_);
                         void setTextureSegment(const sf::IntRect& textureSegment_);
 
@@ -58,7 +58,7 @@ namespace Video {
 
                 void movePosition(const sf::Vector2f& moveVector_);
                 void movePosition(float offsetX_, float offsetY_);
-                
+
                 float getRotation() const;
                 unsigned int getFrameCount() const;
                 unsigned int getWidth() const;
@@ -67,6 +67,8 @@ namespace Video {
                 const sf::Vector2f& getPosition() const;
                 const sf::Color& getColorMask() const;
                 const Sprite::Frame* getFrames() const;
+
+                sf::Vector2f getNewScale() const;
 
             protected:
                 bool isTextureBinded;
@@ -83,7 +85,7 @@ namespace Video {
 
             private:
                 Sprite::Frame frame;    // private since in animated sprite there will be an array of frames
-
+                sf::Vector2f  newScale;
         };
 
     }

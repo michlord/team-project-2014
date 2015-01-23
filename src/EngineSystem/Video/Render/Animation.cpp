@@ -58,7 +58,7 @@ namespace Video {
         void Animation::addSequence(const std::string& name_, const AnimatedSprite& spriteSequence_, bool repeat_) {
             spriteSequences.insert(std::make_pair(name_, spriteSequence_));
             getSequence(name_)->setRepeat(repeat_);
-            
+
             Control control;
             sequenceControl.insert(std::make_pair(name_, control));
         }
@@ -71,23 +71,23 @@ namespace Video {
 
             sequenceControl[name_].nextSequence = next_;
         }
-        
+
         void Animation::addSequence(const std::string& name_, const AnimatedSprite& spriteSequence_, const char* next_) {
             addSequence(name_, spriteSequence_, std::string(next_));
         }
 
         void Animation::addSequence(const std::string& name_, const AnimatedSprite& spriteSequence_, const std::function<void()> onDone_) {
             spriteSequences.insert(std::make_pair(name_, spriteSequence_));
-            
+
             Control control;
             sequenceControl.insert(std::make_pair(name_, control));
             sequenceControl[name_].onDone = onDone_;
         }
-        
+
         void Animation::setCurrentSequence(const std::string& name_) {
             if(isCurrentSet)
                 spriteSequences[name_].resetCurrentFrame();
-            
+
             currentSequence = name_;
 
             try {
@@ -162,7 +162,11 @@ namespace Video {
                 return nullptr;
             }
         }
-                
+
+        const std::string &Animation::getCurrentSequenceName() const {
+            return currentSequence;
+        }
+
         float Animation::getRotation() const {
             return rotation;
         }

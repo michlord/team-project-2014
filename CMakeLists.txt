@@ -145,33 +145,44 @@ set(GAMELIB_H
 
 set(GAME_SRC
     "src/Game/main.cpp"
+
     "src/Game/Scene/Intro.cpp"
     "src/Game/Scene/MainMenu.cpp"
     "src/Game/Scene/Gameplay.cpp"
+
     "src/Game/Menu/List.cpp"
     "src/Game/Menu/ListItem.cpp"
+
     "src/Game/Level/Decoration.cpp"
     "src/Game/Level/Level.cpp"
     "src/Game/Level/LevelManager.cpp"
     "src/Game/Level/Tile.cpp"
+
+    "src/Game/HUD/HUD.cpp"
+
     "src/Game/Entity/Door.cpp"
     "src/Game/Entity/CharacterEntity/CharacterEntity.cpp"
-    "src/Game/HUD/HUD.cpp"
+    "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
 )
 
 SET(GAME_H
     "include/Game/Scene/Intro.h"
     "include/Game/Scene/MainMenu.h"
     "include/Game/Scene/Gameplay.h"
+
     "include/Game/Menu/List.h"
     "include/Game/Menu/ListItem.h"
+
     "include/Game/Level/Decoration.h"
     "include/Game/Level/Level.h"
     "include/Game/Level/LevelManager.h"
     "include/Game/Level/Tile.h"
-    "include/Game/Entity/Door.h"
-    "include/Game/Entity/CharacterEntity/CharacterEntity.h"
+
     "include/Game/HUD/HUD.h"
+
+    "include/Game/Entity/CharacterEntity/CharacterEntity.h"
+    "include/Game/Entity/CharacterEntity/States.h"
+    "include/Game/Entity/Door.h"
 )
 
 add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})

@@ -48,7 +48,8 @@ namespace Video {
 
                 AnimatedSprite* getSequence(const std::string& name_);
                 const AnimatedSprite* getSequence(const std::string& name_) const;
-                
+                const std::string &getCurrentSequenceName() const;
+
                 float getRotation() const;
                 const sf::Vector2f& getPosition() const;
                 const sf::Vector2u& getSize() const;
