@@ -20,7 +20,7 @@ CharacterEntity::CharacterEntity(
     collisionSM.reset(new StateMachine<CharacterEntity>(this));
     movementSM.reset(new StateMachine<CharacterEntity>(this));
 
-    //movementSM->changeState(new Idle());
+    movementSM->changeState(new Idle());
     //globalSM->changeState(new OnGround());
 }
 
@@ -29,7 +29,6 @@ CharacterEntity::~CharacterEntity() {
 }
 
 void CharacterEntity::update() {
-    animation.update(sf::seconds(0.01f));
     statusSM->update();
     collisionSM->update();
     movementSM->update();
@@ -54,6 +53,14 @@ void CharacterEntity::draw(sf::RenderTarget &target, sf::RenderStates states) co
     states.transform.translate(position);
 
     target.draw(animation, states);
+}
+
+void CharacterEntity::setFeetPosition(sf::Vector2f position_) {
+    sf::Vector2f position(boundingRect.left, boundingRect.top);
+    sf::Vector2f delta = getFeetPosition() - position;
+    position_ = position_ - delta;
+    boundingRect.left = position_.x;
+    boundingRect.top = position_.y;
 }
 
 sf::Vector2f CharacterEntity::getFeetPosition() const {
@@ -85,5 +92,9 @@ sf::FloatRect CharacterEntity::getCurrentCollisionRect() const {
     return rect;
 }
 
+void CharacterEntity::handleInput(int id, bool pressed) {
+    Message msg(0, getId(), MessageType::Input, 0.0f, nullptr, id, pressed);
+    handleMessage(msg);
+}
 
 }

@@ -25,7 +25,7 @@ namespace Level {
     void Decoration::setup() {
         const sf::Texture& texture = Core::frameContext.assetsManager->getTexture("decorations_atlas");
         Video::Render::Sprite::Frame frame;
-        
+
         sprite.reset(new Video::Render::Sprite());
         sprite->setPosition(sf::Vector2f(posX, posY) * 32.0f);
 
@@ -40,7 +40,7 @@ namespace Level {
         } else {
             Log::get().write(Log::System::Game, "Undefined decoration id: '%s'", id.c_str());
         }
-        
+
         sprite->insertFrame(frame);
         sprite->bindTexture(texture);
         sprite->update(sf::Time(sf::seconds(0.0f)));

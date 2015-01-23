@@ -34,8 +34,9 @@ public:
 
     /* Configuration variables */
     Video::Render::Animation animation;
-    float jumpHeight;
-    float movementSpeed;
+    float         jumpHeight;
+    int           maxJumps;
+    float         movementSpeed;
     sf::FloatRect boundingRect;
     std::map<std::string, sf::FloatRect> collisionRects;
 
@@ -45,7 +46,13 @@ public:
     std::unique_ptr< StateMachine<CharacterEntity> > movementSM;
 
     sf::Vector2f getFeetPosition() const;
+    void setFeetPosition(sf::Vector2f position_);
     sf::FloatRect getCurrentCollisionRect() const;
+    void handleInput(int id, bool pressed);
+
+    enum MessageType {
+        Input
+    };
 };
 
 }

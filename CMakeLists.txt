@@ -160,9 +160,13 @@ set(GAME_SRC
 
     "src/Game/HUD/HUD.cpp"
 
-    "src/Game/Entity/Door.cpp"
     "src/Game/Entity/CharacterEntity/CharacterEntity.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Idle.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Run.cpp"
+
     "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
+
+    "src/Game/Entity/Door.cpp"
 )
 
 SET(GAME_H
@@ -182,6 +186,9 @@ SET(GAME_H
 
     "include/Game/Entity/CharacterEntity/CharacterEntity.h"
     "include/Game/Entity/CharacterEntity/States.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Idle.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Run.h"
+
     "include/Game/Entity/Door.h"
 )
 

@@ -47,10 +47,13 @@ void Gameplay::initInputHandler() {
 
     // Temporary keyboard camera moving
     context.addBinding("up", Input::ID::Up);
-    context.addState("left", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(-5.0f, 0.0f)));
-    context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
-    context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
-    context.addState("crouch", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));
+
+
+    context.addState("left", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Left, std::placeholders::_1));
+    context.addState("right", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Right, std::placeholders::_1));
+    // context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
+    // context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
+    // context.addState("crouch", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));
 
     // context.addState("right", std::bind(&PlayerEntity::right, player.get(), std::placeholders::_1));
     // context.addState("left", std::bind(&PlayerEntity::left, player.get(), std::placeholders::_1));
@@ -71,17 +74,20 @@ void Gameplay::initLevel(unsigned int id) {
 }
 
 void Gameplay::moveCamera(const sf::Vector2f& direction) {
-    //cameraCenter += direction;
-    if(direction.x < 0) {
-        player->flipped = true;
-    } else {
-        player->flipped = false;
-    }
+    cameraCenter += direction;
 }
 
 bool Gameplay::render(){
+
+    sf::View view;
+    view.setCenter(cameraCenter);
+    view.zoom(0.5f);
+    frameContext.window->setView(view);
+
     frameContext.window->draw(*level);
+
     frameContext.window->draw(*player);
+
     sf::RectangleShape rectangle;
     sf::FloatRect r = player->getCurrentCollisionRect();
 
@@ -96,6 +102,7 @@ bool Gameplay::render(){
     feet.setFillColor(sf::Color(100,150,100,180));
     frameContext.window->draw(feet);
 
+    frameContext.window->setView(frameContext.window->getDefaultView());
 
 
     frameContext.window->draw(hud);
@@ -106,6 +113,7 @@ bool Gameplay::render(){
 bool Gameplay::fixedUpdate(){
     hud.update();
     player->update();
+    cameraCenter = player->getFeetPosition();
     return true;
 }
 

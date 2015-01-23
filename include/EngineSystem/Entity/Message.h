@@ -9,10 +9,14 @@ namespace Entity {
         int    msg;
         float  dispatchTime;
         void*  payload;
-        
+        int    arg1;
+        int    arg2;
+        int    arg3;
+
         Message(int sender_, int receiver_, int msg_,
-            float dispatchTime_ = 0.0f, void *payload_ = nullptr);
-        
+            float dispatchTime_ = 0.0f, void *payload_ = nullptr,
+            int arg1_ = 0, int arg2_ = 0, int arg3_ = 0);
+
         bool operator<(const Message& rhs) const{
             return dispatchTime < rhs.dispatchTime;
         }
