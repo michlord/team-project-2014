@@ -8,7 +8,7 @@ namespace Entity {
 
     void Jump::onUpdate(CharacterEntity *entity){
         entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
-        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(0.0f, 2.0f));
+        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(0.0f, 5.0f));
         if(entity->animation.getSequence("jump")->isFinished()) {
             entity->movementSM->changeState(new Fall());
             entity->animation.getSequence("jump")->resetFinished();
