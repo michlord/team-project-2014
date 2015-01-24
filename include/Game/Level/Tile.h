@@ -29,6 +29,8 @@ namespace Level {
             Type getType() const;
             const sf::Vector2f& getPosition() const;
 
+            sf::Vector2f getSize() const;
+
         protected:
             std::shared_ptr<Video::Render::Sprite> sprite;
 

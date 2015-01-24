@@ -128,6 +128,17 @@ bool Gameplay::fixedUpdate(){
     for(auto e : enemiesEntities)
         e->update();
 
+    /*
+    std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;
+    for(auto t : level->getTiles()) {
+        for (auto tile : t) {
+            if(tile.getType() != Level::Tile::Type::Empty) {
+                std::cerr << "tile x: " << tile.getPosition().x << " y: " << tile.getPosition().y << std::endl;
+            }
+        }
+    }
+    */
+
     return true;
 }
 

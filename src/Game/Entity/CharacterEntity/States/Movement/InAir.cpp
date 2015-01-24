@@ -8,11 +8,8 @@ namespace Entity {
 
     void InAir::onUpdate(CharacterEntity *entity){
         (void) entity;
-        if(sf::Vector2f(0, 0) != entity->level->checkPlayerFeetTilesCollision(entity->getFeetPosition(), sf::Vector2f(0.0f, -1.0f))) {
-            entity->movementSM->changeState(new Idle());
-            entity->globalMovementSM->changeState(new OnGround());
-            entity->jumpCount = 0;
-        }
+
+        
     }
 
     void InAir::onExit(CharacterEntity *entity){

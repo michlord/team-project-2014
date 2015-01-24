@@ -25,7 +25,14 @@ namespace Entity {
 
     void Jump::onUpdate(CharacterEntity *entity){
         entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
-        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(0.0f, 5.0f));
+
+        sf::Vector2f delta;
+        if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(0.0f, -1.0f), &delta)) {
+            entity->setFeetPosition(entity->getFeetPosition() + delta);
+        } else {
+            entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(0.0f, 5.0f));
+        }
+
         if(entity->animation.getSequence("jump")->isFinished()) {
             entity->movementSM->changeState(new Fall());
             entity->animation.getSequence("jump")->resetFinished();
@@ -46,12 +53,29 @@ namespace Entity {
                 switch(id) {
                     case Input::ID::Left : {
                         entity->flipped = true;
-                        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+
+                        sf::Vector2f delta;
+                        if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), &delta)) {
+                            entity->setFeetPosition(entity->getFeetPosition() + delta);
+                            entity->movementSM->changeState(new Fall());
+                        } else {
+                            entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+                        }
+
+
                         return true;
                     }
                     case Input::ID::Right : {
                         entity->flipped = false;
-                        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+
+                        sf::Vector2f delta;
+                        if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), &delta)) {
+                            entity->setFeetPosition(entity->getFeetPosition() + delta);
+                            entity->movementSM->changeState(new Fall());
+                        } else {
+                            entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+                        }
+
                         return true;
                     }
                     case Input::ID::Space : {

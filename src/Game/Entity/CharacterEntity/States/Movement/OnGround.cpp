@@ -8,8 +8,7 @@ namespace Entity {
     }
 
     void OnGround::onUpdate(CharacterEntity *entity){
-        (void) entity;
-        if(sf::Vector2f(0, 0) == entity->level->checkPlayerFeetTilesCollision(entity->getFeetPosition(), sf::Vector2f(0.0f, -1.0f))) {
+        if(false == entity->level->isFeetOnGround(entity->getFeetPosition())) {
             entity->movementSM->changeState(new Fall());
             entity->globalMovementSM->changeState(new InAir());
         }

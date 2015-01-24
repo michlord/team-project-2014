@@ -73,4 +73,8 @@ namespace Level {
         return sprite->getPosition();
     }
 
+    sf::Vector2f Tile::getSize() const {
+        return sf::Vector2f((float)sprite->getSize().x, (float)sprite->getSize().y);
+    }
+
 }

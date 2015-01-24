@@ -1,4 +1,5 @@
 #include <Game/Entity/CharacterEntity/States.h>
+#include <iostream>
 
 namespace Entity {
 
@@ -12,16 +13,15 @@ namespace Entity {
 
 
         if(entity->flipped){
-
-            sf::Vector2f delta = entity->level->checkPlayerRectTilesCollision(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f));
-            if(sf::Vector2f(0, 0) != delta) {
+            sf::Vector2f delta;
+            if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), &delta)) {
                 entity->setFeetPosition(entity->getFeetPosition() + delta);
             } else {
                 entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
             }
         } else {
-            sf::Vector2f delta = entity->level->checkPlayerRectTilesCollision(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f));
-            if(sf::Vector2f(0, 0) != delta) {
+            sf::Vector2f delta;
+            if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), &delta)) {
                 entity->setFeetPosition(entity->getFeetPosition() + delta);
             } else {
                 entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
