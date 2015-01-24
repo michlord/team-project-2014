@@ -77,8 +77,6 @@ set(GAMELIB_SRC
     "src/EngineSystem/Input/InputHandler.cpp"
     "src/EngineSystem/Input/Context.cpp"
 
-    "src/EngineSystem/Sound/SoundManager.cpp"
-
     "src/EngineSystem/Config/Config.cpp"
     "src/EngineSystem/Log/Log.cpp"
 
@@ -116,8 +114,6 @@ set(GAMELIB_H
 
     "include/EngineSystem/Input/InputHandler.h"
     "include/EngineSystem/Input/Context.h"
-
-    "include/EngineSystem/Sound/SoundManager.h"
 
     "include/EngineSystem/Config/Config.h"
 
@@ -169,6 +165,7 @@ set(GAME_SRC
     "src/Game/Entity/CharacterEntity/States/Movement/OnGround.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Fall.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Jump.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Slash.cpp"
 
     "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
 	"src/Game/Scene/Helpers/CreateKnightAnimation.cpp"
@@ -201,6 +198,7 @@ SET(GAME_H
     "include/Game/Entity/CharacterEntity/States/Movement/OnGround.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Fall.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Jump.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Slash.h"
 
     "include/Game/Entity/Door.h"
 )

@@ -48,6 +48,11 @@ namespace Entity {
                     entity->movementSM->changeState(new Idle());
                     return true;
                 }
+            } else {
+                if(id == Input::ID::X) {
+                    entity->movementSM->changeState(new Slash());
+                    return true;
+                }
             }
         }
 

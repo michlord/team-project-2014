@@ -32,6 +32,10 @@ bool Idle::onMessage(CharacterEntity *entity, const Message &msg){
                     entity->movementSM->changeState(new Run());
                     return true;
                 }
+                case Input::ID::X : {
+                    entity->movementSM->changeState(new Slash());
+                    return true;
+                }
                 default : break;
             }
         }
