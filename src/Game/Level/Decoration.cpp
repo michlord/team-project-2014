@@ -27,15 +27,15 @@ namespace Level {
         Video::Render::Sprite::Frame frame;
 
         sprite.reset(new Video::Render::Sprite());
-        sprite->setPosition(sf::Vector2f(posX, posY) * 32.0f);
+        sprite->setPosition(sf::Vector2f(posX, -posY) * 32.0f);
 
-        if(id == "cloud") {
-            frame.setTextureSegment(sf::IntRect(0, 0, 174, 157));
+        if(id == "background") {
+            frame.setTextureSegment(sf::IntRect(0, 0, 480, 320));
+            sprite->setSize(640, 520);
+
+        } else if(id == "cloud") {
+            frame.setTextureSegment(sf::IntRect(480, 0, 153, 142));
             sprite->setSize(174, 157);
-
-        } else if(id == "background") {
-            frame.setTextureSegment(sf::IntRect(50, 50, 1, 1));
-            sprite->setSize(1000, 1000);
 
         } else {
             Log::get().write(Log::System::Game, "Undefined decoration id: '%s'", id.c_str());
@@ -53,7 +53,7 @@ namespace Level {
 
     void Decoration::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if(sprite) {
-            states.transform.translate(-Scene::Gameplay::cameraCenter * getScale());
+            states.transform.translate(Scene::Gameplay::cameraCenter * getScale());
             target.draw(*sprite, states);
         }
     }
