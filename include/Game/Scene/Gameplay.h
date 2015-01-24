@@ -33,6 +33,7 @@ namespace Scene {
             Level::Level *level;
             Entity::EntityDispatcher entityDispatcher;
             std::shared_ptr<Entity::CharacterEntity> player;
+            std::vector<std::shared_ptr<Entity::CharacterEntity>> enemiesEntities;
             std::vector<std::shared_ptr<Entity::BaseEntity>> specialEntities;
 
         public:

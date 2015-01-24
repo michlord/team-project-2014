@@ -13,11 +13,11 @@ namespace Entity {
     class EntityDispatcher {
         public:
             EntityDispatcher(Scene::Gameplay *gameplay_);
-            void createEntity(const float x, const float y, std::string id);
+            void createEntity(const float x, const float y, const std::string& id);
 
         protected:
             void createPlayer(const float x, const float y);
-            void createEnemyEntity(const float x, const float y);
+            void createEnemyEntity(const float x, const float y, const std::string& id);
             void createSpecialEntity(const float x, const float y, const std::string& id);
 
             Scene::Gameplay *gameplay;

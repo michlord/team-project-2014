@@ -171,6 +171,7 @@ set(GAME_SRC
     "src/Game/Entity/CharacterEntity/States/Movement/Jump.cpp"
 
     "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
+	"src/Game/Scene/Helpers/CreateKnightAnimation.cpp"
 
     "src/Game/Entity/Door.cpp"
 )

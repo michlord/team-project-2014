@@ -87,21 +87,29 @@ bool Gameplay::render(){
     for(auto e : specialEntities) {
         frameContext.window->draw(*e);
     }
+    for(auto e : enemiesEntities) {
+        frameContext.window->draw(*e);
+    }
     frameContext.window->draw(*player);
 
-    sf::RectangleShape rectangle;
-    sf::FloatRect r = player->getCurrentCollisionRect();
+    // Collision additonal data
+    std::vector<std::shared_ptr<Entity::CharacterEntity>> characters = enemiesEntities;
+    characters.push_back(player);
+    for(auto e : characters) {
+        sf::RectangleShape rectangle;
+        sf::FloatRect r = e->getCurrentCollisionRect();
 
-    rectangle.setPosition(r.left, r.top);
-    rectangle.setSize(sf::Vector2f(r.width, r.height));
-    rectangle.setOutlineColor(sf::Color::Red);
-    rectangle.setFillColor(sf::Color(100,100,100,180));
-    frameContext.window->draw(rectangle);
+        rectangle.setPosition(r.left, r.top);
+        rectangle.setSize(sf::Vector2f(r.width, r.height));
+        rectangle.setOutlineColor(sf::Color::Red);
+        rectangle.setFillColor(sf::Color(100,100,100,180));
+        frameContext.window->draw(rectangle);
 
-    sf::CircleShape feet(5);
-    feet.setPosition(player->getFeetPosition() - sf::Vector2f(5.0f, 5.0f));
-    feet.setFillColor(sf::Color(100,150,100,180));
-    frameContext.window->draw(feet);
+        sf::CircleShape feet(5);
+        feet.setPosition(e->getFeetPosition() - sf::Vector2f(5.0f, 5.0f));
+        feet.setFillColor(sf::Color(100,150,100,180));
+        frameContext.window->draw(feet);
+    }
 
     frameContext.window->setView(frameContext.window->getDefaultView());
 
@@ -116,6 +124,8 @@ bool Gameplay::fixedUpdate(){
     player->update();
     cameraCenter = player->getFeetPosition();
     for(auto e : specialEntities)
+        e->update();
+    for(auto e : enemiesEntities)
         e->update();
 
     return true;

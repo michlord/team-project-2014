@@ -1,10 +1,12 @@
 #include "Game/Entity/EntityDispatcher.h"
 #include <Game/Scene/Gameplay.h>
 #include <Game/Entity/Door.h>
+#include <EngineSystem/Entity/EntityManager.h>
 
 namespace Scene {
 namespace Helpers {
     std::map<std::string, sf::FloatRect> makePlayerAnimation(Video::Render::Animation &animation);
+    std::map<std::string, sf::FloatRect> makeKnightAnimation(Video::Render::Animation &animation);
 }
 }
 
@@ -14,9 +16,11 @@ EntityDispatcher::EntityDispatcher(Scene::Gameplay *gameplay_) {
     gameplay = gameplay_;
 }
 
-void EntityDispatcher::createEntity(const float x, const float y, std::string id) {
+void EntityDispatcher::createEntity(const float x, const float y, const std::string& id) {
     if(id == "player")
         createPlayer(x, y);
+    if(id == "knight")
+        createEnemyEntity(x, y, id);
     if(id == "door")
         createSpecialEntity(x, y, id);
 }
@@ -30,9 +34,22 @@ void EntityDispatcher::createPlayer(const float x, const float y) {
     gameplay->player->flipped = false;
 }
 
-void EntityDispatcher::createEnemyEntity(const float x, const float y) {
-    (void)x;
-    (void)y;
+void EntityDispatcher::createEnemyEntity(const float x, const float y, const std::string& id) {
+    if(id == "knight") {
+        Video::Render::Animation animation;
+        std::map<std::string, sf::FloatRect> collisionRects = Scene::Helpers::makeKnightAnimation(animation);
+
+        Entity::CharacterEntity* enemy = new Entity::CharacterEntity(
+            -1, 
+            animation, 
+            sf::FloatRect(x, y, 40.0f, 82.0f), 
+            gameplay->level
+        ); 
+        enemy->collisionRects = collisionRects;
+        enemy->flipped = false;
+        Entity::EntityManager::getInstance().registerEntity(enemy);
+        gameplay->enemiesEntities.push_back(std::shared_ptr<Entity::CharacterEntity>(enemy));
+    }
 }
 
 void EntityDispatcher::createSpecialEntity(const float x, const float y, const std::string& id) {
