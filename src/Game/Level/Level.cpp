@@ -39,7 +39,7 @@ namespace Level {
         // Decorations
         loadDecorationsFromFile(path + ".dec");
         decorations.sort([](const Decoration& a, const Decoration& b) {
-            return a.getScale() < b.getScale();
+            return a.getScale() > b.getScale();
         });
 
         // Entities
@@ -50,21 +50,17 @@ namespace Level {
 
     void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         // Decorations
-        for(auto& decoration : decorations) {
+        for(auto& decoration : decorations)
             target.draw(decoration, states);
-        }
 
         // Tiles
-        for(auto& tileLine : tiles) {
-            for(auto& tile : tileLine) {
+        for(auto& tileLine : tiles)
+            for(auto& tile : tileLine)
                 target.draw(tile, states);
-            }
-        }
 
         // Entities
-        for(auto& entity : entities) {
+        for(auto& entity : entities)
             target.draw(*entity, states);
-        }
     }
 
     unsigned int Level::getID() const {
