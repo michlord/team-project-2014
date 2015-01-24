@@ -20,15 +20,11 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
     cfg.load("assets/config.ini");
 
     Level::levelManager.initTextures();
-    initLevel(levelID);
 
     Video::Render::Animation animation;
     std::map<std::string, sf::FloatRect> collisionRects = Helpers::makePlayerAnimation(animation);
 
-    player.reset(new Entity::CharacterEntity(Entity::EntityType::Player, animation, sf::FloatRect(100.0f, 100.0f, 50.0f, 64.0f), level));
-    player->collisionRects = collisionRects;
-    player->flipped = false;
-
+    initLevel(levelID);
 
     initInputHandler();
 
@@ -71,8 +67,8 @@ void Gameplay::initInputHandler() {
 }
 
 void Gameplay::initLevel(unsigned int id) {
-    Level::levelManager.loadLevel(id, &entityDispatcher);
     level = &Level::levelManager.getCurrentLevel();
+    Level::levelManager.loadLevel(id, &entityDispatcher);
 }
 
 void Gameplay::moveCamera(const sf::Vector2f& direction) {
