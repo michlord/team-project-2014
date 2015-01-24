@@ -17,12 +17,15 @@ EntityDispatcher::EntityDispatcher(Scene::Gameplay *gameplay_) {
 }
 
 void EntityDispatcher::createEntity(const float x, const float y, const std::string& id) {
-    if(id == "player")
+    if(id == "player") {
         createPlayer(x, y);
-    if(id == "knight")
+    } else if(id == "knight") {
         createEnemyEntity(x, y, id);
-    if(id == "door")
+    } else if(id == "door") {
         createSpecialEntity(x, y, id);
+    } else {
+        Log::get().write(Log::System::Game, "Attempt to create unknown entity: '%s'", id.c_str());
+    }
 }
 
 void EntityDispatcher::createPlayer(const float x, const float y) {
