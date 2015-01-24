@@ -1,5 +1,6 @@
 #include <EngineSystem/Log/Log.h>
 #include <Game/Level/Level.h>
+#include <EngineSystem/Physics/Physics.h>
 
 #include <iostream>
 
@@ -86,6 +87,45 @@ namespace Level {
     void Level::setID(unsigned int id_) {
         id = id_;
     }
+
+
+    sf::Vector2f Level::checkPlayerTilesCollision(sf::FloatRect collisionRect, sf::Vector2f feetPosition, sf::Vector2f dir) {
+        std::vector<std::vector<Tile>>& tiles2dVec = getTiles();
+        sf::Vector2f result;
+
+        for (auto tilesVec : tiles2dVec)
+        {
+            for (auto tile : tilesVec)
+            {
+                if (tile.getType() == Tile::Type::Empty) continue;
+
+                result = Physics::checkCollision(feetPosition, collisionRect, dir);
+
+                if (result != sf::Vector2f(0.0, 0.0))
+                    return result;
+            }
+        }
+
+        return sf::Vector2f(0.0, 0.0);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     void Level::setTile(Tile& tile, const sf::Color& color, int posX, int posY) {
         tile.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
