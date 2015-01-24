@@ -23,7 +23,7 @@ namespace Level {
 
     void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if(sprite && type != Tile::Type::Empty) {
-            states.transform.translate(-Scene::Gameplay::cameraCenter);
+            //states.transform.translate(-Scene::Gameplay::cameraCenter);
             target.draw(*sprite, states);
         }
     }

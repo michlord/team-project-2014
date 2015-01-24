@@ -96,7 +96,7 @@ namespace Level {
             {
                 if (tile.getType() == Tile::Type::Empty) continue;
 
-                result = Physics::checkCollision(feetPosition, sf::FloatRect(tile.getPosition().x, tile.getPosition().y, 32, 32), dir);
+                result = Physics::checkCollision(feetPosition, sf::FloatRect(tile.getPosition().x, tile.getPosition().y + 32, 32, 32), dir);
 
                 if (result != sf::Vector2f(0.0, 0.0))
                     return result;
