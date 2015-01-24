@@ -21,7 +21,7 @@ namespace Physics
     bool checkCollision(Circle& A, Circle& B);
 
     sf::Vector2f checkCollision(sf::Vector2f point, sf::FloatRect rect, sf::Vector2f direction);
-
+    sf::Vector2f checkCollision(sf::FloatRect rectA, sf::Vector2f direction, sf::FloatRect rectB);
 }
 
 #endif

@@ -171,4 +171,17 @@ namespace Physics
         return resultVector;
     }
 
+
+
+    sf::Vector2f checkCollision(sf::FloatRect rectA, sf::Vector2f direction, sf::FloatRect rectB) {
+        Rectangle A(rectA.left, rectA.left + rectA.width, rectA.top - rectA.height, rectA.top);
+        Rectangle B(rectB.left, rectB.left + rectB.width, rectB.top - rectB.height, rectB.top);
+        glm::vec2 dir(direction.x, direction.y);
+
+        glm::vec2 res = checkCollision(A, dir, B);
+        
+        return sf::Vector2f(res.x, res.y);
+    }
+
+
 }
