@@ -17,7 +17,7 @@ namespace Level {
             Level();
             Level(unsigned int id, const std::string& path);
             ~Level();
- 
+
             void loadFromFile(unsigned int id, const std::string& path);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
@@ -27,7 +27,7 @@ namespace Level {
             std::vector<std::vector<Tile>>& getTiles();//getTiles()[y][x]
 
             void setID(unsigned int id_);
-            sf::Vector2f checkPlayerTilesCollision(sf::FloatRect collisionRect, sf::Vector2f feetPosition, sf::Vector2f dir);
+            sf::Vector2f checkPlayerFeetTilesCollision(sf::Vector2f feetPosition, sf::Vector2f dir);
 
         private:
             void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
