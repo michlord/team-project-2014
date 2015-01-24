@@ -128,21 +128,22 @@ namespace Level {
 
     bool Level::isFeetOnGround(sf::Vector2f feet, sf::Vector2f *delta) {
         auto tiles = getTiles();
-        for(auto tilesRow : tiles) {
-            for(auto tile : tilesRow) {
-                if(tile.getType() == Tile::Type::Empty) {
-                    continue;
+        unsigned x = static_cast<int>(feet.x/32);
+        unsigned y = static_cast<int>(feet.y/32);
+        if(y >= tiles.size() || x >= tiles[y].size())
+            return false;
+        auto tile = tiles[y][x];
+ 
+        if(tile.getType() != Tile::Type::Empty) {
+            sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
+            if(tileRect.contains(feet)) {
+                if(delta) {
+                    *delta = sf::Vector2f(0.0f, tileRect.top - feet.y);
                 }
-
-                sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
-                if(tileRect.contains(feet)) {
-                    if(delta) {
-                        *delta = sf::Vector2f(0.0f, tileRect.top - feet.y);
-                    }
-                    return true;
-                }
+                return true;
             }
         }
+
         return false;
     }
 
@@ -150,41 +151,40 @@ namespace Level {
         (void) rect; (void) direction; (void) delta;
 
         sf::Vector2f rectCenter(rect.left + rect.width/2, rect.top + rect.height/2);
-        auto tiles = getTiles();
-        for(auto tilesRow : tiles) {
-            for(auto tile : tilesRow) {
-                if(tile.getType() == Tile::Type::Empty) {
-                    continue;
-                }
+        auto tiles = getTilesInRect(rect);
 
-                sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
-                sf::FloatRect intersection;
-
-                if(tileRect.intersects(rect, intersection)) {
-                    //if going up
-                    if(direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < rect.height/2.0f) {
-                        if(delta) {
-                            *delta = sf::Vector2f(0.0f, intersection.height);
-                        }
-                        return true;
-                    }
-                    //if going right
-                    if(direction.x > 0.5f && intersection.left > rectCenter.x && intersection.height > rect.height/2.0f) {
-                        if(delta) {
-                            *delta = sf::Vector2f(-intersection.width, 0.0f);
-                        }
-                        return true;
-                    }
-                    //if going left
-                    if(direction.x < -0.5f && intersection.left < rectCenter.x && intersection.height > rect.height/2.0f) {
-                        if(delta) {
-                            *delta = sf::Vector2f(intersection.width, 0.0f);
-                        }
-                        return true;
-                    }
-                }
-
+        for(auto tile : tiles) {
+            if(tile.getType() == Tile::Type::Empty) {
+                continue;
             }
+
+            sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
+            sf::FloatRect intersection;
+
+            if(tileRect.intersects(rect, intersection)) {
+                //if going up
+                if(direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < rect.height/2.0f) {
+                    if(delta) {
+                        *delta = sf::Vector2f(0.0f, intersection.height);
+                    }
+                    return true;
+                }
+                //if going right
+                if(direction.x > 0.5f && intersection.left > rectCenter.x && intersection.height > rect.height/2.0f) {
+                    if(delta) {
+                        *delta = sf::Vector2f(-intersection.width, 0.0f);
+                    }
+                    return true;
+                }
+                //if going left
+                if(direction.x < -0.5f && intersection.left < rectCenter.x && intersection.height > rect.height/2.0f) {
+                    if(delta) {
+                        *delta = sf::Vector2f(intersection.width, 0.0f);
+                    }
+                    return true;
+                }
+            }
+
         }
 
         return false;
@@ -271,6 +271,22 @@ namespace Level {
         }
 
         file.close();
+    }
+
+    std::vector<Tile> Level::getTilesInRect(const sf::FloatRect rect) {
+        auto tiles = getTiles();
+
+        std::vector<Tile> res;
+        unsigned x_start = static_cast<int>(rect.left/32);
+        unsigned y_start = static_cast<int>(rect.top/32);
+        unsigned x_end = static_cast<int>(ceil((rect.left + rect.width)/32));
+        unsigned y_end = static_cast<int>(ceil((rect.top + rect.height)/32));
+
+        for(unsigned x = x_start ; x < x_end ; x++)
+            for(unsigned y = y_start ; y < y_end ; y++)
+                if(y < tiles.size() && x < tiles[y].size())
+                    res.push_back(tiles[y][x]);
+        return res;
     }
 
 }
