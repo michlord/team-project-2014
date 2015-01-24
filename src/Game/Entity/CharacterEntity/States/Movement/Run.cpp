@@ -8,12 +8,26 @@ namespace Entity {
 
     void Run::onUpdate(CharacterEntity *entity){
         entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
+
+
+
         if(entity->flipped){
-            entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+
+            sf::Vector2f delta = entity->level->checkPlayerRectTilesCollision(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f));
+            if(sf::Vector2f(0, 0) != delta) {
+                entity->setFeetPosition(entity->getFeetPosition() + delta);
+            } else {
+                entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+            }
         } else {
-            entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+            sf::Vector2f delta = entity->level->checkPlayerRectTilesCollision(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f));
+            if(sf::Vector2f(0, 0) != delta) {
+                entity->setFeetPosition(entity->getFeetPosition() + delta);
+            } else {
+                entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+            }
         }
-        
+
     }
 
     void Run::onExit(CharacterEntity *entity){

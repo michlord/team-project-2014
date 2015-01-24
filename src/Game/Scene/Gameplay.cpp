@@ -47,8 +47,8 @@ void Gameplay::initInputHandler() {
 
     context.addState("left", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Left, std::placeholders::_1));
     context.addState("right", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Right, std::placeholders::_1));
-    context.addState("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, std::placeholders::_1));
-    //context.addAction("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, true));
+    //context.addState("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, std::placeholders::_1));
+    context.addAction("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, true));
     // context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
     // context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
     // context.addState("crouch", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));

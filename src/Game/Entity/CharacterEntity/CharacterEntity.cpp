@@ -14,6 +14,7 @@ CharacterEntity::CharacterEntity(
    movementSpeed(3.0f), boundingRect(boundingRect_)
 {
     level = level_;
+    maxJumps = 2;
 
     animation.setCurrentSequence("run");
     animation.setSize(sf::Vector2u((unsigned int)boundingRect_.width, (unsigned int)boundingRect_.height));
