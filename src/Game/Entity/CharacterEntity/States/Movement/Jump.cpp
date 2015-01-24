@@ -57,11 +57,8 @@ namespace Entity {
                         sf::Vector2f delta;
                         if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), &delta)) {
                             entity->setFeetPosition(entity->getFeetPosition() + delta);
-                            entity->movementSM->changeState(new Fall());
-                        } else {
-                            entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
                         }
-
+                        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
 
                         return true;
                     }
@@ -71,15 +68,13 @@ namespace Entity {
                         sf::Vector2f delta;
                         if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), &delta)) {
                             entity->setFeetPosition(entity->getFeetPosition() + delta);
-                            entity->movementSM->changeState(new Fall());
-                        } else {
-                            entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
                         }
+                        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
 
                         return true;
                     }
                     case Input::ID::Space : {
-                        if(entity->jumpCount < entity->maxJumps) {
+                        if(entity->jumpCount + 1 < entity->maxJumps) {
                             entity->jumpCount += 1;
                             entity->movementSM->changeState(new Jump());
                             return true;

@@ -162,7 +162,7 @@ namespace Level {
 
                 if(tileRect.intersects(rect, intersection)) {
                     //if going up
-                    if(direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < rect.height/2.0f) {
+                    if(direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < rect.height/2.0f && intersection.width > 10.0f) {
                         if(delta) {
                             *delta = sf::Vector2f(0.0f, intersection.height);
                         }
