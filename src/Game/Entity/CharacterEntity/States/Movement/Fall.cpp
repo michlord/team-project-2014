@@ -8,7 +8,7 @@ namespace Entity {
 
     void Fall::onUpdate(CharacterEntity *entity){
         entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
-        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(0.0f, 2.0f));
+        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(0.0f, 5.0f));
     }
 
     void Fall::onExit(CharacterEntity *entity){
