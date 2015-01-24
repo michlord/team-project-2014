@@ -31,13 +31,13 @@ CharacterEntity::~CharacterEntity() {
 }
 
 void CharacterEntity::update() {
-    globalMovementSM->update();
     movementSM->update();
+    globalMovementSM->update();
 }
 
 bool CharacterEntity::handleMessage(const Message& msg) {
-    globalMovementSM->handleMessage(msg);
     movementSM->handleMessage(msg);
+    globalMovementSM->handleMessage(msg);
 
     return false;
 }
