@@ -71,7 +71,7 @@ void Gameplay::initInputHandler() {
 }
 
 void Gameplay::initLevel(unsigned int id) {
-    Level::levelManager.loadLevel(id);
+    Level::levelManager.loadLevel(id, &entityDispatcher);
     level = &Level::levelManager.getCurrentLevel();
 }
 

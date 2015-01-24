@@ -8,6 +8,10 @@
 
 #include <unordered_map>
 
+namespace Entity {
+    class EntityDispatcher;
+}
+
 namespace Level {
 
     class LevelManager {
@@ -18,7 +22,7 @@ namespace Level {
             void initTextures();
 
             void addLevel(unsigned int levelID, const std::string& levelPath);
-            void loadLevel(unsigned int levelID);
+            void loadLevel(unsigned int levelID, Entity::EntityDispatcher* _dispatcher = nullptr);
             void resetLevel();
 
             Level& getCurrentLevel();
@@ -27,10 +31,12 @@ namespace Level {
             const std::unordered_map<unsigned int, std::string>& getLevels() const;
 
         private:
-
             unsigned int currentID;
             Level currentLevel;
             std::unordered_map<unsigned int, std::string> levels;
+
+            Entity::EntityDispatcher* dispatcher;
+
     };
 
     extern LevelManager levelManager;

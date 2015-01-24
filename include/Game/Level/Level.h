@@ -10,6 +10,10 @@
 #include <list>
 #include <vector>
 
+namespace Entity {
+    class EntityDispatcher;
+}
+
 namespace Level {
 
     class Level : public sf::Drawable {
@@ -18,13 +22,13 @@ namespace Level {
             Level(unsigned int id, const std::string& path);
             ~Level();
  
-            void loadFromFile(unsigned int id, const std::string& path);
+            void loadFromFile(unsigned int id, const std::string& path, Entity::EntityDispatcher* dispatcher = nullptr);
             void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 
             unsigned int getID() const;
             std::list<Decoration>& getDecorations();
             std::list<Entity::BaseEntity*>& getEntities();
-            std::vector<std::vector<Tile>>& getTiles();//getTiles()[y][x]
+            std::vector<std::vector<Tile>>& getTiles();
 
             void setID(unsigned int id_);
             sf::Vector2f checkPlayerTilesCollision(sf::FloatRect collisionRect, sf::Vector2f feetPosition, sf::Vector2f dir);
@@ -32,7 +36,7 @@ namespace Level {
         private:
             void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
             void loadDecorationsFromFile(const std::string& path);
-            void loadEntitiesFromFile(const std::string& path);
+            void loadEntitiesFromFile(const std::string& path, Entity::EntityDispatcher* dispatcher = nullptr);
 
             unsigned int id;
             std::list<Decoration> decorations;

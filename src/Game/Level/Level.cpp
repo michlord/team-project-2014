@@ -1,6 +1,7 @@
 #include <EngineSystem/Log/Log.h>
 #include <Game/Level/Level.h>
 #include <EngineSystem/Physics/Physics.h>
+#include <Game/Entity/EntityDispatcher.h>
 
 #include <iostream>
 
@@ -20,7 +21,7 @@ namespace Level {
             delete entity;
     }
 
-    void Level::loadFromFile(unsigned int id, const std::string& path) {
+    void Level::loadFromFile(unsigned int id, const std::string& path, Entity::EntityDispatcher* dispatcher) {
         sf::Image tilesImg;
         sf::Color tileColor;
 
@@ -44,7 +45,7 @@ namespace Level {
         });
 
         // Entities
-        loadEntitiesFromFile(path + ".ent");
+        loadEntitiesFromFile(path + ".ent", dispatcher);
 
         (void)id;
     }
@@ -105,24 +106,6 @@ namespace Level {
         return sf::Vector2f(0.0, 0.0);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     void Level::setTile(Tile& tile, const sf::Color& color, int posX, int posY) {
         tile.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
 
@@ -170,7 +153,7 @@ namespace Level {
         file.close();
     }
 
-    void Level::loadEntitiesFromFile(const std::string& path) {
+    void Level::loadEntitiesFromFile(const std::string& path, Entity::EntityDispatcher* dispatcher) {
         std::ifstream file;
         std::string entX, entY, entID;
 
@@ -184,13 +167,14 @@ namespace Level {
 
             file >> entX >> entY >> entID;
             try {
-                int posX = std::stoi(entX);
-                int posY = std::stoi(entY);
+                float posX = std::stof(entX);
+                float posY = std::stof(entY);
 
-                (void)posX;
-                (void)posY;
-
-                //TODO: something with loaded entity, i.e. add it to list or get object from some factory
+                if(dispatcher == nullptr) {
+                    Log::get().write(Log::System::Game, "Attempt to load entity without proper dispatcher!");
+                } else {
+                    dispatcher->createEntity(posX, posY, entID);
+                }
 
             } catch(const std::invalid_argument& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s) (%s)",

@@ -30,13 +30,14 @@ namespace Level {
         levels[levelID] = levelPath;
     }
 
-    void LevelManager::loadLevel(unsigned int levelID) {
+    void LevelManager::loadLevel(unsigned int levelID, Entity::EntityDispatcher* _dispatcher) {
+        dispatcher = _dispatcher;
         currentID = levelID;
-        currentLevel.loadFromFile(levelID, levels[levelID]);
+        currentLevel.loadFromFile(levelID, levels[levelID], dispatcher);
     }
 
     void LevelManager::resetLevel() {
-        currentLevel.loadFromFile(currentID, levels[currentID]);
+        currentLevel.loadFromFile(currentID, levels[currentID], dispatcher);
     }
 
     Level& LevelManager::getCurrentLevel() {
