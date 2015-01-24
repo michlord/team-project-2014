@@ -33,6 +33,7 @@ namespace Level {
 
             void setID(unsigned int id_);
             sf::Vector2f checkPlayerFeetTilesCollision(sf::Vector2f feetPosition, sf::Vector2f dir);
+            sf::Vector2f checkPlayerRectTilesCollision(sf::FloatRect playerRect, sf::Vector2f dir);
 
         private:
             void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
