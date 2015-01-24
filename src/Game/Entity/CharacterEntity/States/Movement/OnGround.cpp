@@ -8,7 +8,12 @@ namespace Entity {
     }
 
     void OnGround::onUpdate(CharacterEntity *entity){
-        if(false == entity->level->isFeetOnGround(entity->getFeetPosition())) {
+
+        sf::Vector2f feet = entity->getFeetPosition();
+
+        if(false == entity->level->isFeetOnGround(feet) &&
+           false == entity->level->isFeetOnGround(feet + sf::Vector2f(10.0f, 0.0f)) &&
+           false == entity->level->isFeetOnGround(feet - sf::Vector2f(10.0f, 0.0f)) ) {
             entity->movementSM->changeState(new Fall());
             entity->globalMovementSM->changeState(new InAir());
         }
