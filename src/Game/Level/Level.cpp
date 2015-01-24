@@ -80,13 +80,13 @@ namespace Level {
     std::vector<std::vector<Tile>>& Level::getTiles() {
         return tiles;
     }
-    
+
     void Level::setID(unsigned int id_) {
         id = id_;
     }
 
 
-    sf::Vector2f Level::checkPlayerTilesCollision(sf::FloatRect collisionRect, sf::Vector2f feetPosition, sf::Vector2f dir) {
+    sf::Vector2f Level::checkPlayerFeetTilesCollision(sf::Vector2f feetPosition, sf::Vector2f dir) {
         std::vector<std::vector<Tile>>& tiles2dVec = getTiles();
         sf::Vector2f result;
 
@@ -96,7 +96,7 @@ namespace Level {
             {
                 if (tile.getType() == Tile::Type::Empty) continue;
 
-                result = Physics::checkCollision(feetPosition, collisionRect, dir);
+                result = Physics::checkCollision(feetPosition, sf::FloatRect(tile.getPosition().x, tile.getPosition().y, 32, 32), dir);
 
                 if (result != sf::Vector2f(0.0, 0.0))
                     return result;

@@ -1,4 +1,5 @@
 #include <Game/Entity/CharacterEntity/States.h>
+#include <Game/Level/Level.h>
 
 namespace Entity {
 
@@ -8,7 +9,7 @@ namespace Entity {
 
     void OnGround::onUpdate(CharacterEntity *entity){
         (void) entity;
-        if(entity->getFeetPosition().y < 200) {
+        if(sf::Vector2f(0, 0) == entity->level->checkPlayerFeetTilesCollision(entity->getFeetPosition(), sf::Vector2f(0.0f, -1.0f))) {
             entity->movementSM->changeState(new Fall());
             entity->globalMovementSM->changeState(new InAir());
         }
