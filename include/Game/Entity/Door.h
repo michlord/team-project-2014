@@ -5,7 +5,6 @@
 #include <EngineApp/FrameContext.h>
 #include <Game/Level/LevelManager.h>
 #include <EngineSystem/Entity/Message.h>
-#include <Game/Scene/Gameplay.h>
 #include <EngineSystem/Assets/AssetsManager.h>
 #include <EngineSystem/Video/Render/Sprite.h>
 

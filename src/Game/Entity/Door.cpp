@@ -1,3 +1,4 @@
+#include <Game/Scene/Gameplay.h>
 #include <Game/Entity/Door.h>
 
 namespace Entity {
