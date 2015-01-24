@@ -13,6 +13,7 @@
 #include <Game/Level/Level.h>
 
 #include <Game/Entity/CharacterEntity/CharacterEntity.h>
+#include <Game/Entity/EntityDispatcher.h>
 
 #include <memory>
 #include <vector>
@@ -30,6 +31,7 @@ namespace Scene {
 
             HUD::HUD hud;
             Level::Level *level;
+            Entity::EntityDispatcher entityDispatcher;
             std::shared_ptr<Entity::CharacterEntity> player;
         public:
             Gameplay(SceneStack* sceneStack_, unsigned int levelID);
@@ -38,6 +40,8 @@ namespace Scene {
             Input::InputHandler *getInputHandler();
 
             static sf::Vector2f cameraCenter;
+
+            friend class Entity::EntityDispatcher;
     };
 
 }

@@ -2,8 +2,6 @@
 #include <Game/Level/Tile.h>
 #include <EngineSystem/Config/Config.h>
 
-
-
 namespace Scene {
 
 namespace Helpers {
@@ -13,7 +11,8 @@ namespace Helpers {
 sf::Vector2f Gameplay::cameraCenter;
 
 Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
- : FrameListener(sceneStack_)
+ : FrameListener(sceneStack_),
+   entityDispatcher(this)
 {
     (void) levelID;
 
