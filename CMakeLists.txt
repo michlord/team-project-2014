@@ -163,6 +163,11 @@ set(GAME_SRC
     "src/Game/Entity/CharacterEntity/CharacterEntity.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Idle.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Run.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Global.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/InAir.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/OnGround.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Fall.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Jump.cpp"
 
     "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
 
@@ -188,6 +193,11 @@ SET(GAME_H
     "include/Game/Entity/CharacterEntity/States.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Idle.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Run.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Global.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/InAir.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/OnGround.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Fall.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Jump.h"
 
     "include/Game/Entity/Door.h"
 )

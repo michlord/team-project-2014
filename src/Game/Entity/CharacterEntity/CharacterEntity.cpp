@@ -6,22 +6,24 @@ namespace Entity {
 CharacterEntity::CharacterEntity(
     int id,
     const Video::Render::Animation &animation_,
-    sf::FloatRect boundingRect_
+    sf::FloatRect boundingRect_,
+    Level::Level *level_
 )
  : BaseEntity(id), touchingGround(false), flipped(false),
    jumpCount(0), healthPoints(100), animation(animation_), jumpHeight(200.0f),
    movementSpeed(3.0f), boundingRect(boundingRect_)
 {
+    level = level_;
+
     animation.setCurrentSequence("run");
     animation.setSize(sf::Vector2u((unsigned int)boundingRect_.width, (unsigned int)boundingRect_.height));
     animation.setPosition(sf::Vector2f(0.0f, 0.0f));
 
-    statusSM.reset(new StateMachine<CharacterEntity>(this));
-    collisionSM.reset(new StateMachine<CharacterEntity>(this));
     movementSM.reset(new StateMachine<CharacterEntity>(this));
+    globalMovementSM.reset(new StateMachine<CharacterEntity>(this));
 
     movementSM->changeState(new Idle());
-    //globalSM->changeState(new OnGround());
+    globalMovementSM->changeState(new OnGround());
 }
 
 CharacterEntity::~CharacterEntity() {
@@ -29,14 +31,12 @@ CharacterEntity::~CharacterEntity() {
 }
 
 void CharacterEntity::update() {
-    statusSM->update();
-    collisionSM->update();
+    globalMovementSM->update();
     movementSM->update();
 }
 
 bool CharacterEntity::handleMessage(const Message& msg) {
-    statusSM->handleMessage(msg);
-    collisionSM->handleMessage(msg);
+    globalMovementSM->handleMessage(msg);
     movementSM->handleMessage(msg);
 
     return false;

@@ -9,7 +9,7 @@
 #include <EngineSystem/Video/Render/AnimatedSprite.h>
 #include <EngineSystem/Video/Render/Animation.h>
 
-
+#include <Game/Level/Level.h>
 
 namespace Entity {
 
@@ -18,7 +18,7 @@ private:
     CharacterEntity(const CharacterEntity &other_);
     CharacterEntity &operator=(const CharacterEntity &other_);
 public:
-    CharacterEntity(int id, const Video::Render::Animation &animation_, sf::FloatRect boundingRect_);
+    CharacterEntity(int id, const Video::Render::Animation &animation_, sf::FloatRect boundingRect_, Level::Level *level_ = nullptr);
     ~CharacterEntity();
 
     void update();
@@ -40,10 +40,9 @@ public:
     sf::FloatRect boundingRect;
     std::map<std::string, sf::FloatRect> collisionRects;
 
-
-    std::unique_ptr< StateMachine<CharacterEntity> > statusSM;
-    std::unique_ptr< StateMachine<CharacterEntity> > collisionSM;
     std::unique_ptr< StateMachine<CharacterEntity> > movementSM;
+    std::unique_ptr< StateMachine<CharacterEntity> > globalMovementSM;
+    Level::Level *level;
 
     sf::Vector2f getFeetPosition() const;
     void setFeetPosition(sf::Vector2f position_);
