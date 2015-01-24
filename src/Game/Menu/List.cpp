@@ -1,13 +1,13 @@
 #include <Game/Menu/List.h>
 #include <EngineSystem/Input/BinaryInput.h>
+#include <EngineSystem/Log/Log.h>
 
 namespace Menu {
 
 List::List(const sf::Font *_textFont, float posx, float posy)
  : curIdx(-1), position(posx, posy), textFont(_textFont)
 {
-    menuMoveSoundID = Sound::soundManager.createBuffer("assets/sound/menu_move.ogg");
-    menuSelectSoundID = Sound::soundManager.createBuffer("assets/sound/menu_select.ogg");
+
 }
 
 void List::setPosition(float x, float y) {
@@ -27,6 +27,28 @@ void List::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void List::handleInput(const Input::Input &in) {
+    static bool soundsInitialized = false;
+    static sf::SoundBuffer bufferSoundMove;
+    static sf::SoundBuffer bufferSoundSelect;
+    static sf::Sound soundMove;
+    static sf::Sound soundSelect;
+    
+    if(soundsInitialized == false) {
+        soundsInitialized = true;
+
+        if(!bufferSoundMove.loadFromFile("assets/sound/menu_move.ogg")) {
+            Log::get().write(Log::System::Game, "Unable to load menu_move.ogg sound file!");
+        } else {
+            soundMove.setBuffer(bufferSoundMove);
+        }
+
+        if(!bufferSoundSelect.loadFromFile("assets/sound/menu_select.ogg")) {
+            Log::get().write(Log::System::Game, "Unable to load menu_select.ogg sound file!");
+        } else {
+            soundSelect.setBuffer(bufferSoundSelect);
+        }
+    }
+
     if(const Input::BinaryInput *p = dynamic_cast<const Input::BinaryInput*>(&in)) {
         if(store.empty() || !p->isPressed()) {
             return;
@@ -43,10 +65,11 @@ void List::handleInput(const Input::Input &in) {
             return;
         }
         if(p->getId() == Input::ID::Return) {
+            soundSelect.play();
+
             if(curIdx >= 0) {
                 if(store[curIdx].isSelectable()) {
                     store[curIdx].setSelected(true);
-                    wtf = Sound::soundManager.createSound(menuSelectSoundID);
                 } else {
                     store[curIdx].handleInput(in);
                 }
@@ -59,7 +82,7 @@ void List::handleInput(const Input::Input &in) {
             }
             curIdx = (curIdx + 1) % store.size();
             store[curIdx].setFocused(true);
-            wtf = Sound::soundManager.createSound(menuMoveSoundID);
+            soundMove.play();
             return;
         }
         if(p->getId() == Input::ID::Up) {
@@ -72,7 +95,7 @@ void List::handleInput(const Input::Input &in) {
                 curIdx -= 1;
             }
             store[curIdx].setFocused(true);
-            wtf = Sound::soundManager.createSound(menuMoveSoundID);
+            soundMove.play();
             return;
         }
     }

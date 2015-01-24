@@ -11,7 +11,7 @@
 
 namespace Menu {
 
-class ListItem;
+    class ListItem;
     
     class List : public sf::Drawable {
         private:
@@ -20,10 +20,6 @@ class ListItem;
             
             sf::Vector2f          position;
             const sf::Font       *textFont;
-
-            std::size_t menuMoveSoundID;
-            std::size_t menuSelectSoundID;
-            std::size_t wtf;
             
         public:
             List(const sf::Font *_textFont, float posx = 0.0f, float posy = 0.0f);
