@@ -16,7 +16,7 @@ CharacterEntity::CharacterEntity(
     level = level_;
     maxJumps = 2;
 
-    animation.setCurrentSequence("run");
+    animation.setCurrentSequence("idle");
     animation.setSize(sf::Vector2u((unsigned int)boundingRect_.width, (unsigned int)boundingRect_.height));
     animation.setPosition(sf::Vector2f(0.0f, 0.0f));
 

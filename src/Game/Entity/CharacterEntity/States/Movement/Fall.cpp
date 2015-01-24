@@ -55,6 +55,13 @@ namespace Entity {
 
                         return true;
                     }
+                    case Input::ID::Space : {
+                        if(entity->jumpCount + 1 < entity->maxJumps) {
+                            entity->jumpCount += 1;
+                            entity->movementSM->changeState(new Jump());
+                            return true;
+                        }
+                    }
                     default : break;
                 }
             }
