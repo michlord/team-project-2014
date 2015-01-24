@@ -7,7 +7,7 @@ namespace Entity {
 
 struct Message;
 
-enum EntityType {
+enum class EntityType {
     Player,
     Door, 
     Hud,

@@ -1,10 +1,10 @@
 #include <EngineSystem/Entity/BaseEntity.h>
 
 namespace Entity {
-    int BaseEntity::nextValidId = SpecialIdCount;
+    int BaseEntity::nextValidId = static_cast<int>(EntityType::SpecialIdCount);
 
     void BaseEntity::setId(int id_) {
-        if(0 <= id_ && id_ < SpecialIdCount) {
+        if(0 <= id_ && id_ < static_cast<int>(EntityType::SpecialIdCount)) {
             id = id_;
         } else if (id_ >= nextValidId) {
             id = id_;

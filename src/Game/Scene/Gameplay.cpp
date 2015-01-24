@@ -84,6 +84,9 @@ bool Gameplay::render(){
 
     frameContext.window->draw(*level);
 
+    for(auto e : specialEntities) {
+        frameContext.window->draw(*e);
+    }
     frameContext.window->draw(*player);
 
     sf::RectangleShape rectangle;
@@ -112,6 +115,9 @@ bool Gameplay::fixedUpdate(){
     hud.update();
     player->update();
     cameraCenter = player->getFeetPosition();
+    for(auto e : specialEntities)
+        e->update();
+
     return true;
 }
 

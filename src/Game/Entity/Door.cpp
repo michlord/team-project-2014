@@ -3,7 +3,7 @@
 
 namespace Entity {
 
-    Door::Door(int id) : Entity::BaseEntity(id) {
+    Door::Door(int id, sf::Vector2f pos) : Entity::BaseEntity(id) {
         Core::frameContext.assetsManager->loadTexture("assets/images/door.png", "door");
 
         sprite = new Video::Render::Sprite();
@@ -11,6 +11,7 @@ namespace Entity {
 
         Video::Render::Sprite::Frame frame;
         frame.setTextureSegment(sf::IntRect(0, 0, 60, 106));
+        boundingRect = sf::FloatRect(pos.x, pos.y, 60, 106);
     }
 
     Door::~Door() {
@@ -28,8 +29,14 @@ namespace Entity {
         return false;
     }
 
-    void Door::draw(sf::RenderTarget& target, sf::RenderStates states)
-    {
+    void Door::update() {
+        ;
+    }
+
+    void Door::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+        sf::Vector2f position(boundingRect.left, boundingRect.top);
+        states.transform.translate(position);
+
         if (sprite)
             sprite->draw(target, states);
     }

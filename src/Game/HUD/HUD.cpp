@@ -3,7 +3,7 @@
 namespace HUD {
 
 HUD::HUD() 
-    : BaseEntity(Entity::Hud)
+    : BaseEntity(static_cast<int>(Entity::EntityType::Hud))
 {
     lifeGradient = nullptr;
     life = 50;
@@ -33,7 +33,7 @@ void HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 bool HUD::handleMessage(const Entity::Message& msg) {
-    if(msg.sender == Entity::EntityType::Player) {
+    if(msg.sender == static_cast<int>(Entity::EntityType::Player)) {
         HudMsgData *data = reinterpret_cast<HudMsgData*>(msg.payload);
         setLife(data->life);
         return true;
