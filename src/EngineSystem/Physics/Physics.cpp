@@ -49,7 +49,8 @@ namespace Physics
 
         glm::vec2 resultVector;
 
-        if (velocity.x > 0 && velocity.y >= 0)
+        // NE
+        if (velocity.x > 0 && velocity.y > 0)
         {
             Point current = Point(A.getX2(), A.getY2());
             Point previous = Point(A.getX2() - velocity.x, A.getY2() - velocity.y);
@@ -60,8 +61,8 @@ namespace Physics
             Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
 
             resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
-        }
-        else if (velocity.x > 0 && velocity.y <= 0)
+        }// SE
+        else if (velocity.x > 0 && velocity.y < 0)
         {
             Point current = Point(A.getX2(), A.getY1());
             Point previous = Point(A.getX2() - velocity.x, A.getY1() - velocity.y);
@@ -72,8 +73,8 @@ namespace Physics
             Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
 
             resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
-        }
-        else if (velocity.x <= 0 && velocity.y > 0)
+        }// NW
+        else if (velocity.x < 0 && velocity.y > 0)
         {
             Point current = Point(A.getX1(), A.getY2());
             Point previous = Point(A.getX1() - velocity.x, A.getY2() - velocity.y);
@@ -84,14 +85,62 @@ namespace Physics
             Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
 
             resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
-        }
-        else if (velocity.x <= 0 && velocity.y < 0)
+        }// SW
+        else if (velocity.x < 0 && velocity.y < 0)
         {
             Point current = Point(A.getX1(), A.getY1());
             Point previous = Point(A.getX1() - velocity.x, A.getY1() - velocity.y);
             LinearFunction f = findLinearFunction(current, previous);
             LinearFunction g1(1.0, 0.0, -1 * B.getX2());
             LinearFunction g2(0.0, 1.0, -1 * B.getY1());
+
+            Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
+
+            resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
+        }// E
+        else if (velocity.x > 0 && velocity.y == 0)
+        {
+            Point current = Point(A.getX2(), A.getY1());
+            Point previous = Point(A.getX2() - velocity.x, A.getY1() - velocity.y);
+            LinearFunction f = findLinearFunction(current, previous);
+            LinearFunction g1(1.0, 0.0, -1 * B.getX1());
+            LinearFunction g2(0.0, 1.0, -1 * B.getY2());
+
+            Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
+
+            resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
+        }// W
+        else if (velocity.x < 0 && velocity.y == 0)
+        {
+            Point current = Point(A.getX1(), A.getY1());
+            Point previous = Point(A.getX1() - velocity.x, A.getY1() - velocity.y);
+            LinearFunction f = findLinearFunction(current, previous);
+            LinearFunction g1(1.0, 0.0, -1 * B.getX2());
+            LinearFunction g2(0.0, 1.0, -1 * B.getY2());
+
+            Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
+
+            resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
+        }// N
+        else if (velocity.x == 0 && velocity.y > 0)
+        {
+            Point current = Point(A.getX1(), A.getY2());
+            Point previous = Point(A.getX1() - velocity.x, A.getY2() - velocity.y);
+            LinearFunction f = findLinearFunction(current, previous);
+            LinearFunction g1(1.0, 0.0, -1 * B.getX1());
+            LinearFunction g2(0.0, 1.0, -1 * B.getY1());
+
+            Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
+
+            resultVector = glm::vec2(closestPoint.getX() - current.getX(), closestPoint.getY() - current.getY());
+        }// S 
+        else if (velocity.x == 0 && velocity.y < 0)
+        {
+            Point current = Point(A.getX1(), A.getY1());
+            Point previous = Point(A.getX1() - velocity.x, A.getY1() - velocity.y);
+            LinearFunction f = findLinearFunction(current, previous);
+            LinearFunction g1(1.0, 0.0, -1 * B.getX2());
+            LinearFunction g2(0.0, 1.0, -1 * B.getY2());
 
             Point closestPoint = getClosestIntersectionPoint(f, g1, g2, current);
 
