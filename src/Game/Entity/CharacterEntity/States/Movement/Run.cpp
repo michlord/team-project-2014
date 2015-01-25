@@ -3,14 +3,32 @@
 
 namespace Entity {
 
+    sf::SoundBuffer Run::soundBuffer;
+
+    Run::Run() {
+        static bool initializedBuffer = false;
+
+        if(initializedBuffer == false) {
+            initializedBuffer = true;
+            if(!soundBuffer.loadFromFile("assets/sound/player_run.wav")) {
+                Log::get().write(Log::System::Game, "Could not load sound player_run.wav");
+            }
+        }
+
+        sound.setBuffer(soundBuffer);
+    }
+
     void Run::onEnter(CharacterEntity *entity){
         entity->animation.setCurrentSequence("run");
+
+        sound.play();
     }
 
     void Run::onUpdate(CharacterEntity *entity){
         entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
 
-
+        if(sound.getStatus() != sf::SoundSource::Status::Playing)
+            sound.play();
 
         if(entity->flipped){
             sf::Vector2f delta;
@@ -32,6 +50,9 @@ namespace Entity {
 
     void Run::onExit(CharacterEntity *entity){
         (void) entity;
+
+        if(sound.getStatus() == sf::SoundSource::Status::Playing)
+            sound.stop();
     }
 
     bool Run::onMessage(CharacterEntity *entity, const Message &msg){

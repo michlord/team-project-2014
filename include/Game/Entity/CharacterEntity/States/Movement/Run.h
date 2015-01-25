@@ -5,11 +5,18 @@
 #include <EngineSystem/Entity/State.h>
 #include <EngineApp/FrameContext.h>
 
+#include <sfml/Audio.hpp>
+
 namespace Entity {
 
     class Run : public State<CharacterEntity> {
     private:
+        static sf::SoundBuffer soundBuffer;
+        sf::Sound sound;
+
     public:
+        Run();
+
         void onEnter(CharacterEntity *entity);
         void onUpdate(CharacterEntity *entity);
         void onExit(CharacterEntity *entity);
