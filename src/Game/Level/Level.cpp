@@ -5,6 +5,7 @@
 #include <EngineSystem/Physics/Physics.h>
 #include <Game/Entity/EntityDispatcher.h>
 #include <Game/Entity/Door.h>
+#include <EngineApp/FrameContext.h>
 
 #include <iostream>
 
@@ -59,9 +60,26 @@ namespace Level {
             target.draw(decoration, states);
 
         // Tiles
-        for(auto& tileLine : tiles)
-            for(auto& tile : tileLine)
-                target.draw(tile, states);
+        int startX, endX;
+        int startY, endY;
+
+        startX = static_cast<int>(Core::frameContext.window->getView().getCenter().x / 32.0f) - 10;
+        startY = static_cast<int>(Core::frameContext.window->getView().getCenter().y / 32.0f) - 10;
+
+        startX = std::max(startX, 0);
+        startY = std::max(startY, 0);
+
+        endX = startX + 20;
+        endY = startY + 20;
+
+        endY = std::min(endY, static_cast<int>(tiles.size()));
+        endX = (tiles.size() > 0u) ? std::min(endX, static_cast<int>(tiles[0].size())) : 0;
+
+        for(int y = startY; y < endY; ++y) {
+            for(int x = startX; x < endX; ++x) {
+                target.draw(tiles[y][x], states);
+            }
+        }
 
         // Entities
         for(auto& entity : entities)
