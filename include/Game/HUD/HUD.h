@@ -18,7 +18,7 @@ namespace HUD {
         HUD();
         ~HUD();
 
-        void setLife(const unsigned life_);
+        void setLife(const int life_);
         virtual void update();
         virtual bool handleMessage(const Entity::Message& msg);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
@@ -26,7 +26,7 @@ namespace HUD {
         void init();
 
         Video::Render::Sprite* lifeGradient;
-        unsigned life;
+        int life;
     };
 }
 

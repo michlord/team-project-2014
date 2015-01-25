@@ -1,5 +1,8 @@
+#include <EngineSystem/Entity/EntityManager.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include <Game/Entity/CharacterEntity/CharacterEntity.h>
 #include <Game/Entity/CharacterEntity/States.h>
+#include <Game/HUD/HUD.h>
 
 namespace Entity {
 
@@ -25,6 +28,8 @@ CharacterEntity::CharacterEntity(
 
     movementSM->changeState(new Idle());
     globalMovementSM->changeState(new OnGround());
+
+    setHealthPoints(healthPoints); // setHealth method will inform HUD
 }
 
 CharacterEntity::~CharacterEntity() {
@@ -37,6 +42,13 @@ void CharacterEntity::update() {
 }
 
 bool CharacterEntity::handleMessage(const Message& msg) {
+    if(msg.msg == MessageType::Attacked) {
+        // CharacterEntity* attacker = dynamic_cast<CharacterEntity*>(EntityManager::getInstance().getEntityById(msg.sender));
+        int damage = 10; // Mayby damage should be taken from attacker e.g. damage = attacker->getAttackAttr(); ?
+        setHealthPoints(healthPoints -= damage);
+        return true;
+    }
+
     movementSM->handleMessage(msg);
     globalMovementSM->handleMessage(msg);
 
@@ -96,6 +108,15 @@ sf::FloatRect CharacterEntity::getCurrentCollisionRect() const {
 void CharacterEntity::handleInput(int id, bool pressed) {
     Message msg(0, getId(), MessageType::Input, 0.0f, nullptr, id, pressed);
     handleMessage(msg);
+}
+
+void CharacterEntity::setHealthPoints(const int healthPoints_) {
+    healthPoints = healthPoints_;
+
+    HUD::HudMsgData msgData;
+    msgData.life = healthPoints;
+    Entity::MessageDispatcher::getInstance().registerMessage(
+        getId(), static_cast<int>(Entity::EntityType::Hud), 0, 0.0F, (void*)&msgData);
 }
 
 }

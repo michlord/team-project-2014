@@ -1,3 +1,4 @@
+#include <EngineSystem/Entity/EntityManager.h>
 #include "Game/HUD/HUD.h"
 
 namespace HUD {
@@ -5,6 +6,7 @@ namespace HUD {
 HUD::HUD() 
     : BaseEntity(static_cast<int>(Entity::EntityType::Hud))
 {
+    Entity::EntityManager::getInstance().registerEntity(this);
     lifeGradient = nullptr;
     life = 50;
     init();
@@ -15,10 +17,10 @@ HUD::~HUD() {
         delete lifeGradient;
 }
 
-void HUD::setLife(const unsigned life_) {
-    life = life_;
+void HUD::setLife(const int life_) {
+    life = (life_ > 0 ? life_ : 0);
     if(lifeGradient)
-        lifeGradient->setSize(10, life);
+        lifeGradient->setSize(life, 10);
 }
 
 void HUD::update() {
@@ -28,7 +30,7 @@ void HUD::update() {
 }
 
 void HUD::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    if(lifeGradient)
+    if(lifeGradient && life > 0)
         lifeGradient->draw(target, states);
 }
 

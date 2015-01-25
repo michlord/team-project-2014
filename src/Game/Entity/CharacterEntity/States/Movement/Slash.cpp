@@ -1,3 +1,4 @@
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include <Game/Entity/CharacterEntity/States.h>
 
 #include <sfml/Audio.hpp>
@@ -21,6 +22,7 @@ namespace Entity {
 
         sound.play();
         entity->animation.setCurrentSequence("slash");
+        enemyAttacked = false;
     }
 
     void Slash::onUpdate(CharacterEntity *entity){
@@ -37,7 +39,10 @@ namespace Entity {
     }
 
     bool Slash::onMessage(CharacterEntity *entity, const Message &msg){
-        (void) entity; (void) msg;
+        if(msg.msg == Entity::CharacterEntity::EnemyCollision && false == enemyAttacked) {
+            Entity::MessageDispatcher::getInstance().registerMessage(entity->getId(), msg.sender, Entity::CharacterEntity::Attacked);
+            enemyAttacked = true;
+        }
         return true;
     }
 

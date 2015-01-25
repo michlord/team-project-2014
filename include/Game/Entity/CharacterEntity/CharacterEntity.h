@@ -48,9 +48,12 @@ public:
     void setFeetPosition(sf::Vector2f position_);
     sf::FloatRect getCurrentCollisionRect() const;
     void handleInput(int id, bool pressed);
+    void setHealthPoints(const int healthPoints_);
 
     enum MessageType {
-        Input
+        Input,
+        EnemyCollision,
+        Attacked
     };
 };
 

@@ -1,3 +1,4 @@
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include <Game/Entity/Door.h>
 #include <Game/Scene/Gameplay.h>
 #include <Game/Level/Tile.h>
@@ -19,8 +20,6 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
  : FrameListener(sceneStack_),
    entityDispatcher(this)
 {
-    (void) levelID;
-
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
 
@@ -38,7 +37,6 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
     } else {
         zombie.reset(new AI::ZombieAI(-1, nullptr));
     }
-
 }
 
 void Gameplay::initInputHandler() {
@@ -143,6 +141,12 @@ bool Gameplay::fixedUpdate(){
         e->update();
 
     level->checkEndOfLevelCondition();
+
+    for(auto e : enemiesEntities)
+        if(player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
+            Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::EnemyCollision);
+            Entity::MessageDispatcher::getInstance().registerMessage(player->getId(), e->getId(), Entity::CharacterEntity::EnemyCollision);
+        }
 
     /*
     std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;
