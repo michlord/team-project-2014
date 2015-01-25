@@ -1,3 +1,4 @@
+#include <Game/Entity/Door.h>
 #include <Game/Scene/Gameplay.h>
 #include <Game/Level/Tile.h>
 #include <EngineSystem/Config/Config.h>
@@ -141,7 +142,7 @@ bool Gameplay::fixedUpdate(){
     for(auto e : enemiesEntities)
         e->update();
 
-
+    level->checkEndOfLevelCondition();
 
     /*
     std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;

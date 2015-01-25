@@ -38,12 +38,13 @@ namespace Level {
             bool isFeetOnGround(sf::Vector2f feet, sf::Vector2f *delta = nullptr);
             bool isRectCollidingWithWall(sf::FloatRect rect, sf::Vector2f direction, sf::Vector2f *delta = nullptr);
 
+            void checkEndOfLevelCondition();
+
         private:
             void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
             void loadDecorationsFromFile(const std::string& path);
             void loadEntitiesFromFile(const std::string& path, Entity::EntityDispatcher* dispatcher = nullptr);
             std::vector<Tile> getTilesInRect(const sf::FloatRect rect);
-            std::vector<Tile> getTileInPoint(const sf::Vector2f point);
 
             unsigned int id;
             std::list<Decoration> decorations;

@@ -1,7 +1,10 @@
+#include <EngineSystem/Entity/EntityManager.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include <EngineSystem/Log/Log.h>
 #include <Game/Level/Level.h>
 #include <EngineSystem/Physics/Physics.h>
 #include <Game/Entity/EntityDispatcher.h>
+#include <Game/Entity/Door.h>
 
 #include <iostream>
 
@@ -190,6 +193,17 @@ namespace Level {
         return false;
     }
 
+    void Level::checkEndOfLevelCondition() {
+        Entity::Door* door = dynamic_cast<Entity::Door*>(
+            Entity::EntityManager::getInstance().getEntityById((int)Entity::EntityType::Door));
+        Entity::CharacterEntity* player = dynamic_cast<Entity::CharacterEntity*>(
+            Entity::EntityManager::getInstance().getEntityById((int)Entity::EntityType::Player));
+
+        if(player && door && player->getCurrentCollisionRect().intersects(door->boundingRect)) {
+            Entity::MessageDispatcher::getInstance().registerMessage(0, door->getId(), Entity::Door::Msg::NextLvl);
+        }
+    }
+
     void Level::setTile(Tile& tile, const sf::Color& color, int posX, int posY) {
         tile.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
 
@@ -288,5 +302,4 @@ namespace Level {
                     res.push_back(tiles[y][x]);
         return res;
     }
-
 }

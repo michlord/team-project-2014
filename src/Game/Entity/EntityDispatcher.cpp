@@ -59,6 +59,7 @@ void EntityDispatcher::createEnemyEntity(const float x, const float y, const std
 void EntityDispatcher::createSpecialEntity(const float x, const float y, const std::string& id) {
     if(id == "door") {
         Entity::Door* door = new Entity::Door((int)Entity::EntityType::Door, sf::Vector2f(x, y));
+        Entity::EntityManager::getInstance().registerEntity(door);
         gameplay->specialEntities.push_back(std::shared_ptr<Entity::BaseEntity>(door));
     }
 }
