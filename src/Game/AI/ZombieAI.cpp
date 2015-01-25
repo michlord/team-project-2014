@@ -41,11 +41,17 @@ void ZombieAI::update(){
         if(playerFeet.x < characterFeet.x) {
             character->handleInput(Input::Right, false);
             character->handleInput(Input::Left, true);
+            if(character->level->isRectCollidingWithWall(character->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), nullptr)) {
+                character->handleInput(Input::Space, true);
+            }
         } else {
             character->handleInput(Input::Left, false);
             character->handleInput(Input::Right, true);
+            if(character->level->isRectCollidingWithWall(character->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), nullptr)) {
+                character->handleInput(Input::Space, true);
+            }
         }
-       
+
     } else {
         character->handleInput(Input::Left, false);
         character->handleInput(Input::Right, false);
