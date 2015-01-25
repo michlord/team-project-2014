@@ -9,5 +9,6 @@
 #include "States/Movement/Fall.h"
 #include "States/Movement/Jump.h"
 #include "States/Movement/Slash.h"
+#include "States/Movement/Fire.h"
 
 #endif // GAME_ENTITY_CHARACTERENTITY_STATES_H_INCLUDED

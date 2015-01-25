@@ -59,6 +59,8 @@ void Gameplay::initInputHandler() {
     //context.addState("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, std::placeholders::_1));
     context.addAction("jump", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Space, true));
     context.addAction("slash", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::X, true));
+    context.addAction("cast", std::bind(&Entity::CharacterEntity::handleInput, player.get(), Input::ID::Z, true));
+
     // context.addState("right", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(5.0f, 0.0f)));
     // context.addState("up", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, -5.0f)));
     // context.addState("crouch", std::bind(&Gameplay::moveCamera, this, sf::Vector2f(0.0f, 5.0f)));

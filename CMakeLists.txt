@@ -166,6 +166,7 @@ set(GAME_SRC
     "src/Game/Entity/CharacterEntity/States/Movement/Fall.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Jump.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Slash.cpp"
+    "src/Game/Entity/CharacterEntity/States/Movement/Fire.cpp"
 
     "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
 	"src/Game/Scene/Helpers/CreateKnightAnimation.cpp"
@@ -201,6 +202,7 @@ SET(GAME_H
     "include/Game/Entity/CharacterEntity/States/Movement/Fall.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Jump.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Slash.h"
+    "include/Game/Entity/CharacterEntity/States/Movement/Fire.h"
 
     "include/Game/Entity/Door.h"
 
