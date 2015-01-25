@@ -6,6 +6,7 @@ namespace Entity {
     void BaseEntity::setId(int id_) {
         if(0 <= id_ && id_ < static_cast<int>(EntityType::SpecialIdCount)) {
             id = id_;
+            return;
         } else if (id_ >= nextValidId) {
             id = id_;
         } else {
