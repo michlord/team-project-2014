@@ -171,6 +171,8 @@ set(GAME_SRC
 	"src/Game/Scene/Helpers/CreateKnightAnimation.cpp"
 
     "src/Game/Entity/Door.cpp"
+
+    "src/Game/AI/ZombieAI.cpp"
 )
 
 SET(GAME_H
@@ -201,6 +203,8 @@ SET(GAME_H
     "include/Game/Entity/CharacterEntity/States/Movement/Slash.h"
 
     "include/Game/Entity/Door.h"
+
+    "include/Game/AI/ZombieAI.h"
 )
 
 add_library(gamelib ${GAMELIB_SRC} ${GAMELIB_H})

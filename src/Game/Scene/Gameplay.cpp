@@ -2,6 +2,8 @@
 #include <Game/Level/Tile.h>
 #include <EngineSystem/Config/Config.h>
 
+#include <Game/AI/ZombieAI.h>
+
 namespace Scene {
 
 namespace Helpers {
@@ -9,6 +11,8 @@ namespace Helpers {
 }
 
 sf::Vector2f Gameplay::cameraCenter;
+
+std::shared_ptr<AI::ZombieAI> zombie;
 
 Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
  : FrameListener(sceneStack_),
@@ -27,6 +31,12 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
     initLevel(levelID);
 
     initInputHandler();
+
+    if(enemiesEntities.size() >= 1) {
+        zombie.reset(new AI::ZombieAI(-1, enemiesEntities[0].get()));
+    } else {
+        zombie.reset(new AI::ZombieAI(-1, nullptr));
+    }
 
 }
 
@@ -123,11 +133,15 @@ bool Gameplay::render(){
 bool Gameplay::fixedUpdate(){
     hud.update();
     player->update();
+    zombie->update();
+
     cameraCenter = player->getFeetPosition();
     for(auto e : specialEntities)
         e->update();
     for(auto e : enemiesEntities)
         e->update();
+
+
 
     /*
     std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;
