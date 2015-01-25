@@ -27,50 +27,50 @@ namespace Scene {
             std::map<std::string, sf::FloatRect> seq_solids;
 
             //idle
-            frameBuffer[0].setTextureSegment(sf::IntRect(5, 6, 55, 70));
-            frameBuffer[1].setTextureSegment(sf::IntRect(85, 6, 55, 70));
-            frameBuffer[2].setTextureSegment(sf::IntRect(165, 6, 55, 70));
-            frameBuffer[3].setTextureSegment(sf::IntRect(245, 6, 55, 70));
-            seq_solids.insert(std::make_pair("idle", sf::FloatRect(10, 2, 30, 68)));
+            frameBuffer[0].setTextureSegment(sf::IntRect(5, 6, 80, 70));
+            frameBuffer[1].setTextureSegment(sf::IntRect(109, 6, 80, 70));
+            frameBuffer[2].setTextureSegment(sf::IntRect(213, 6, 80, 70));
+            frameBuffer[3].setTextureSegment(sf::IntRect(317, 6, 80, 70));
+            seq_solids.insert(std::make_pair("idle", sf::FloatRect(25, 2, 30, 68)));
 
             //fall
-            frameBuffer[4].setTextureSegment(sf::IntRect(343, 6, 48, 69));
-            seq_solids.insert(std::make_pair("fall", sf::FloatRect(13, 2, 30, 64)));
+            frameBuffer[4].setTextureSegment(sf::IntRect(439, 6, 80, 70));
+            seq_solids.insert(std::make_pair("fall", sf::FloatRect(25, 2, 30, 68)));
 
             //slash
-            frameBuffer[5].setTextureSegment(sf::IntRect(3, 100, 79, 68));
-            frameBuffer[6].setTextureSegment(sf::IntRect(82, 100, 79, 68));
-            seq_solids.insert(std::make_pair("slash", sf::FloatRect(12, 2, 30, 66)));
+            frameBuffer[5].setTextureSegment(sf::IntRect(3, 100, 80, 70));
+            frameBuffer[6].setTextureSegment(sf::IntRect(82, 100, 80, 70));
+            seq_solids.insert(std::make_pair("slash", sf::FloatRect(25, 2, 30, 68)));
 
             //cast
-            frameBuffer[7].setTextureSegment(sf::IntRect(188, 101, 78, 68));
-            frameBuffer[8].setTextureSegment(sf::IntRect(268, 101, 78, 68));
-            frameBuffer[9].setTextureSegment(sf::IntRect(348, 101, 78, 68));
-            frameBuffer[10].setTextureSegment(sf::IntRect(428, 101, 78, 68));
-            seq_solids.insert(std::make_pair("cast", sf::FloatRect(10, 1, 30, 67)));
+            frameBuffer[7].setTextureSegment(sf::IntRect(188, 101, 80, 70));
+            frameBuffer[8].setTextureSegment(sf::IntRect(269, 101, 80, 70));
+            frameBuffer[9].setTextureSegment(sf::IntRect(350, 101, 80, 70));
+            frameBuffer[10].setTextureSegment(sf::IntRect(431, 101, 80, 70));
+            seq_solids.insert(std::make_pair("cast", sf::FloatRect(25, 2, 30, 68)));
 
             //run
-            frameBuffer[11].setTextureSegment(sf::IntRect(0, 202, 69, 55));
-            frameBuffer[12].setTextureSegment(sf::IntRect(74, 202, 69, 55));
-            frameBuffer[13].setTextureSegment(sf::IntRect(154, 202, 69, 55));
-            seq_solids.insert(std::make_pair("run", sf::FloatRect(19, 2, 40, 53)));
+            frameBuffer[11].setTextureSegment(sf::IntRect(0, 192, 80, 70));
+            frameBuffer[12].setTextureSegment(sf::IntRect(84, 192, 80, 70));
+            frameBuffer[13].setTextureSegment(sf::IntRect(174, 192, 80, 70));
+            seq_solids.insert(std::make_pair("run", sf::FloatRect(25, 2, 30, 68)));
 
             //air slash
-            frameBuffer[14].setTextureSegment(sf::IntRect(257, 193, 79, 63));
-            frameBuffer[15].setTextureSegment(sf::IntRect(336, 193, 79, 63));
-            seq_solids.insert(std::make_pair("air", sf::FloatRect(19, 2, 30, 61)));
+            frameBuffer[14].setTextureSegment(sf::IntRect(277, 191, 80, 70));
+            frameBuffer[15].setTextureSegment(sf::IntRect(356, 191, 80, 70));
+            seq_solids.insert(std::make_pair("air", sf::FloatRect(25, 2, 30, 68)));
 
             //hurt
-            frameBuffer[16].setTextureSegment(sf::IntRect(4, 288, 50, 67));
-            seq_solids.insert(std::make_pair("hurt", sf::FloatRect(8, 4, 40, 60)));
+            frameBuffer[16].setTextureSegment(sf::IntRect(4, 285, 80, 70));
+            seq_solids.insert(std::make_pair("hurt", sf::FloatRect(25, 2, 30, 68)));
 
             //having one solid here is problematic, because first two frames are crouching, so shorter...
             //jump
-            frameBuffer[17].setTextureSegment(sf::IntRect(96, 280, 67, 70));
-            frameBuffer[18].setTextureSegment(sf::IntRect(174, 280, 67, 70));
-            frameBuffer[19].setTextureSegment(sf::IntRect(250, 280, 67, 70));
-            frameBuffer[20].setTextureSegment(sf::IntRect(341, 280, 67, 70));
-            seq_solids.insert(std::make_pair("jump", sf::FloatRect(19, 1, 30, 68)));
+            frameBuffer[17].setTextureSegment(sf::IntRect(96, 280, 80, 70));
+            frameBuffer[18].setTextureSegment(sf::IntRect(174, 280, 80, 70));
+            frameBuffer[19].setTextureSegment(sf::IntRect(275, 280, 80, 70));
+            frameBuffer[20].setTextureSegment(sf::IntRect(366, 280, 80, 70));
+            seq_solids.insert(std::make_pair("jump", sf::FloatRect(25, 2, 30, 68)));
 
             for(int i = 0; i < 21; ++i) {
                 frameBuffer[i].setDuration(sf::seconds(1.0f/15.0f));

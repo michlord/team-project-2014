@@ -90,7 +90,7 @@ void List::handleInput(const Input::Input &in) {
                 store[curIdx].setFocused(false);
             }
             if(curIdx <= 0) {
-                curIdx = store.size() - 1;
+                curIdx = (int)store.size() - 1;
             } else {
                 curIdx -= 1;
             }
