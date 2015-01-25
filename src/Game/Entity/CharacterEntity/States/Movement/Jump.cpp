@@ -21,21 +21,25 @@ namespace Entity {
 
         sound.play();
         entity->animation.setCurrentSequence("jump");
+        currentJumpHeight = 0.0f;
     }
 
     void Jump::onUpdate(CharacterEntity *entity){
-        entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
+        if(!entity->animation.getSequence("jump")->isFinished()) {
+            entity->animation.update(sf::seconds(Core::frameContext.deltaTime));
+        }
 
         sf::Vector2f delta;
         if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(0.0f, -1.0f), &delta)) {
             entity->setFeetPosition(entity->getFeetPosition() + delta);
+            currentJumpHeight = entity->jumpHeight;
         } else {
             entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(0.0f, 5.0f));
+            currentJumpHeight += 5.0f;
         }
 
-        if(entity->animation.getSequence("jump")->isFinished()) {
+        if(currentJumpHeight >= entity->jumpHeight) {
             entity->movementSM->changeState(new Fall());
-            entity->animation.getSequence("jump")->resetFinished();
             return;
         }
     }
@@ -81,6 +85,16 @@ namespace Entity {
                         }
                     }
                     default : break;
+                }
+            } else {
+                //this won't work because input action doesn't trigger when key is released.
+                if(id == Input::ID::Space) {
+                    if(currentJumpHeight < 50.0f) {
+                        currentJumpHeight = entity->jumpHeight - currentJumpHeight;
+                    } else {
+                        currentJumpHeight = entity->jumpHeight;
+                    }
+                    return true;
                 }
             }
         }

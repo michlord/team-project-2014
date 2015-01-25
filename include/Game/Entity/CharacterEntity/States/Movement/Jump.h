@@ -14,6 +14,7 @@ namespace Entity {
         void onUpdate(CharacterEntity *entity);
         void onExit(CharacterEntity *entity);
         bool onMessage(CharacterEntity *entity, const Message &msg);
+        float currentJumpHeight;
     };
 
 }
