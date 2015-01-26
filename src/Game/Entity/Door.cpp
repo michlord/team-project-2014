@@ -11,6 +11,8 @@ namespace Entity {
 
         Video::Render::Sprite::Frame frame;
         frame.setTextureSegment(sf::IntRect(0, 0, 60, 106));
+        sprite->insertFrame(frame);
+
         boundingRect = sf::FloatRect(pos.x, pos.y, 60, 106);
     }
 

@@ -19,6 +19,7 @@ namespace Entity {
             void createPlayer(const float x, const float y);
             void createEnemyEntity(const float x, const float y, const std::string& id);
             void createSpecialEntity(const float x, const float y, const std::string& id);
+            void createSpellSourceEntity(const float x, const float y, const std::string& id);
 
             Scene::Gameplay *gameplay;
     };

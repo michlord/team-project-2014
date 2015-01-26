@@ -1,6 +1,7 @@
 #include "Game/Entity/EntityDispatcher.h"
 #include <Game/Scene/Gameplay.h>
 #include <Game/Entity/Door.h>
+#include <Game/Entity/Spells/SpellSource.h>
 #include <EngineSystem/Entity/EntityManager.h>
 
 namespace Scene {
@@ -23,6 +24,8 @@ void EntityDispatcher::createEntity(const float x, const float y, const std::str
         createEnemyEntity(x, y, id);
     } else if(id == "door") {
         createSpecialEntity(x, y, id);
+    } else if(id == "fireSource" || id == "natureSource" || id == "windSource" || id == "iceSource") {
+        createSpellSourceEntity(x, y, id);
     } else {
         Log::get().write(Log::System::Game, "Attempt to create unknown entity: '%s'", id.c_str());
     }
@@ -62,6 +65,22 @@ void EntityDispatcher::createSpecialEntity(const float x, const float y, const s
         Entity::EntityManager::getInstance().registerEntity(door);
         gameplay->specialEntities.push_back(std::shared_ptr<Entity::BaseEntity>(door));
     }
+}
+
+void EntityDispatcher::createSpellSourceEntity(const float x, const float y, const std::string& id) {
+    Entity::Spells::SpellType type = Entity::Spells::Fire;
+    if(id == "fireSource")
+        type = Entity::Spells::Fire;
+    else if(id == "natureSource")
+        type = Entity::Spells::Nature;
+    else if(id == "windSource")
+        type = Entity::Spells::Wind;
+    else if(id == "iceSource")
+        type = Entity::Spells::Ice;
+
+    Entity::Spells::SpellSource* spellSource = new Entity::Spells::SpellSource(-1, sf::Vector2f(x, y), type);
+    Entity::EntityManager::getInstance().registerEntity(spellSource);
+    gameplay->specialEntities.push_back(std::shared_ptr<Entity::BaseEntity>(spellSource));
 }
 
 }
