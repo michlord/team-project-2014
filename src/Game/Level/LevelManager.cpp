@@ -9,6 +9,7 @@ namespace Level {
 
         //Preload level data here.
         mgr.addLevel(0, "assets/levels/level0");
+        mgr.addLevel(1, "assets/levels/level1");
 
         return mgr;
     }();

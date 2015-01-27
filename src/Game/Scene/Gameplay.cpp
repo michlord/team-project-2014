@@ -15,6 +15,8 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
  : FrameListener(sceneStack_),
    entityDispatcher(this)
 {
+
+
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
 
@@ -25,6 +27,23 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
 
     initLevel(levelID);
     initInputHandler();
+}
+
+Gameplay::~Gameplay() {
+    Entity::EntityManager::getInstance().unregisterEntity(player.get());
+    Entity::EntityManager::getInstance().unregisterEntity(&hud);
+
+    for(auto& enemy : enemiesEntities)
+        Entity::EntityManager::getInstance().unregisterEntity(enemy.get());
+    
+    //for(auto& enemyAI : enemiesAIs)
+    //    Entity::EntityManager::getInstance().unregisterEntity(enemyAI.get());
+    
+    for(auto& spellSource : spellSourceEntities)
+        Entity::EntityManager::getInstance().unregisterEntity(spellSource.get());
+
+    for(auto& specialEntity : specialEntities)
+        Entity::EntityManager::getInstance().unregisterEntity(specialEntity.get());
 }
 
 void Gameplay::initInputHandler() {

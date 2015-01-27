@@ -44,6 +44,8 @@ namespace Scene {
 
         public:
             Gameplay(SceneStack* sceneStack_, unsigned int levelID);
+            ~Gameplay();
+
             bool render();
             bool fixedUpdate();
             Input::InputHandler *getInputHandler();
