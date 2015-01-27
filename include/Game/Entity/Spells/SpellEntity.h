@@ -8,7 +8,8 @@ namespace Entity {
             Fire,
             Nature,
             Wind,
-            Ice
+            Ice,
+            None
         };
 
     }

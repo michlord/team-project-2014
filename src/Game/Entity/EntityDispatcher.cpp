@@ -68,7 +68,7 @@ void EntityDispatcher::createSpecialEntity(const float x, const float y, const s
 }
 
 void EntityDispatcher::createSpellSourceEntity(const float x, const float y, const std::string& id) {
-    Entity::Spells::SpellType type = Entity::Spells::Fire;
+    Entity::Spells::SpellType type = Entity::Spells::None;
     if(id == "fireSource")
         type = Entity::Spells::Fire;
     else if(id == "natureSource")

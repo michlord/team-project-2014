@@ -112,9 +112,16 @@ void CharacterEntity::handleInput(int id, bool pressed) {
 
 void CharacterEntity::setHealthPoints(const int healthPoints_) {
     healthPoints = healthPoints_;
+    updateHUD();
+}
 
+void CharacterEntity::updateHUD() {
     HUD::HudMsgData msgData;
     msgData.life = healthPoints;
+
+    for(unsigned i = 0 ; i < 4 ; i++)
+        msgData.spells[i] = (i < spells.size() ? spells[i] : Entity::Spells::None);
+
     Entity::MessageDispatcher::getInstance().registerMessage(
         getId(), static_cast<int>(Entity::EntityType::Hud), 0, 0.0F, (void*)&msgData);
 }

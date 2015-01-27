@@ -1,6 +1,8 @@
 #ifndef GAME_ENTITY_CHARACTERENTITY_CHARACTERENTITY_H_INCLUDED
 #define GAME_ENTITY_CHARACTERENTITY_CHARACTERENTITY_H_INCLUDED
 
+#include <Game/Entity/Spells/SpellEntity.h>
+
 #include <EngineSystem/Entity/BaseEntity.h>
 #include <EngineSystem/Entity/StateMachine.h>
 #include <EngineSystem/Input/Input.h>
@@ -10,6 +12,7 @@
 #include <EngineSystem/Video/Render/Animation.h>
 
 #include <Game/Level/Level.h>
+#include <vector>
 
 namespace Entity {
 
@@ -30,7 +33,7 @@ public:
     bool         flipped;
     int          jumpCount;
     int          healthPoints;
-
+    std::vector<Entity::Spells::SpellType> spells;
 
     /* Configuration variables */
     Video::Render::Animation animation;
@@ -49,6 +52,7 @@ public:
     sf::FloatRect getCurrentCollisionRect() const;
     void handleInput(int id, bool pressed);
     void setHealthPoints(const int healthPoints_);
+    void updateHUD();
 
     enum MessageType {
         Input,
