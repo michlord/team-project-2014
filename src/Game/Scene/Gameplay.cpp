@@ -10,8 +10,6 @@ namespace Scene {
 
 sf::Vector2f Gameplay::cameraCenter;
 
-std::shared_ptr<AI::ZombieAI> zombie;
-
 Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
  : FrameListener(sceneStack_),
    entityDispatcher(this)
@@ -26,12 +24,6 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
 
     initLevel(levelID);
     initInputHandler();
-
-    if(enemiesEntities.size() >= 1) {
-        zombie.reset(new AI::ZombieAI(-1, enemiesEntities[0].get()));
-    } else {
-        zombie.reset(new AI::ZombieAI(-1, nullptr));
-    }
 }
 
 void Gameplay::initInputHandler() {
@@ -80,6 +72,18 @@ void Gameplay::initLevel(unsigned int id) {
 
 void Gameplay::moveCamera(const sf::Vector2f& direction) {
     cameraCenter += direction;
+}
+
+void Gameplay::removeDeadEnemies() {
+    auto ai_end = std::remove_if(enemiesAIs.begin(), enemiesAIs.end(), [](std::shared_ptr<AI::BaseAI> ai) {
+        return ai->character->healthPoints <= 0;
+    });
+    enemiesAIs.erase(ai_end, enemiesAIs.end());
+
+    auto enemies_end = std::remove_if(enemiesEntities.begin(), enemiesEntities.end(), [](std::shared_ptr<Entity::CharacterEntity> e) {
+        return e->healthPoints <= 0;
+    });
+    enemiesEntities.erase(enemies_end, enemiesEntities.end());
 }
 
 bool Gameplay::render(){
@@ -132,7 +136,8 @@ bool Gameplay::render(){
 bool Gameplay::fixedUpdate(){
     hud.update();
     player->update();
-    zombie->update();
+    for(auto ai : enemiesAIs)
+        ai->update();
 
     cameraCenter = player->getFeetPosition();
     for(auto e : specialEntities)
@@ -154,6 +159,8 @@ bool Gameplay::fixedUpdate(){
         if(player->getCurrentCollisionRect().intersects(e->boundingRect)) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::SpellSourceCollision);
         }
+
+    removeDeadEnemies();
 
     /*
     std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;

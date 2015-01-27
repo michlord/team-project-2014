@@ -8,17 +8,9 @@ using namespace Entity;
 
 namespace AI {
 ZombieAI::ZombieAI(int id, CharacterEntity *character_)
- : BaseEntity(id), character(character_)
+ : BaseAI(id, character_)
 {
-    player = dynamic_cast<CharacterEntity*>(EntityManager::getInstance().getEntityById((int)EntityType::Player));
-    if(!player) {
-        //static bool errorLogged = false;
-        //if(!errorLogged) {
-            Log::get().write(Log::System::Game, "[ZombieAI] Unable to get player pointer.");
-        //}
-        //errorLogged = true;
-        return;
-    }
+    
 }
 
 ZombieAI::~ZombieAI(){
@@ -37,7 +29,11 @@ void ZombieAI::update(){
 
 
 
-    if(distance < 200.0f) {
+    if(player->getCurrentCollisionRect().intersects(character->getCurrentCollisionRect())) {
+        character->handleInput(Input::Left, false);
+        character->handleInput(Input::Right, false);
+        character->handleInput(Input::X, true);
+    } else if(distance < 200.0f) {
         if(playerFeet.x < characterFeet.x) {
             character->handleInput(Input::Right, false);
             character->handleInput(Input::Left, true);
@@ -51,7 +47,6 @@ void ZombieAI::update(){
                 character->handleInput(Input::Space, true);
             }
         }
-
     } else {
         character->handleInput(Input::Left, false);
         character->handleInput(Input::Right, false);

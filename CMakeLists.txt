@@ -174,6 +174,7 @@ set(GAME_SRC
 
     "src/Game/Entity/Door.cpp"
 
+    "src/Game/AI/BaseAI.cpp"
     "src/Game/AI/ZombieAI.cpp"
 )
 
@@ -206,11 +207,12 @@ SET(GAME_H
     "include/Game/Entity/CharacterEntity/States/Movement/Slash.h"
     "include/Game/Entity/CharacterEntity/States/Movement/Fire.h"
 	
-	"include/Game/Entity/Spells/SpellSource.h"
-	"include/Game/Entity/Spells/SpellEntity.h"
+    "include/Game/Entity/Spells/SpellSource.h"
+    "include/Game/Entity/Spells/SpellEntity.h"
 
     "include/Game/Entity/Door.h"
 
+    "include/Game/AI/BaseAI.h"
     "include/Game/AI/ZombieAI.h"
 )
 

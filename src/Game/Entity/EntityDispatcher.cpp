@@ -3,6 +3,8 @@
 #include <Game/Scene/Gameplay.h>
 #include <Game/Entity/Door.h>
 #include <Game/Entity/Spells/SpellSource.h>
+#include <Game/AI/BaseAI.h>
+#include <Game/AI/ZombieAI.h>
 #include <EngineSystem/Entity/EntityManager.h>
 
 namespace Entity {
@@ -33,7 +35,6 @@ namespace Entity {
             "assets/animations/player.anim", 
             frameContext.assetsManager->getTexture("player_character")
         );
-    
         collisionRects = Entity::AnimationLoader::loadCollision("assets/animations/player.coll");
 
         gameplay->player.reset(new Entity::CharacterEntity((int)Entity::EntityType::Player, animation, sf::FloatRect(x, y, 50.0f, 64.0f), gameplay->level));
@@ -61,10 +62,12 @@ namespace Entity {
                 sf::FloatRect(x, y, 40.0f, 82.0f),
                 gameplay->level
             );
+            AI::ZombieAI* ai = new AI::ZombieAI(-1, enemy);
             enemy->collisionRects = collisionRects;
             enemy->flipped = false;
             Entity::EntityManager::getInstance().registerEntity(enemy);
             gameplay->enemiesEntities.push_back(std::shared_ptr<Entity::CharacterEntity>(enemy));
+            gameplay->enemiesAIs.push_back(std::shared_ptr<AI::BaseAI>(ai));
         }
     }
 
