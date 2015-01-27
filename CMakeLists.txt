@@ -153,6 +153,7 @@ set(GAME_SRC
     "src/Game/Level/Level.cpp"
     "src/Game/Level/LevelManager.cpp"
     "src/Game/Level/Tile.cpp"
+    "src/Game/Entity/AnimationLoader.cpp"
     "src/Game/Entity/EntityDispatcher.cpp"
     "src/Game/Entity/Door.cpp"
     "src/Game/HUD/HUD.cpp"
@@ -168,11 +169,8 @@ set(GAME_SRC
     "src/Game/Entity/CharacterEntity/States/Movement/Slash.cpp"
     "src/Game/Entity/CharacterEntity/States/Movement/Fire.cpp"
 
-	"src/Game/Entity/Spells/SpellSource.cpp"
-	"src/Game/Entity/Spells/SpellEntity.cpp"
-	
-    "src/Game/Scene/Helpers/CreatePlayerAnimation.cpp"
-	"src/Game/Scene/Helpers/CreateKnightAnimation.cpp"
+    "src/Game/Entity/Spells/SpellSource.cpp"
+    "src/Game/Entity/Spells/SpellEntity.cpp"
 
     "src/Game/Entity/Door.cpp"
 
@@ -191,6 +189,7 @@ SET(GAME_H
     "include/Game/Level/Level.h"
     "include/Game/Level/LevelManager.h"
     "include/Game/Level/Tile.h"
+    "include/Game/Entity/AnimationLoader.h"
     "include/Game/Entity/EntityDispatcher.h"
     "include/Game/Entity/Door.h"
     "include/Game/HUD/HUD.h"

@@ -1,0 +1,36 @@
+sequence idle true
+frame 5 6 80 70 0.1
+frame 109 6 80 70 0.1
+frame 213 6 80 70 0.1
+frame 317 6 80 70 0.1
+
+sequence fall true
+frame 439 6 80 70 0.1
+
+sequence slash true
+frame 3 100 80 70 0.1
+frame 82 100 80 70 0.1
+
+sequence cast true
+frame 188 101 80 70 0.1
+frame 269 101 80 70 0.1
+frame 350 101 80 70 0.1
+frame 431 101 80 70 0.1
+
+sequence run true
+frame 0 192 80 70 0.1
+frame 84 192 80 70 0.1
+frame 174 192 80 70 0.1
+
+sequence air true
+frame 277 191 80 70 0.1
+frame 356 191 80 70 0.1
+
+sequence hurt true
+frame 4 285 80 70 0.1
+
+sequence jump true
+frame 96 280 80 70 0.1
+frame 174 280 80 70 0.1
+frame 275 280 80 70 0.1
+frame 366 280 80 70 0.1
