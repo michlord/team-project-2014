@@ -1,3 +1,4 @@
+#include <EngineSystem/Entity/EntityManager.h>
 #include <EngineSystem/Entity/MessageDispatcher.h>
 #include <Game/Entity/Door.h>
 #include <Game/Scene/Gameplay.h>
@@ -76,7 +77,12 @@ void Gameplay::moveCamera(const sf::Vector2f& direction) {
 
 void Gameplay::removeDeadEnemies() {
     auto ai_end = std::remove_if(enemiesAIs.begin(), enemiesAIs.end(), [](std::shared_ptr<AI::BaseAI> ai) {
-        return ai->character->healthPoints <= 0;
+        bool res = ai->character->healthPoints <= 0;
+        if(res) {
+            Entity::EntityManager::getInstance().unregisterEntity(ai.get());
+            Entity::EntityManager::getInstance().unregisterEntity(ai->character);
+        }
+        return res;
     });
     enemiesAIs.erase(ai_end, enemiesAIs.end());
 
