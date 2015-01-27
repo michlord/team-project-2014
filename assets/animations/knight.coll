@@ -1,0 +1,6 @@
+rect idle 12 10 40 82
+rect fall 2 10 40 78
+rect slash 25 12 40 79
+rect run 20 10 40 82
+rect hurt 16 7 40 82
+rect jump 14 8 40 85

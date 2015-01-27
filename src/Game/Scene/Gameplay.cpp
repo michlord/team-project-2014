@@ -8,10 +8,6 @@
 
 namespace Scene {
 
-namespace Helpers {
-    std::map<std::string, sf::FloatRect> makePlayerAnimation(Video::Render::Animation &animation);
-}
-
 sf::Vector2f Gameplay::cameraCenter;
 
 Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
@@ -21,13 +17,12 @@ Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
     Config &cfg = Config::Get();
     cfg.load("assets/config.ini");
 
+    frameContext.assetsManager->loadTexture("assets/images/player_character.png", "player_character");
+    frameContext.assetsManager->loadTexture("assets/images/knight_character.png", "knight_character");
+
     Level::levelManager.initTextures();
 
-    Video::Render::Animation animation;
-    std::map<std::string, sf::FloatRect> collisionRects = Helpers::makePlayerAnimation(animation);
-
     initLevel(levelID);
-
     initInputHandler();
 }
 
