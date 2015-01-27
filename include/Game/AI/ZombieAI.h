@@ -20,6 +20,10 @@ namespace AI {
         virtual bool handleMessage(const Entity::Message& msg);
 
         std::unique_ptr< Entity::StateMachine<ZombieAI> > SM;
+
+        void slash(float delay);
+        bool canSlash;
+        enum MessageType { Slash };
     };
 
 }

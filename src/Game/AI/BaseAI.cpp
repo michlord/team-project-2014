@@ -10,6 +10,7 @@ namespace AI {
 BaseAI::BaseAI(int id, CharacterEntity *character_)
  : BaseEntity(id), character(character_)
 {
+    Entity::EntityManager::getInstance().registerEntity(this);
     player = dynamic_cast<CharacterEntity*>(EntityManager::getInstance().getEntityById((int)EntityType::Player));
     if(!player) {
         //static bool errorLogged = false;

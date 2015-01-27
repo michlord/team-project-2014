@@ -1,7 +1,7 @@
 #include <Game/AI/ZombieAi.h>
 #include <EngineSystem/Log/Log.h>
 #include <EngineSystem/Entity/EntityManager.h>
-
+#include <EngineSystem/Entity/MessageDispatcher.h>
 #include <cmath>
 
 using namespace Entity;
@@ -10,7 +10,7 @@ namespace AI {
 ZombieAI::ZombieAI(int id, CharacterEntity *character_)
  : BaseAI(id, character_)
 {
-    
+    canSlash = true;
 }
 
 ZombieAI::~ZombieAI(){
@@ -32,7 +32,10 @@ void ZombieAI::update(){
     if(player->getCurrentCollisionRect().intersects(character->getCurrentCollisionRect())) {
         character->handleInput(Input::Left, false);
         character->handleInput(Input::Right, false);
-        character->handleInput(Input::X, true);
+        if(canSlash) {
+            canSlash = false;
+            slash(0.5f);
+        }
     } else if(distance < 200.0f) {
         if(playerFeet.x < characterFeet.x) {
             character->handleInput(Input::Right, false);
@@ -56,7 +59,24 @@ void ZombieAI::update(){
 
 bool ZombieAI::handleMessage(const Message& msg){
     (void) msg;
+    if(msg.msg == MessageType::Slash) {
+        slash(0.0f);
+    }
     return true;
+}
+
+void ZombieAI::slash(float delay) {
+    if(character->getCurrentCollisionRect().intersects(player->getCurrentCollisionRect()) == false) {
+        canSlash = true;
+        return;
+    }
+
+    if(delay == 0.0f) {
+        character->handleInput(Input::X, true);
+        canSlash = true;
+    } else {
+        MessageDispatcher::getInstance().registerMessage(getId(), getId(), MessageType::Slash, delay, nullptr);
+    }
 }
 
 }
