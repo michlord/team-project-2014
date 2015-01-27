@@ -57,7 +57,8 @@ public:
     enum MessageType {
         Input,
         EnemyCollision,
-        Attacked
+        Attacked,
+        SpellSourceCollision
     };
 };
 

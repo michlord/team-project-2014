@@ -41,5 +41,9 @@ namespace Entity {
             if (sprite)
                 sprite->draw(target, states);
         }
+        
+        SpellType SpellSource::getSpellType() const {
+            return type;
+        }
     }
 }

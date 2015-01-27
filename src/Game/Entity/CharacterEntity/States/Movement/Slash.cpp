@@ -1,6 +1,7 @@
 #include <EngineSystem/Entity/MessageDispatcher.h>
+#include <EngineSystem/Entity/EntityManager.h>
 #include <Game/Entity/CharacterEntity/States.h>
-
+#include <Game/Entity/Spells/SpellSource.h>
 #include <sfml/Audio.hpp>
 
 namespace Entity {
@@ -23,6 +24,7 @@ namespace Entity {
         sound.play();
         entity->animation.setCurrentSequence("slash");
         enemyAttacked = false;
+        gotNewSpell   = false;
     }
 
     void Slash::onUpdate(CharacterEntity *entity){
@@ -42,6 +44,15 @@ namespace Entity {
         if(msg.msg == Entity::CharacterEntity::EnemyCollision && false == enemyAttacked) {
             Entity::MessageDispatcher::getInstance().registerMessage(entity->getId(), msg.sender, Entity::CharacterEntity::Attacked);
             enemyAttacked = true;
+        }
+        if(msg.msg == Entity::CharacterEntity::SpellSourceCollision && false == gotNewSpell
+            && entity->getId() == static_cast<int>(Entity::EntityType::Player) && entity->spells.size() < 4) 
+        {
+            gotNewSpell = true;
+            Entity::BaseEntity* sender = Entity::EntityManager::getInstance().getEntityById(msg.sender);
+            Entity::Spells::SpellSource* source = dynamic_cast<Entity::Spells::SpellSource*>(sender);
+            entity->spells.push_back(source->getSpellType());
+            entity->updateHUD();
         }
         return true;
     }

@@ -14,6 +14,7 @@
 
 #include <Game/Entity/CharacterEntity/CharacterEntity.h>
 #include <Game/Entity/EntityDispatcher.h>
+#include <Game/Entity/Spells/SpellSource.h>
 
 #include <memory>
 #include <vector>
@@ -34,6 +35,7 @@ namespace Scene {
             Entity::EntityDispatcher entityDispatcher;
             std::shared_ptr<Entity::CharacterEntity> player;
             std::vector<std::shared_ptr<Entity::CharacterEntity>> enemiesEntities;
+            std::vector<std::shared_ptr<Entity::Spells::SpellSource>> spellSourceEntities;
             std::vector<std::shared_ptr<Entity::BaseEntity>> specialEntities;
 
         public:

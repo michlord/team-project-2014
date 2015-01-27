@@ -99,6 +99,9 @@ bool Gameplay::render(){
     for(auto e : specialEntities) {
         frameContext.window->draw(*e);
     }
+    for(auto e : spellSourceEntities) {
+        frameContext.window->draw(*e);
+    }
     for(auto e : enemiesEntities) {
         frameContext.window->draw(*e);
     }
@@ -141,6 +144,8 @@ bool Gameplay::fixedUpdate(){
         e->update();
     for(auto e : enemiesEntities)
         e->update();
+    for(auto e : spellSourceEntities)
+        e->update();
 
     level->checkEndOfLevelCondition();
 
@@ -148,6 +153,11 @@ bool Gameplay::fixedUpdate(){
         if(player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::EnemyCollision);
             Entity::MessageDispatcher::getInstance().registerMessage(player->getId(), e->getId(), Entity::CharacterEntity::EnemyCollision);
+        }
+
+    for(auto e : spellSourceEntities)
+        if(player->getCurrentCollisionRect().intersects(e->boundingRect)) {
+            Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::SpellSourceCollision);
         }
 
     /*

@@ -13,10 +13,6 @@ HUD::HUD()
         spells[i] = Entity::Spells::SpellType::None;
         spellsIcon[i] = nullptr;
     }
-    spells[0] = Entity::Spells::SpellType::Fire;
-    spells[1] = Entity::Spells::SpellType::Nature;
-    spells[2] = Entity::Spells::SpellType::Wind;
-    spells[3] = Entity::Spells::SpellType::Ice;
     init();
 }
 
@@ -63,6 +59,8 @@ bool HUD::handleMessage(const Entity::Message& msg) {
     if(msg.sender == static_cast<int>(Entity::EntityType::Player)) {
         HudMsgData *data = reinterpret_cast<HudMsgData*>(msg.payload);
         setLife(data->life);
+        for(int i = 0 ; i < 4 ; i++)
+            spells[i] = data->spells[i];
         return true;
     }
     return false;

@@ -10,6 +10,7 @@ namespace Entity {
     class Slash : public State<CharacterEntity> {
     private:
         bool enemyAttacked;
+        bool gotNewSpell;
     public:
         void onEnter(CharacterEntity *entity);
         void onUpdate(CharacterEntity *entity);

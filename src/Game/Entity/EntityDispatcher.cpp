@@ -80,7 +80,7 @@ void EntityDispatcher::createSpellSourceEntity(const float x, const float y, con
 
     Entity::Spells::SpellSource* spellSource = new Entity::Spells::SpellSource(-1, sf::Vector2f(x, y), type);
     Entity::EntityManager::getInstance().registerEntity(spellSource);
-    gameplay->specialEntities.push_back(std::shared_ptr<Entity::BaseEntity>(spellSource));
+    gameplay->spellSourceEntities.push_back(std::shared_ptr<Entity::Spells::SpellSource>(spellSource));
 }
 
 }
