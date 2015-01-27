@@ -176,6 +176,7 @@ set(GAME_SRC
 
     "src/Game/Entity/Door.cpp"
 
+	"src/Game/AI/BaseAI.cpp"
     "src/Game/AI/ZombieAI.cpp"
 )
 
@@ -212,6 +213,7 @@ SET(GAME_H
 
     "include/Game/Entity/Door.h"
 
+	"include/Game/AI/BaseAI.h"
     "include/Game/AI/ZombieAI.h"
 )
 

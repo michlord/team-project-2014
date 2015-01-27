@@ -2,6 +2,8 @@
 #include <Game/Scene/Gameplay.h>
 #include <Game/Entity/Door.h>
 #include <Game/Entity/Spells/SpellSource.h>
+#include <Game/AI/BaseAI.h>
+#include <Game/AI/ZombieAI.h>
 #include <EngineSystem/Entity/EntityManager.h>
 
 namespace Scene {
@@ -52,10 +54,12 @@ void EntityDispatcher::createEnemyEntity(const float x, const float y, const std
             sf::FloatRect(x, y, 40.0f, 82.0f),
             gameplay->level
         );
+        AI::ZombieAI* ai = new AI::ZombieAI(-1, enemy);
         enemy->collisionRects = collisionRects;
         enemy->flipped = false;
         Entity::EntityManager::getInstance().registerEntity(enemy);
         gameplay->enemiesEntities.push_back(std::shared_ptr<Entity::CharacterEntity>(enemy));
+        gameplay->enemiesAIs.push_back(std::shared_ptr<AI::BaseAI>(ai));
     }
 }
 

@@ -16,6 +16,8 @@
 #include <Game/Entity/EntityDispatcher.h>
 #include <Game/Entity/Spells/SpellSource.h>
 
+#include <Game/AI/BaseAI.h>
+
 #include <memory>
 #include <vector>
 
@@ -29,12 +31,14 @@ namespace Scene {
             void initInputHandler();
             void initLevel(unsigned int id);
             void moveCamera(const sf::Vector2f& direction);
+            void removeDeadEnemies();
 
             HUD::HUD hud;
             Level::Level *level;
             Entity::EntityDispatcher entityDispatcher;
             std::shared_ptr<Entity::CharacterEntity> player;
             std::vector<std::shared_ptr<Entity::CharacterEntity>> enemiesEntities;
+            std::vector<std::shared_ptr<AI::BaseAI>> enemiesAIs;
             std::vector<std::shared_ptr<Entity::Spells::SpellSource>> spellSourceEntities;
             std::vector<std::shared_ptr<Entity::BaseEntity>> specialEntities;
 
