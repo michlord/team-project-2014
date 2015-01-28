@@ -13,6 +13,7 @@ namespace Level {
             enum class Type {
                 Empty,
                 Brick,
+                Spikes
             };
 
         public:

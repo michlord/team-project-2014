@@ -187,16 +187,26 @@ bool Gameplay::fixedUpdate(){
     for(auto e : spellSourceEntities)
         e->update();
 
-    for(auto e : enemiesEntities)
-        if(player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
+    for (auto e : enemiesEntities) {
+        if (player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::EnemyCollision);
             Entity::MessageDispatcher::getInstance().registerMessage(player->getId(), e->getId(), Entity::CharacterEntity::EnemyCollision);
         }
+
+        //enemies spikes collision
+        if (Level::levelManager.getCurrentLevel().getTileOnFeet(e->getFeetPosition()) == Level::Tile::Type::Spikes)
+            e->setHealthPoints(0);
+    }
+
+    //player spikes collision
+    if (Level::levelManager.getCurrentLevel().getTileOnFeet(player->getFeetPosition()) == Level::Tile::Type::Spikes)
+        player->setHealthPoints(0);
 
     for(auto e : spellSourceEntities)
         if(player->getCurrentCollisionRect().intersects(e->boundingRect)) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::SpellSourceCollision);
         }
+
 
     removeDeadEnemies();
 

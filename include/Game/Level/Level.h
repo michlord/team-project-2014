@@ -40,6 +40,8 @@ namespace Level {
 
             void checkEndOfLevelCondition();
 
+            Tile::Type getTileOnFeet(sf::Vector2f feetPosition);
+
         private:
             void setTile(Tile& tile, const sf::Color& color, int posX, int posY);
             void loadDecorationsFromFile(const std::string& path);

@@ -21,7 +21,7 @@ namespace Level {
     }
 
     Level::~Level() {
-        for(auto& entity : getEntities())
+        for (auto& entity : getEntities())
             delete entity;
     }
 
@@ -33,10 +33,10 @@ namespace Level {
         tilesImg.loadFromFile(path + ".bmp");
         tiles.resize(tilesImg.getSize().y);
 
-        for(unsigned int y = 0; y < tilesImg.getSize().y; ++y) {
+        for (unsigned int y = 0; y < tilesImg.getSize().y; ++y) {
             tiles[y].resize(tilesImg.getSize().x);
 
-            for(unsigned int x = 0; x < tilesImg.getSize().x; ++x) {
+            for (unsigned int x = 0; x < tilesImg.getSize().x; ++x) {
                 tileColor = tilesImg.getPixel(x, y);
                 setTile(tiles[y][x], tileColor, x, y);
             }
@@ -56,7 +56,7 @@ namespace Level {
 
     void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         // Decorations
-        for(auto& decoration : decorations)
+        for (auto& decoration : decorations)
             target.draw(decoration, states);
 
         // Tiles
@@ -75,14 +75,14 @@ namespace Level {
         endY = std::min(endY, static_cast<int>(tiles.size()));
         endX = (tiles.size() > 0u) ? std::min(endX, static_cast<int>(tiles[0].size())) : 0;
 
-        for(int y = startY; y < endY; ++y) {
-            for(int x = startX; x < endX; ++x) {
+        for (int y = startY; y < endY; ++y) {
+            for (int x = startX; x < endX; ++x) {
                 target.draw(tiles[y][x], states);
             }
         }
 
         // Entities
-        for(auto& entity : entities)
+        for (auto& entity : entities)
             target.draw(*entity, states);
     }
 
@@ -149,16 +149,16 @@ namespace Level {
 
     bool Level::isFeetOnGround(sf::Vector2f feet, sf::Vector2f *delta) {
         auto tiles = getTiles();
-        unsigned x = static_cast<int>(feet.x/32);
-        unsigned y = static_cast<int>(feet.y/32);
-        if(y >= tiles.size() || x >= tiles[y].size())
+        unsigned x = static_cast<int>(feet.x / 32);
+        unsigned y = static_cast<int>(feet.y / 32);
+        if (y >= tiles.size() || x >= tiles[y].size())
             return false;
         auto tile = tiles[y][x];
- 
-        if(tile.getType() != Tile::Type::Empty) {
+
+        if (tile.getType() != Tile::Type::Empty) {
             sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
-            if(tileRect.contains(feet)) {
-                if(delta) {
+            if (tileRect.contains(feet)) {
+                if (delta) {
                     *delta = sf::Vector2f(0.0f, tileRect.top - feet.y);
                 }
                 return true;
@@ -169,37 +169,37 @@ namespace Level {
     }
 
     bool Level::isRectCollidingWithWall(sf::FloatRect rect, sf::Vector2f direction, sf::Vector2f *delta) {
-        (void) rect; (void) direction; (void) delta;
+        (void)rect; (void)direction; (void)delta;
 
-        sf::Vector2f rectCenter(rect.left + rect.width/2, rect.top + rect.height/2);
+        sf::Vector2f rectCenter(rect.left + rect.width / 2, rect.top + rect.height / 2);
         auto tiles = getTilesInRect(rect);
 
-        for(auto tile : tiles) {
-            if(tile.getType() == Tile::Type::Empty) {
+        for (auto tile : tiles) {
+            if (tile.getType() == Tile::Type::Empty) {
                 continue;
             }
 
             sf::FloatRect tileRect(tile.getPosition(), tile.getSize());
             sf::FloatRect intersection;
 
-            if(tileRect.intersects(rect, intersection)) {
+            if (tileRect.intersects(rect, intersection)) {
                 //if going up
-                if(direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < 16.0f && intersection.width > 10.0f) {
-                    if(delta) {
+                if (direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < 16.0f && intersection.width > 10.0f) {
+                    if (delta) {
                         *delta = sf::Vector2f(0.0f, intersection.height);
                     }
                     return true;
                 }
                 //if going right
-                if(direction.x > 0.5f && intersection.left > rectCenter.x && intersection.height > 16.0f) {
-                    if(delta) {
+                if (direction.x > 0.5f && intersection.left > rectCenter.x && intersection.height > 16.0f) {
+                    if (delta) {
                         *delta = sf::Vector2f(-intersection.width, 0.0f);
                     }
                     return true;
                 }
                 //if going left
-                if(direction.x < -0.5f && intersection.left < rectCenter.x && intersection.height > 16.0f) {
-                    if(delta) {
+                if (direction.x < -0.5f && intersection.left < rectCenter.x && intersection.height > 16.0f) {
+                    if (delta) {
                         *delta = sf::Vector2f(intersection.width, 0.0f);
                     }
                     return true;
@@ -217,7 +217,7 @@ namespace Level {
         Entity::CharacterEntity* player = dynamic_cast<Entity::CharacterEntity*>(
             Entity::EntityManager::getInstance().getEntityById((int)Entity::EntityType::Player));
 
-        if(player && door && player->getCurrentCollisionRect().intersects(door->boundingRect)) {
+        if (player && door && player->getCurrentCollisionRect().intersects(door->boundingRect)) {
             Entity::MessageDispatcher::getInstance().registerMessage(0, door->getId(), Entity::Door::Msg::NextLvl);
         }
     }
@@ -225,13 +225,17 @@ namespace Level {
     void Level::setTile(Tile& tile, const sf::Color& color, int posX, int posY) {
         tile.setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY)));
 
-        if(color == sf::Color::White) {
+        if (color == sf::Color::White) {
             tile.setType(Tile::Type::Empty);
 
-        } else if(color == sf::Color::Black) {
+        }
+        else if (color == sf::Color::Black) {
             tile.setType(Tile::Type::Brick);
-
-        } else {
+        }
+        else if (color == sf::Color::Red) {
+            tile.setType(Tile::Type::Spikes);
+        }
+        else {
             Log::get().write(Log::System::Game, "Unrecognized tile type (color): R(%u) G(%u) B(%u)", color.r, color.g, color.b);
         }
     }
@@ -241,26 +245,28 @@ namespace Level {
         std::string decX, decY, decScale, decID;
 
         file.open(path);
-        if(file.is_open() == false) {
+        if (file.is_open() == false) {
             Log::get().write(Log::System::Game, "Could not open decorations file: %s", path.c_str());
             return;
         }
 
-        while(file.good()) {
+        while (file.good()) {
 
             file >> decX >> decY >> decScale >> decID;
             try {
-                float posX  = std::stof(decX);
-                float posY  = std::stof(decY);
+                float posX = std::stof(decX);
+                float posY = std::stof(decY);
                 float scale = std::stof(decScale);
 
                 decorations.push_back(Decoration(posX, posY, scale, decID));
 
-            } catch(const std::invalid_argument& exception) {
+            }
+            catch (const std::invalid_argument& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s), L(%s) (%s)",
                     decX.c_str(), decY.c_str(), decScale.c_str(), exception.what());
 
-            } catch(const std::out_of_range& exception) {
+            }
+            catch (const std::out_of_range& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s), L(%s) (%s)",
                     decX.c_str(), decY.c_str(), decScale.c_str(), exception.what());
             }
@@ -274,29 +280,32 @@ namespace Level {
         std::string entX, entY, entID;
 
         file.open(path);
-        if(file.is_open() == false) {
+        if (file.is_open() == false) {
             Log::get().write(Log::System::Game, "Could not open entities file: %s", path.c_str());
             return;
         }
 
-        while(file.good()) {
+        while (file.good()) {
 
             file >> entX >> entY >> entID;
             try {
                 float posX = std::stof(entX);
                 float posY = std::stof(entY);
 
-                if(dispatcher == nullptr) {
+                if (dispatcher == nullptr) {
                     Log::get().write(Log::System::Game, "Attempt to load entity without proper dispatcher!");
-                } else {
+                }
+                else {
                     dispatcher->createEntity(posX, posY, entID);
                 }
 
-            } catch(const std::invalid_argument& exception) {
+            }
+            catch (const std::invalid_argument& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (IA): X(%s), Y(%s) (%s)",
                     entX.c_str(), entY.c_str(), exception.what());
 
-            } catch(const std::out_of_range& exception) {
+            }
+            catch (const std::out_of_range& exception) {
                 Log::get().write(Log::System::Game, "Unable to convert position data to numeric data (OOR): X(%s), Y(%s) (%s)",
                     entX.c_str(), entY.c_str(), exception.what());
             }
@@ -309,15 +318,28 @@ namespace Level {
         auto tiles = getTiles();
 
         std::vector<Tile> res;
-        unsigned x_start = static_cast<int>(rect.left/32);
-        unsigned y_start = static_cast<int>(rect.top/32);
-        unsigned x_end = static_cast<int>(ceil((rect.left + rect.width)/32));
-        unsigned y_end = static_cast<int>(ceil((rect.top + rect.height)/32));
+        unsigned x_start = static_cast<int>(rect.left / 32);
+        unsigned y_start = static_cast<int>(rect.top / 32);
+        unsigned x_end = static_cast<int>(ceil((rect.left + rect.width) / 32));
+        unsigned y_end = static_cast<int>(ceil((rect.top + rect.height) / 32));
 
-        for(unsigned x = x_start ; x < x_end ; x++)
-            for(unsigned y = y_start ; y < y_end ; y++)
-                if(y < tiles.size() && x < tiles[y].size())
-                    res.push_back(tiles[y][x]);
+        for (unsigned x = x_start; x < x_end; x++)
+        for (unsigned y = y_start; y < y_end; y++)
+        if (y < tiles.size() && x < tiles[y].size())
+            res.push_back(tiles[y][x]);
         return res;
+    }
+
+
+    Tile::Type Level::getTileOnFeet(sf::Vector2f feetPosition) {
+        auto tiles = getTiles();
+        unsigned x = static_cast<int>(feetPosition.x / 32);
+        unsigned y = static_cast<int>(feetPosition.y / 32);
+        if (y >= tiles.size() || x >= tiles[y].size())
+            return Tile::Type::Empty;
+
+        auto tile = tiles[y][x];
+
+        return tile.getType();
     }
 }

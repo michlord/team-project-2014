@@ -57,6 +57,10 @@ namespace Level {
             case Type::Brick:
                 frame.setTextureSegment(sf::IntRect(128, 0, 128, 128));
                 break;
+
+            case Type::Spikes:
+                frame.setTextureSegment(sf::IntRect(256, 0, 128, 128));
+                break;
         }
 
         sprite->insertFrame(frame);
