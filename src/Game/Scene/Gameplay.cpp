@@ -7,6 +7,8 @@
 
 #include <Game/AI/ZombieAI.h>
 
+#include <Game/Scene/Intro.h>
+
 namespace Scene {
 
 sf::Vector2f Gameplay::cameraCenter;
@@ -26,8 +28,8 @@ Gameplay::~Gameplay() {
     for(auto& enemy : enemiesEntities)
         Entity::EntityManager::getInstance().unregisterEntity(enemy.get());
     
-    //for(auto& enemyAI : enemiesAIs)
-    //    Entity::EntityManager::getInstance().unregisterEntity(enemyAI.get());
+    for(auto& enemyAI : enemiesAIs)
+        Entity::EntityManager::getInstance().unregisterEntity(enemyAI.get());
     
     for(auto& spellSource : spellSourceEntities)
         Entity::EntityManager::getInstance().unregisterEntity(spellSource.get());
@@ -194,18 +196,29 @@ bool Gameplay::fixedUpdate(){
         }
 
         //enemies spikes collision
-        if (Level::levelManager.getCurrentLevel().getTileOnFeet(e->getFeetPosition()) == Level::Tile::Type::Spikes)
+        if (level->getTileOnFeet(e->getFeetPosition()) == Level::Tile::Type::Spikes)
             e->setHealthPoints(0);
     }
 
     //player spikes collision
-    if (Level::levelManager.getCurrentLevel().getTileOnFeet(player->getFeetPosition()) == Level::Tile::Type::Spikes)
+    if (level->getTileOnFeet(player->getFeetPosition()) == Level::Tile::Type::Spikes) {
         player->setHealthPoints(0);
+    }
 
-    for(auto e : spellSourceEntities)
-        if(player->getCurrentCollisionRect().intersects(e->boundingRect)) {
+    for (auto e : spellSourceEntities) {
+
+        if (player->getCurrentCollisionRect().intersects(e->boundingRect)) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::SpellSourceCollision);
         }
+    }
+
+    if (player->healthPoints == 0)
+    {
+        Scene::Intro *gameOver = new Scene::Intro(frameContext.sceneStack.get());
+        gameOver->setCustomMessage("GAME OVER\n");
+        frameContext.sceneStack->popScene();
+        frameContext.sceneStack->pushScene(gameOver);
+    }
 
 
     removeDeadEnemies();

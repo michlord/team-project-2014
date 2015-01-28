@@ -25,6 +25,10 @@ Intro::Intro(SceneStack* sceneStack_)
     inputHandler.reset(new Input::InputHandler(contextVector));
 }
 
+void Intro::setCustomMessage(std::string customMessage = "") {
+    headlineText.setString(customMessage + "PRESS ENTER TO START RAGEMAGE");
+}
+
 bool Intro::render() {
     Core::frameContext.window->draw(headlineText);
     return true;
