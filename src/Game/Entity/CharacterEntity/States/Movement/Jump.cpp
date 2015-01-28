@@ -62,7 +62,7 @@ namespace Entity {
                         if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), &delta)) {
                             entity->setFeetPosition(entity->getFeetPosition() + delta);
                         }
-                        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+                        entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(entity->runSpeed, 0));
 
                         return true;
                     }
@@ -73,7 +73,7 @@ namespace Entity {
                         if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), &delta)) {
                             entity->setFeetPosition(entity->getFeetPosition() + delta);
                         }
-                        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+                        entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(entity->runSpeed, 0));
 
                         return true;
                     }

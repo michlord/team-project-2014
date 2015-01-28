@@ -38,6 +38,7 @@ public:
     /* Configuration variables */
     Video::Render::Animation animation;
     float         jumpHeight;
+    float         runSpeed;
     int           maxJumps;
     float         movementSpeed;
     sf::FloatRect boundingRect;

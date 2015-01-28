@@ -35,14 +35,14 @@ namespace Entity {
             if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(-1.0f, 0.0f), &delta)) {
                 entity->setFeetPosition(entity->getFeetPosition() + delta);
             } else {
-                entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(3, 0));
+                entity->setFeetPosition(entity->getFeetPosition() - sf::Vector2f(entity->runSpeed, 0));
             }
         } else {
             sf::Vector2f delta;
             if(entity->level->isRectCollidingWithWall(entity->getCurrentCollisionRect(), sf::Vector2f(1.0f, 0.0f), &delta)) {
                 entity->setFeetPosition(entity->getFeetPosition() + delta);
             } else {
-                entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(3, 0));
+                entity->setFeetPosition(entity->getFeetPosition() + sf::Vector2f(entity->runSpeed, 0));
             }
         }
 

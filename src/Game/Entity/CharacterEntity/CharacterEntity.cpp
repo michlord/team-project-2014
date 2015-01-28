@@ -14,7 +14,7 @@ CharacterEntity::CharacterEntity(
 )
  : BaseEntity(id), touchingGround(false), flipped(false),
    jumpCount(0), healthPoints(100), animation(animation_), jumpHeight(200.0f),
-   movementSpeed(3.0f), boundingRect(boundingRect_)
+   runSpeed(3.0f), movementSpeed(3.0f), boundingRect(boundingRect_)
 {
     level = level_;
     maxJumps = 2;
