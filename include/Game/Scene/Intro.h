@@ -26,6 +26,7 @@ class Intro : public FrameListener {
         Intro(SceneStack* sceneStack_);
         bool render();
         bool fixedUpdate();
+        void setCustomMessage(std::string customMessage);
         Input::InputHandler *getInputHandler();
 };
 
