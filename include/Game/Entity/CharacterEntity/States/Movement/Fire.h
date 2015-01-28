@@ -16,7 +16,7 @@ namespace Entity {
             bool onMessage(CharacterEntity *entity, const Message &msg);
 
         private:
-
+            void castSpell(CharacterEntity *entity);
     };
 
 }

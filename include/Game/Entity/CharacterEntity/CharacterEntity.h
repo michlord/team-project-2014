@@ -34,6 +34,7 @@ public:
     int          jumpCount;
     int          healthPoints;
     std::vector<Entity::Spells::SpellType> spells;
+    std::vector<std::shared_ptr<Entity::Spells::Spell>> castedSpells;
 
     /* Configuration variables */
     Video::Render::Animation animation;
@@ -54,6 +55,7 @@ public:
     void handleInput(int id, bool pressed);
     void setHealthPoints(const int healthPoints_);
     void updateHUD();
+    void removeExpiredSpells();
 
     enum MessageType {
         Input,

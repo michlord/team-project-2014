@@ -20,7 +20,7 @@
 
 #include <memory>
 #include <vector>
-
+#include <Game/Entity/Spells/SpellEntity.h> // TODO: to erase!
 using namespace Core;
 
 namespace Scene {
@@ -35,6 +35,7 @@ namespace Scene {
 
             bool gameplayInitialized;
             unsigned int levelID;
+
             std::unique_ptr<Input::InputHandler> inputHandler;
             std::unique_ptr<HUD::HUD> hud;
             Level::Level *level;

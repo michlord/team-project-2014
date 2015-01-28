@@ -46,6 +46,7 @@ void Gameplay::initGameplay() {
 
     frameContext.assetsManager->loadTexture("assets/images/player_character.png", "player_character");
     frameContext.assetsManager->loadTexture("assets/images/knight_character.png", "knight_character");
+    frameContext.assetsManager->loadTexture("assets/images/spells.png", "spells");
 
     hud = std::unique_ptr<HUD::HUD>(new HUD::HUD());
     Entity::EntityManager::getInstance().registerEntity(hud.get());
@@ -143,6 +144,9 @@ bool Gameplay::render(){
     }
     frameContext.window->draw(*player);
 
+    for(auto spell : player->castedSpells)
+        frameContext.window->draw(*spell);
+
     // Collision additonal data
     std::vector<std::shared_ptr<Entity::CharacterEntity>> characters = enemiesEntities;
     characters.push_back(player);
@@ -188,9 +192,11 @@ bool Gameplay::fixedUpdate(){
         e->update();
     for(auto e : spellSourceEntities)
         e->update();
+    for(auto spell : player->castedSpells)
+        spell->update();
 
-    for (auto e : enemiesEntities) {
-        if (player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
+    for(auto e : enemiesEntities) {
+        if(player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
             Entity::MessageDispatcher::getInstance().registerMessage(e->getId(), player->getId(), Entity::CharacterEntity::EnemyCollision);
             Entity::MessageDispatcher::getInstance().registerMessage(player->getId(), e->getId(), Entity::CharacterEntity::EnemyCollision);
         }
@@ -223,16 +229,15 @@ bool Gameplay::fixedUpdate(){
 
     removeDeadEnemies();
 
-    /*
-    std::cerr << "collision rect x: " << player->getCurrentCollisionRect().left << " y: " << player->getCurrentCollisionRect().top << std::endl;
-    for(auto t : level->getTiles()) {
-        for (auto tile : t) {
-            if(tile.getType() != Level::Tile::Type::Empty) {
-                std::cerr << "tile x: " << tile.getPosition().x << " y: " << tile.getPosition().y << std::endl;
+    for(auto spell : player->castedSpells) {
+        for(auto e : enemiesEntities) {
+            if(e->getCurrentCollisionRect().intersects(spell->getCurrentCollisionRect())) {
+                spell->applyEffectOn(e.get());
             }
         }
     }
-    */
+    player->removeExpiredSpells();
+
     level->checkEndOfLevelCondition();
     return true;
 }

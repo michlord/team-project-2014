@@ -126,4 +126,15 @@ void CharacterEntity::updateHUD() {
         getId(), static_cast<int>(Entity::EntityType::Hud), 0, 0.0F, (void*)&msgData);
 }
 
+void CharacterEntity::removeExpiredSpells() {
+    auto spells_end = std::remove_if(castedSpells.begin(), castedSpells.end(), [](std::shared_ptr<Entity::Spells::Spell> spell) {
+    if(spell->isExpired()) {
+        // Should be uncommented when spells will be registered entities
+        //Entity::EntityManager::getInstance().unregisterEntity(spell.get());
+    }
+     return spell->isExpired();
+    });
+    castedSpells.erase(spells_end, castedSpells.end());
+}
+
 }
