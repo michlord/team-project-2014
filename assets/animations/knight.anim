@@ -14,9 +14,9 @@ frame 220 134 100 96 0.1
 
 sequence run true
 frame 110 270 100 96 0.1 132
-frame 195 270 100 96 0.1
-frame 278 270 100 96 0.1
-frame 363 270 100 96 0.1
+frame 201 270 100 96 0.1
+frame 290 270 100 96 0.1
+frame 381 270 100 96 0.1
 
 sequence hurt true
 frame 2 278 100 96 0.1
