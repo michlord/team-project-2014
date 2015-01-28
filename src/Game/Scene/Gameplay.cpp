@@ -11,27 +11,17 @@ namespace Scene {
 
 sf::Vector2f Gameplay::cameraCenter;
 
-Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID)
+Gameplay::Gameplay(SceneStack* sceneStack_, unsigned int levelID_)
  : FrameListener(sceneStack_),
    entityDispatcher(this)
 {
-
-
-    Config &cfg = Config::Get();
-    cfg.load("assets/config.ini");
-
-    frameContext.assetsManager->loadTexture("assets/images/player_character.png", "player_character");
-    frameContext.assetsManager->loadTexture("assets/images/knight_character.png", "knight_character");
-
-    Level::levelManager.initTextures();
-
-    initLevel(levelID);
-    initInputHandler();
+    gameplayInitialized = false;
+    levelID = levelID_;
 }
 
 Gameplay::~Gameplay() {
     Entity::EntityManager::getInstance().unregisterEntity(player.get());
-    Entity::EntityManager::getInstance().unregisterEntity(&hud);
+    Entity::EntityManager::getInstance().unregisterEntity(hud.get());
 
     for(auto& enemy : enemiesEntities)
         Entity::EntityManager::getInstance().unregisterEntity(enemy.get());
@@ -44,6 +34,26 @@ Gameplay::~Gameplay() {
 
     for(auto& specialEntity : specialEntities)
         Entity::EntityManager::getInstance().unregisterEntity(specialEntity.get());
+
+    Log::get().write(Log::System::Game, "Level %d destroyed", level->getID());
+}
+
+void Gameplay::initGameplay() {
+    Config &cfg = Config::Get();
+    cfg.load("assets/config.ini");
+
+    frameContext.assetsManager->loadTexture("assets/images/player_character.png", "player_character");
+    frameContext.assetsManager->loadTexture("assets/images/knight_character.png", "knight_character");
+
+    hud = std::unique_ptr<HUD::HUD>(new HUD::HUD());
+    Entity::EntityManager::getInstance().registerEntity(hud.get());
+
+    Level::levelManager.initTextures();
+
+    initLevel(levelID);
+    initInputHandler();
+
+    gameplayInitialized = true;
 }
 
 void Gameplay::initInputHandler() {
@@ -153,16 +163,21 @@ bool Gameplay::render(){
     frameContext.window->setView(frameContext.window->getDefaultView());
 
 
-    frameContext.window->draw(hud);
+    frameContext.window->draw(*hud);
 
     return true;
 }
 
 bool Gameplay::fixedUpdate(){
-    hud.update();
-    player->update();
+    if(false == gameplayInitialized) {
+        initGameplay();
+    }
+
+    hud->update();
     for(auto ai : enemiesAIs)
         ai->update();
+
+    player->update();
 
     cameraCenter = player->getFeetPosition();
     for(auto e : specialEntities)
@@ -171,8 +186,6 @@ bool Gameplay::fixedUpdate(){
         e->update();
     for(auto e : spellSourceEntities)
         e->update();
-
-    level->checkEndOfLevelCondition();
 
     for(auto e : enemiesEntities)
         if(player->getCurrentCollisionRect().intersects(e->getCurrentCollisionRect())) {
@@ -197,7 +210,7 @@ bool Gameplay::fixedUpdate(){
         }
     }
     */
-
+    level->checkEndOfLevelCondition();
     return true;
 }
 

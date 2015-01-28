@@ -27,13 +27,16 @@ namespace Scene {
 
     class Gameplay : public FrameListener {
         private:
-            std::unique_ptr<Input::InputHandler> inputHandler;
+            void initGameplay();
             void initInputHandler();
             void initLevel(unsigned int id);
             void moveCamera(const sf::Vector2f& direction);
             void removeDeadEnemies();
 
-            HUD::HUD hud;
+            bool gameplayInitialized;
+            unsigned int levelID;
+            std::unique_ptr<Input::InputHandler> inputHandler;
+            std::unique_ptr<HUD::HUD> hud;
             Level::Level *level;
             Entity::EntityDispatcher entityDispatcher;
             std::shared_ptr<Entity::CharacterEntity> player;

@@ -26,6 +26,7 @@ namespace Entity {
 
         private:
             Video::Render::Sprite *sprite;
+            bool levelChanged;
     };
 }
 

@@ -14,6 +14,7 @@ namespace Entity {
         sprite->insertFrame(frame);
 
         boundingRect = sf::FloatRect(pos.x, pos.y, 60, 106);
+        levelChanged = false;
     }
 
     Door::~Door() {
@@ -21,13 +22,13 @@ namespace Entity {
     }
 
     bool Door::handleMessage(const Message& msg) {
-        if (msg.msg == Msg::NextLvl) {
+        if (msg.msg == Msg::NextLvl && false == levelChanged) {
             
-            std::cerr << "Laduje: '" << Level::levelManager.getCurrentID() + 1 << "'" << std::endl;
-
             Core::frameContext.sceneStack->popScene();
             Core::frameContext.sceneStack->pushScene(new Scene::Gameplay(frameContext.sceneStack.get(),
                                                      Level::levelManager.getCurrentID() + 1));
+
+            levelChanged = true;
             return true;
         }
 

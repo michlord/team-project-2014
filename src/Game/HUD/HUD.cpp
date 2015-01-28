@@ -6,7 +6,6 @@ namespace HUD {
 HUD::HUD() 
     : BaseEntity(static_cast<int>(Entity::EntityType::Hud))
 {
-    Entity::EntityManager::getInstance().registerEntity(this);
     hudBackground = nullptr;
     lifeGradient  = nullptr;
     for(int i = 0 ; i < 4 ; i++) {
