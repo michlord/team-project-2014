@@ -39,7 +39,7 @@ void EngineApp::run() {
     sf::Time frameTime;
     sf::Time timeAccumulator;
     sf::Time deltaTime = sf::seconds(1.0f / 120.0f); // 120Hz update rate
-    
+
     frameContext.appWindow = &getWindow();
     frameContext.window = &getWindow().getHandle();
     frameContext.deltaTime = deltaTime.asSeconds();
@@ -49,19 +49,19 @@ void EngineApp::run() {
             Log::get().write(Log::System::Engine, "[Game loop] Scene stack is empty");
             return;
         }
-        
+
         getWindow().update();
 
         frameTime = getWindow().getFrameTime();
         frameContext.frameTime = frameTime.asSeconds();
         timeAccumulator += frameTime;
-        
+
         while(getWindow().getHandle().pollEvent(event)) {
             dispatchEvent(event);
         }
-        
+
         Entity::MessageDispatcher::getInstance().dispatchMessages();
-        
+
         while (timeAccumulator >= deltaTime) {
             frameContext.sceneStack->fixedUpdate();
             timeAccumulator -= deltaTime;
@@ -81,10 +81,10 @@ WindowContext& EngineApp::getWindow() {
 }
 
 void EngineApp::dispatchEvent(const sf::Event& event) {
-    // Temporary function to be replaced by state machine
-    if(event.type == sf::Event::Closed)
+    if(event.type == sf::Event::Closed) {
         getWindow().close();
-    
+    }
+
     frameContext.sceneStack->handleEvent(event);
 }
 

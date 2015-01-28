@@ -7,8 +7,8 @@ EntityManager::EntityManager() {
 }
 
 EntityManager& EntityManager::getInstance() {
-    static EntityManager instance;
-    return instance;
+    static EntityManager *instance = new EntityManager();
+    return *instance;
 }
 
 bool EntityManager::registerEntity(BaseEntity* entity) {
