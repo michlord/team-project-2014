@@ -148,7 +148,7 @@ bool Gameplay::render(){
         frameContext.window->draw(*spell);
 
     // Collision additonal data
-    std::vector<std::shared_ptr<Entity::CharacterEntity>> characters = enemiesEntities;
+    /*std::vector<std::shared_ptr<Entity::CharacterEntity>> characters = enemiesEntities;
     characters.push_back(player);
     for(auto e : characters) {
         sf::RectangleShape rectangle;
@@ -164,7 +164,7 @@ bool Gameplay::render(){
         feet.setPosition(e->getFeetPosition() - sf::Vector2f(5.0f, 5.0f));
         feet.setFillColor(sf::Color(100,150,100,180));
         frameContext.window->draw(feet);
-    }
+    }*/
 
     frameContext.window->setView(frameContext.window->getDefaultView());
 

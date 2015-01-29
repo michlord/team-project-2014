@@ -62,7 +62,7 @@ namespace Entity {
                 sf::FloatRect(x, y, 40.0f, 82.0f),
                 gameplay->level
             );
-            enemy->runSpeed = 2.0f;
+            enemy->runSpeed = 1.0f;
             AI::ZombieAI* ai = new AI::ZombieAI(-1, enemy);
             enemy->collisionRects = collisionRects;
             enemy->flipped = false;

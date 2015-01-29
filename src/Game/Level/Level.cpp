@@ -148,7 +148,7 @@ namespace Level {
     }
 
     bool Level::isFeetOnGround(sf::Vector2f feet, sf::Vector2f *delta) {
-        auto tiles = getTiles();
+        auto& tiles = getTiles();
         unsigned x = static_cast<int>(feet.x / 32);
         unsigned y = static_cast<int>(feet.y / 32);
         if (y >= tiles.size() || x >= tiles[y].size())
@@ -184,7 +184,7 @@ namespace Level {
 
             if (tileRect.intersects(rect, intersection)) {
                 //if going up
-                if (direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < 16.0f && intersection.width > 10.0f) {
+                if (direction.y < -0.5f && intersection.top < rectCenter.y && intersection.height < 16.0f && intersection.width > 10.f) {
                     if (delta) {
                         *delta = sf::Vector2f(0.0f, intersection.height);
                     }
@@ -315,7 +315,7 @@ namespace Level {
     }
 
     std::vector<Tile> Level::getTilesInRect(const sf::FloatRect rect) {
-        auto tiles = getTiles();
+        auto& tiles = getTiles();
 
         std::vector<Tile> res;
         unsigned x_start = static_cast<int>(rect.left / 32);
@@ -332,7 +332,7 @@ namespace Level {
 
 
     Tile::Type Level::getTileOnFeet(sf::Vector2f feetPosition) {
-        auto tiles = getTiles();
+        auto& tiles = getTiles();
         unsigned x = static_cast<int>(feetPosition.x / 32);
         unsigned y = static_cast<int>(feetPosition.y / 32);
         if (y >= tiles.size() || x >= tiles[y].size())
