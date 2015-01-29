@@ -8,9 +8,9 @@
 
 namespace Entity {
     namespace Spells {
- 
-        Spell::Spell(const SpellType type_, const sf::Vector2f pos, Level::Level* level_, const bool flipped_) 
-            : Entity::BaseEntity(-1) 
+
+        Spell::Spell(const SpellType type_, const sf::Vector2f pos, Level::Level* level_, const bool flipped_)
+            : Entity::BaseEntity(-1)
         {
             Entity::EntityManager::getInstance().registerEntity(this);
 
@@ -30,7 +30,7 @@ namespace Entity {
 
         void Spell::initAnimation() {
             std::string animName;
-            
+
             sf::Vector2u size;
             switch(type) {
             case Fire:
@@ -51,7 +51,7 @@ namespace Entity {
             }
 
             animation = Entity::AnimationLoader::loadAnimation(
-                animName, 
+                animName,
                 Core::frameContext.assetsManager->getTexture("spells")
             );
             animation.setCurrentSequence("moving");
@@ -102,7 +102,7 @@ namespace Entity {
 
         void Spell::applyEffectOn(CharacterEntity* entity) {
             switch(type) {
-            case Fire: 
+            case Fire:
                 entity->setHealthPoints(entity->healthPoints - 40);
                 expired = true;
                 break;
@@ -116,6 +116,7 @@ namespace Entity {
                 // TODO: change enemy speed
                 expired = true;
                 break;
+            default: break;
             }
         }
     }
