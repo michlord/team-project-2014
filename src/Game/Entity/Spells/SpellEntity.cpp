@@ -3,6 +3,8 @@
 #include <Game/Entity/AnimationLoader.h>
 #include <EngineApp/FrameContext.h>
 #include <EngineSystem/Entity/Message.h>
+#include <EngineSystem/Entity/EntityManager.h>
+#include <EngineSystem/Entity/MessageDispatcher.h>
 
 namespace Entity {
     namespace Spells {
@@ -10,30 +12,39 @@ namespace Entity {
         Spell::Spell(const SpellType type_, const sf::Vector2f pos, Level::Level* level_, const bool flipped_) 
             : Entity::BaseEntity(-1) 
         {
+            Entity::EntityManager::getInstance().registerEntity(this);
+
             type = type_;
             flipped = flipped_;
             level = level_;
-
-            initAnimation();
-
             speed = 3.0f;
             expired = false;
             boundingRect = sf::FloatRect(pos.x, pos.y, 82, 38);
+
+            initAnimation();
         }
 
         Spell::~Spell() {
-
+            Entity::EntityManager::getInstance().unregisterEntity(this);
         }
 
         void Spell::initAnimation() {
             std::string animName;
             
+            sf::Vector2u size;
             switch(type) {
             case Fire:
                 animName = "assets/animations/fireSpell.anim";
+                size = sf::Vector2u(82, 38);
+                break;
+            case Wind:
+                animName = "assets/animations/windSpell.anim";
+                Entity::MessageDispatcher::getInstance().registerMessage(getId(), getId(), Msg::SpellExpired, 0.5f);
+                size = sf::Vector2u(82, 100);
                 break;
             case Ice:
                 animName = "assets/animations/iceSpell.anim";
+                size = sf::Vector2u(82, 38);
                 break;
             default:
                 animName = "unknown spell";
@@ -43,10 +54,9 @@ namespace Entity {
                 animName, 
                 Core::frameContext.assetsManager->getTexture("spells")
             );
-
             animation.setCurrentSequence("moving");
-            animation.setSize(sf::Vector2u(82, 38));
-            animation.setPosition(sf::Vector2f(0.0f, 0.0f));
+            animation.setSize(size);
+            animation.setPosition(sf::Vector2f(0.0f, -(float)size.y/2));
         }
 
         sf::FloatRect Spell::getCurrentCollisionRect() const {
@@ -54,7 +64,10 @@ namespace Entity {
         }
 
         bool Spell::handleMessage(const Message& msg) {
-            (void) msg;
+            if(msg.msg == Msg::SpellExpired) {
+                expired = true;
+                return true;
+            }
             return false;
         }
 
@@ -96,6 +109,7 @@ namespace Entity {
             case Nature:
                 break;
             case Wind:
+                entity->boundingRect.left += (entity->runSpeed*2.5f) * (flipped ? -1.0f : 1.0f);
                 break;
             case Ice:
                 entity->setHealthPoints(entity->healthPoints - 20);

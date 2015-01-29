@@ -50,7 +50,7 @@ namespace Entity {
     void Fire::castSpell(CharacterEntity *entity) {
         if(entity->spells.size() > 0) {
             sf::Vector2f pos = entity->getFeetPosition();
-            pos.y -= 48;
+            pos.y -= 36;
             pos.x += (entity->flipped ? -64 : 0);
             Entity::Spells::Spell* spell = new Entity::Spells::Spell(entity->spells[0], pos, entity->level, entity->flipped);
             entity->castedSpells.push_back(std::shared_ptr<Entity::Spells::Spell>(spell));

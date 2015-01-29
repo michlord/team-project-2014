@@ -34,6 +34,10 @@ namespace Entity {
             void applyEffectOn(CharacterEntity* entity);
 
         private:
+            enum Msg {
+                SpellExpired
+            };
+
             Spell(const Spell &other_);
             Spell& operator=(const Spell &other_);
             void initAnimation();

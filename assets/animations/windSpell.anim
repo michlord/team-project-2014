@@ -1,0 +1,6 @@
+sequence moving false
+frame 0 92 82 59 0.3
+frame 82 92 82 59 0.1
+frame 164 92 82 59 0.06
+frame 246 92 82 59 0.03
+frame 328 92 82 59 0.01
